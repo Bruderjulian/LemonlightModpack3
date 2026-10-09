@@ -1,0 +1,13 @@
+name = "Smart Particles"
+filename = "smart_particles+mc26.3-1.16.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/l8rWP4Tc/versions/t9IobNcP/smart_particles%2Bmc26.3-1.16.0.jar"
+hash-format = "sha512"
+hash = "f8e4ddad9aa14339a15a9c6d70819d5045220fe56a2d03d87fd3eb3b4d312df93e24b99d892aacdc175f16de15a1024f87066478ad06d819792494f46b204594"
+
+[update]
+[update.modrinth]
+mod-id = "l8rWP4Tc"
+version = "t9IobNcP"

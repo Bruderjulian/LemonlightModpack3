@@ -1,0 +1,13 @@
+name = "EasyPlaceFix"
+filename = "EasyPlaceFix-0.6.7.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/ZlgcL9N0/versions/NS9RZPGX/EasyPlaceFix-0.6.7.jar"
+hash-format = "sha512"
+hash = "9d9b2cd2df316309a1c62931ac92a929da405c39a785defefbc31c1c5706bae95c778ed231755bb365cbfc312fdacaa7e42da7a6efbfa6607b096f497784aacf"
+
+[update]
+[update.modrinth]
+mod-id = "ZlgcL9N0"
+version = "NS9RZPGX"

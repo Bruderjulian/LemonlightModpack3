@@ -22,6 +22,10 @@ file = "config/modpack_defaults/config/vmp.properties"
 file = "config/modpack_defaults/options.txt"
 
 [[files]]
+file = "mods/animatica.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/asynclogger.pw.toml"
 metafile = true
 
@@ -30,7 +34,19 @@ file = "mods/better-block-entities.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/bettergrass.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/bettermounthud.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/c2me-fabric.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/chatpatches.pw.toml"
 metafile = true
 
 [[files]]
@@ -42,6 +58,14 @@ file = "mods/configmanager.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/continuity.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/controlify.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/crash-assistant.pw.toml"
 metafile = true
 
@@ -50,7 +74,23 @@ file = "mods/cull-fewer-leaves.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/cwb.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/debugify.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/dynamic-fps.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/entity_model_features.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/entity_texture_features.pw.toml"
 metafile = true
 
 [[files]]
@@ -66,7 +106,15 @@ file = "mods/fabric-language-kotlin.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/fastquit.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/ferrite-core.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/forgeconfigapiport.pw.toml"
 metafile = true
 
 [[files]]
@@ -78,6 +126,10 @@ file = "mods/immediatelyfast.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/iris.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/ixeris.pw.toml"
 metafile = true
 
@@ -86,7 +138,19 @@ file = "mods/krypton.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/lambdynlights.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/languagereload.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/lithium.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/mixintrace.pw.toml"
 metafile = true
 
 [[files]]
@@ -98,11 +162,39 @@ file = "mods/modmenu.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/moreculling.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/nochatreports.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/optigui.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/paginatedadvancements.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/particle-core.pw.toml"
 metafile = true
 
 [[files]]
 file = "mods/placeholder-api.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/polytone.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/puzzle.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/reeses-sodium-options.pw.toml"
 metafile = true
 
 [[files]]
@@ -118,7 +210,19 @@ file = "mods/servercore.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/skyboxify.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/sodium.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/sodium-extra.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/sspb.pw.toml"
 metafile = true
 
 [[files]]
@@ -127,6 +231,10 @@ metafile = true
 
 [[files]]
 file = "mods/vmp-fabric.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/yet_another_config_lib_v3.pw.toml"
 metafile = true
 
 [[files]]
@@ -143,4 +251,8 @@ metafile = true
 
 [[files]]
 file = "mods/zmaterial-rule-compiler.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/zoomify.pw.toml"
 metafile = true

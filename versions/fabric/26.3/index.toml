@@ -22,7 +22,55 @@ file = "config/modpack_defaults/config/vmp.properties"
 file = "config/modpack_defaults/options.txt"
 
 [[files]]
+file = "mods/3dskinlayers.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/accurate-block-placement-reborn.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/adaptive-tooltips.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/animatica.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/anvians-lib.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/appleskin.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/asynclogger.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/asyncparticles.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/auth-me.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/autoreconnectrf.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/badoptimizations.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/better-advancements.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/better-biome-blend.pw.toml"
 metafile = true
 
 [[files]]
@@ -30,7 +78,39 @@ file = "mods/better-block-entities.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/better-capes.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/betterf3.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/bettergrass.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/better-highlighting.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/bettermounthud.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/better-stats.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/c2me-fabric.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/chat-heads.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/chatpatches.pw.toml"
 metafile = true
 
 [[files]]
@@ -42,6 +122,18 @@ file = "mods/configmanager.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/continuity.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/controlify.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/craft-config.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/crash-assistant.pw.toml"
 metafile = true
 
@@ -50,7 +142,23 @@ file = "mods/cull-fewer-leaves.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/debugify.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/dynamic-fps.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/easyplacefix-fork.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/entity_model_features.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/entity_texture_features.pw.toml"
 metafile = true
 
 [[files]]
@@ -66,7 +174,31 @@ file = "mods/fabric-language-kotlin.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/fastquit.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/fastserverpings.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/ferrite-core.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/flashback.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/flashback-extras.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/flashbackturbo.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/forgeconfigapiport.pw.toml"
 metafile = true
 
 [[files]]
@@ -74,7 +206,23 @@ file = "mods/fzzy-config.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/gnetum.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/held-item-info.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/immediatelyfast.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/inventoryhudplus.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/iris.pw.toml"
 metafile = true
 
 [[files]]
@@ -82,11 +230,47 @@ file = "mods/ixeris.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/jade.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/jasione.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/krypton.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/lambdynlights.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/languagereload.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/litematica.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/litematica-material-filter.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/litematica-printer.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/lithium.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/malilib.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/mixintrace.pw.toml"
 metafile = true
 
 [[files]]
@@ -98,11 +282,59 @@ file = "mods/modmenu.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/moreculling.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/mouse-tweaks.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/nochatreports.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/not-enough-animations.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/obe.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/optigui.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/optimized-fullbright.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/packet-fixer.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/particle-core.pw.toml"
 metafile = true
 
 [[files]]
 file = "mods/placeholder-api.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/put-a-plug-in-it.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/puzzle.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/quick-pack.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/reeses-sodium-options.pw.toml"
 metafile = true
 
 [[files]]
@@ -114,7 +346,27 @@ file = "mods/scalablelux.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/schematicpreview.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/servercore.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/shulkerboxtooltip.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/skinshuffle.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/skyboxify.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/smart-particles.pw.toml"
 metafile = true
 
 [[files]]
@@ -122,11 +374,55 @@ file = "mods/sodium.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/sodium-extra.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/sodium-extra-information.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/sspb.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/structure-layout-optimizer.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/subtle-effects.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/tcdcommons.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/viafabricplus.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/vmp-fabric.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/xaeroplus.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/xaeros-maps-multiplayer-plus.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/xaeros-minimap.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/xaeros-world-map.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/yet_another_config_lib_v3.pw.toml"
 metafile = true
 
 [[files]]
@@ -143,4 +439,8 @@ metafile = true
 
 [[files]]
 file = "mods/zmaterial-rule-compiler.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/zoomify.pw.toml"
 metafile = true

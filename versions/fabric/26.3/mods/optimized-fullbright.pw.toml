@@ -1,0 +1,13 @@
+name = "Optimized Fullbright"
+filename = "optimized_fullbright-2.0.0+26.2-fabric.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/iEtUDGQp/versions/ZqEJgzeo/optimized_fullbright-2.0.0%2B26.2-fabric.jar"
+hash-format = "sha512"
+hash = "d584f34b5798b140c67823801a0fdda2e3405f2419a6d8fc8d3e35d8b8a94e86ba18a7fb224f78a2417f17a5ad9cc501637ebff0e5e91fb476148ad2ada61f1b"
+
+[update]
+[update.modrinth]
+mod-id = "iEtUDGQp"
+version = "ZqEJgzeo"

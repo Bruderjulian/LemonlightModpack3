@@ -1,0 +1,13 @@
+name = "Polytone"
+filename = "polytone-26.2-6.8.4-fabric.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/3qAYkBMB/versions/423TAYY4/polytone-26.2-6.8.4-fabric.jar"
+hash-format = "sha512"
+hash = "cd8c21f8777975f14d30e46594b58dcfe94bf4eb9a9ebc48f817bad132fad928e9c72a67e1e3fd20dbbdc3addbf48117ab9f70bfad6eed2f448a1e57db3af155"
+
+[update]
+[update.modrinth]
+mod-id = "3qAYkBMB"
+version = "423TAYY4"
