@@ -1,17 +1,17 @@
 <div align="center">
-  <a href="https://github.com/skywardmc/adrenaline">
-    <img src="https://skywardmc.org/branding/adrenaline/text-logo.png" alt="Adrenaline" height="90">
+  <a href="https://github.com/Bruderjulian/LemonlightModpack3">
+    <h1>Lemonlight</h1>
   </a>
   <br />
   <br />
   <p align="center">
     A lightweight, open-source performance modpack for Fabric
     <br />
-    <a href="https://skywardmc.org/adrenaline">Explore the wiki</a>
+    <a href="https://github.com/Bruderjulian/LemonlightModpack3">Explore the repo</a>
     ·
-    <a href="https://github.com/skywardmc/adrenaline/issues">Report Bugs</a>
+    <a href="https://github.com/Bruderjulian/LemonlightModpack3/issues">Report Bugs</a>
     ·
-    <a href="https://github.com/skywardmc/adrenaline/issues">Request Features</a>
+    <a href="https://github.com/Bruderjulian/LemonlightModpack3/issues">Request Features</a>
   </p>
 </div>
 
