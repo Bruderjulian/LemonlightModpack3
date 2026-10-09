@@ -3,18 +3,58 @@ name: Build dist
 on:
   push:
     branches: [main]
-    tags: ["**"]
     paths:
+      - versions/**
       - .github/workflows/build-dist.yml
+      - .github/workflows/publish.yml
+    tags: ["**"]
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the built packs to CurseForge and Modrinth
+        type: boolean
+        default: false
+      release-type:
+        description: Release channel to publish under
+        type: choice
+        options: [release, beta, alpha]
+        default: release
 
-concurrency: build-dist
+concurrency:
+  group: build-dist-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.packs.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - id: packs
+        name: Collect packs
+        run: |
+          set -euo pipefail
+          json='[]'
+          while IFS= read -r dir; do
+            loader="${dir%%/*}"
+            minecraft="$(sed -n 's/^minecraft[[:space:]]*=[[:space:]]*"\(.*\)"/\1/p' "$dir/pack.toml" | head -n1)"
+            json="$(jq -nc --argjson acc "$json" \
+              --arg dir "$dir" \
+              --arg loader "$loader" \
+              --arg version "${dir#*/}" \
+              --arg minecraft "$minecraft" \
+              '$acc + [{ dir: $dir, loader: $loader, version: $version, minecraft: $minecraft }]')"
+          done < <(find versions -mindepth 3 -maxdepth 3 -type f -name pack.toml | sed 's|^versions/||; s|/pack.toml$||' | sort)
+          jq -nc --argjson include "$json" '{ include: $include }' >> "$GITHUB_OUTPUT"
+          jq . <<<"$json"
+
+  dist:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,6 +73,7 @@ jobs:
 
       - name: Build dist
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -64,3 +105,82 @@ jobs:
           else
             git push origin dist
           fi
+
+  build:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "stable"
+
+      - name: Install packwiz
+        run: |
+          go install github.com/packwiz/packwiz@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: Export packs
+        id: export
+        run: |
+          set -euo pipefail
+          pack_dir="versions/${{ matrix.loader }}/${{ matrix.version }}"
+          pack_name="$(sed -n 's/^name[[:space:]]*=[[:space:]]*"\(.*\)"/\1/p' "$pack_dir/pack.toml" | head -n1)"
+          pack_version="$(sed -n 's/^version[[:space:]]*=[[:space:]]*"\(.*\)"/\1/p' "$pack_dir/pack.toml" | head -n1)"
+          [ -n "$pack_name" ] && [ -n "$pack_version" ]
+          slug="$(printf '%s-%s' "$pack_name" "$pack_version" | tr ' /' '__')"
+
+          out="$GITHUB_WORKSPACE/build/${{ matrix.loader }}/${{ matrix.minecraft }}"
+          mkdir -p "$out"
+
+          cd "$pack_dir"
+          packwiz refresh --build
+          packwiz modrinth export -y -o "$out/$slug.mrpack"
+          packwiz curseforge export -y -s both -o "$out/$slug.zip"
+
+          cd "$GITHUB_WORKSPACE"
+          previous="$(git describe --tags --abbrev=0 "$GITHUB_SHA^" 2>/dev/null || true)"
+          {
+            if [ -n "$previous" ]; then
+              printf '## %s..%s\n\n' "$previous" "${GITHUB_REF_NAME:-$GITHUB_SHA}"
+              git log --no-merges --pretty='- %s (%h)' "$previous..$GITHUB_SHA"
+            else
+              printf '## Initial build\n'
+            fi
+          } > "$out/changelog.md"
+
+          jq -n \
+            --arg name "$pack_name" \
+            --arg version "$pack_version" \
+            --arg loader "${{ matrix.loader }}" \
+            --arg minecraft "${{ matrix.minecraft }}" \
+            --arg dir "$pack_dir" \
+            --arg mrpack "$slug.mrpack" \
+            --arg cursepack "$slug.zip" \
+            '{ name: $name, version: $version, loader: $loader, minecraft: $minecraft, dir: $dir, mrpack: $mrpack, cursepack: $cursepack }' \
+            > "$out/metadata.json"
+
+          ls -l "$out"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: pack-${{ matrix.loader }}-${{ matrix.minecraft }}
+          path: build/${{ matrix.loader }}/${{ matrix.minecraft }}/
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: [discover, build]
+    if: github.ref_type == 'tag' || inputs.publish
+    uses: ./.github/workflows/publish.yml
+    with:
+      matrix: ${{ needs.discover.outputs.matrix }}
+      release-type: ${{ inputs.release-type || 'release' }}
+    secrets: inherit

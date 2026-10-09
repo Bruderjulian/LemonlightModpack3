@@ -1,0 +1,150 @@
+name: Publish
+
+on:
+  workflow_call:
+    inputs:
+      matrix:
+        description: Matrix produced by the discover job of the calling workflow
+        required: true
+        type: string
+      release-type:
+        description: Release channel to publish under
+        required: false
+        default: release
+        type: string
+    secrets:
+      MODRINTH_TOKEN:
+        required: true
+      MODRINTH_PROJECT_ID:
+        required: true
+      CURSEFORGE_TOKEN:
+        required: true
+      CURSEFORGE_PROJECT_ID:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(inputs.matrix) }}
+
+    steps:
+      - name: Check credentials
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          CURSEFORGE_PROJECT_ID: ${{ secrets.CURSEFORGE_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          missing=()
+          [ -n "$MODRINTH_TOKEN" ] || missing+=("MODRINTH_TOKEN")
+          [ -n "$MODRINTH_PROJECT_ID" ] || missing+=("MODRINTH_PROJECT_ID")
+          [ -n "$CURSEFORGE_TOKEN" ] || missing+=("CURSEFORGE_TOKEN")
+          [ -n "$CURSEFORGE_PROJECT_ID" ] || missing+=("CURSEFORGE_PROJECT_ID")
+          if [ ${#missing[@]} -gt 0 ]; then
+            printf 'Missing repository secrets: %s\n' "${missing[*]}" >&2
+            exit 1
+          fi
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: pack-${{ matrix.loader }}-${{ matrix.minecraft }}
+          path: pack
+          merge-multiple: true
+
+      - name: Summary
+        run: |
+          cat pack/metadata.json
+          cat pack/changelog.md
+
+      - name: Publish to Modrinth
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
+          RELEASE_TYPE: ${{ inputs.release-type }}
+        run: |
+          set -euo pipefail
+
+          name="$(jq -r .name pack/metadata.json)"
+          version="$(jq -r .version pack/metadata.json)"
+          loader="$(jq -r .loader pack/metadata.json)"
+          minecraft="$(jq -r .minecraft pack/metadata.json)"
+          mrpack="$(jq -r .mrpack pack/metadata.json)"
+          changelog="$(cat pack/changelog.md)"
+
+          payload="$(jq -n \
+            --arg name "$name $version" \
+            --arg version "$version" \
+            --arg changelog "$changelog" \
+            --arg minecraft "$minecraft" \
+            --arg loader "$loader" \
+            --arg project "$MODRINTH_PROJECT_ID" \
+            --arg releaseType "$RELEASE_TYPE" \
+            '{
+              name: $name,
+              version_number: $version,
+              changelog: $changelog,
+              game_versions: [$minecraft],
+              loaders: [$loader],
+              version_type: (if $releaseType == "" then "release" else $releaseType end),
+              status: "listed",
+              requested_status: "listed",
+              project_id: $project,
+              file_parts: ["file"],
+              primary_file: "file",
+              environment: "client_and_server"
+            }')"
+
+          curl --fail-with-body --silent --show-error \
+            -X POST https://api.modrinth.com/v2/version \
+            -H "Authorization: $MODRINTH_TOKEN" \
+            -F "data=$payload" \
+            -F "file=@pack/$mrpack" \
+            | tee /dev/stderr \
+            | jq -r '"Published: https://modrinth.com/modpack/\(.project_id)/version/\(.id)"'
+
+      - name: Publish to CurseForge
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          CURSEFORGE_PROJECT_ID: ${{ secrets.CURSEFORGE_PROJECT_ID }}
+          RELEASE_TYPE: ${{ inputs.release-type }}
+        run: |
+          set -euo pipefail
+
+          name="$(jq -r .name pack/metadata.json)"
+          version="$(jq -r .version pack/metadata.json)"
+          loader="$(jq -r .loader pack/metadata.json)"
+          minecraft="$(jq -r .minecraft pack/metadata.json)"
+          cursepack="$(jq -r .cursepack pack/metadata.json)"
+          changelog="$(cat pack/changelog.md)"
+
+          payload="$(jq -n \
+            --arg displayName "$name $version" \
+            --arg changelog "$changelog" \
+            --arg releaseType "$RELEASE_TYPE" \
+            --arg minecraft "$minecraft" \
+            --arg loader "$loader" \
+            '{
+              displayName: $displayName,
+              changelog: $changelog,
+              changelogType: "markdown",
+              releaseType: (if $releaseType == "" then "release" else $releaseType end),
+              gameVersionNames: [
+                $minecraft,
+                ({"fabric": "Fabric", "forge": "Forge", "neoforge": "NeoForge", "quilt": "Quilt"}[$loader] // $loader)
+              ]
+            }')"
+
+          curl --fail-with-body --silent --show-error \
+            -X POST "https://legacy.curseforge.com/api/projects/$CURSEFORGE_PROJECT_ID/upload-file" \
+            -H "X-Api-Token: $CURSEFORGE_TOKEN" \
+            -H "User-Agent: LemonlightModpack3/ci" \
+            -F "metadata=$payload;type=application/json" \
+            -F "file=@pack/$cursepack" \
+            | tee /dev/stderr \
+            | jq -r '"Published file id: \(.id)"'
