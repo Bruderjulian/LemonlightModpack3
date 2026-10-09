@@ -82,6 +82,14 @@ file = "mods/better-capes.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/better-highlighting.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/better-stats.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/betterf3.pw.toml"
 metafile = true
 
@@ -90,15 +98,7 @@ file = "mods/bettergrass.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/better-highlighting.pw.toml"
-metafile = true
-
-[[files]]
 file = "mods/bettermounthud.pw.toml"
-metafile = true
-
-[[files]]
-file = "mods/better-stats.pw.toml"
 metafile = true
 
 [[files]]
@@ -186,11 +186,11 @@ file = "mods/ferrite-core.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/flashback.pw.toml"
+file = "mods/flashback-extras.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/flashback-extras.pw.toml"
+file = "mods/flashback.pw.toml"
 metafile = true
 
 [[files]]
@@ -250,15 +250,15 @@ file = "mods/languagereload.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/litematica.pw.toml"
-metafile = true
-
-[[files]]
 file = "mods/litematica-material-filter.pw.toml"
 metafile = true
 
 [[files]]
 file = "mods/litematica-printer.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/litematica.pw.toml"
 metafile = true
 
 [[files]]
@@ -370,7 +370,7 @@ file = "mods/smart-particles.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/sodium.pw.toml"
+file = "mods/sodium-extra-information.pw.toml"
 metafile = true
 
 [[files]]
@@ -378,7 +378,7 @@ file = "mods/sodium-extra.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/sodium-extra-information.pw.toml"
+file = "mods/sodium.pw.toml"
 metafile = true
 
 [[files]]

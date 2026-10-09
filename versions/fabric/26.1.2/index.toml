@@ -214,11 +214,11 @@ file = "mods/skyboxify.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/sodium.pw.toml"
+file = "mods/sodium-extra.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/sodium-extra.pw.toml"
+file = "mods/sodium.pw.toml"
 metafile = true
 
 [[files]]
