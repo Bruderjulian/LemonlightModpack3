@@ -1,0 +1,13 @@
+name = "Flashback Turbo"
+filename = "flashbackturbo-0.6.2+26.3.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/6o9zaNB9/versions/6eBy58C2/flashbackturbo-0.6.2%2B26.3.jar"
+hash-format = "sha512"
+hash = "99052e29449ca79d50caa47ebb0d480bbb237f70464aa72e4033f9506a9dd5e0d0175e493a391333b22ff967eb4467e1c3436a0a2ece89686d3e22bc8a68ca14"
+
+[update]
+[update.modrinth]
+mod-id = "6o9zaNB9"
+version = "6eBy58C2"

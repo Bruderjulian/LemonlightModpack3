@@ -1,0 +1,16 @@
+name = "Zitrus"
+author = "LemonlightMC"
+version = "26.5.1+mc1.20.1.fabric"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "1591892cc841c0677447d3bb43058e3daadd803e52ef231628ffadccfd2e6a7a"
+
+[versions]
+fabric = "0.19.5"
+minecraft = "1.20.1"
+
+[options]
+no-internal-hashes = true
