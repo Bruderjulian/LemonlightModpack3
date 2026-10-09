@@ -6,7 +6,7 @@ upload_to = "mclo.gs"
 [text]
 support_name = "LemonlightMC Discord"
 support_place = "#support channel"
-modpack_name = "Lemonlight"
+modpack_name = "Zitrus"
 
 [modpack_modlist]
 enabled = false
