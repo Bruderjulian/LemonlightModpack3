@@ -1,11 +1,11 @@
 <div align="center">
   <a href="https://github.com/Bruderjulian/LemonlightModpack3">
-    <h1>Lemonlight</h1>
+    <h1>Zitrus</h1>
   </a>
   <br />
   <br />
   <p align="center">
-    A lightweight, open-source performance modpack for Fabric
+    A performance-first Fabric modpack with quality of life included
     <br />
     <a href="https://github.com/Bruderjulian/LemonlightModpack3">Explore the repo</a>
     ·
@@ -15,63 +15,198 @@
   </p>
 </div>
 
-Adrenaline is a **client-side** or **server-side** modpack, developed for Fabric, comprised of the **best combination of mods** (e.g. Sodium and Lithium, along with many more) that significantly improves rendering performance, logic performance, memory usage, and more - all without compromising on the game's vanilla looks and features!
+![Available for Fabric](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/supported/fabric_vector.svg) [![Chat with us on Discord](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.gg/36Tv44cYte) [![Available on GitHub](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg)](https://github.com/skywardmc/zitrus) [![Available on Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg)](https://modrinth.com/project/zitrus)
 
-It is designed to be simple and not include any quality-of-life mods, along with not including redundant performance mods. Because of this simplicity, the modpack is compatible with a very wide range of devices and can be updated to the latest versions very quickly. Want more features? No problem! Adrenaline serves as a great foundation for performance - simply add your favorite mods on top.
+Zitrus is a **client-side** or **server-side** modpack, developed for Fabric, comprised of the **best combination of mods** (e.g. Sodium and Lithium, along with many more) — with a curated set of quality-of-life mods, so a fresh install is smooth out of the box instead of a weekend of tweaking.
 
-For the list of mods that are included, see this [wiki page](https://skywardmc.org/adrenaline/performance-features). Adrenaline can be installed on both clients and servers, so this list tells you what is installed depending on the environment.
+Two things set it apart from a bare performance pack:
 
-![Available for Fabric](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/supported/fabric_vector.svg) [![Chat with us on Discord](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.gg/36Tv44cYte) [![Available on GitHub](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg)](https://github.com/skywardmc/adrenaline) [![Available on Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg)](https://modrinth.com/project/adrenaline)
+- **Performance you can feel.** Rendering, game logic, memory and network are all patched, and the imported settings are already configured.
+- **Batteries included.** Xaero's World/Minimap, Connected textures, Shaders and more ship by default.
 
-# 📥 Installation Guide
+It stays a *foundation*, not a walled garden. Remove what you don't want, add what you do, and you still end up with a fast, stable game.
 
-**Please be sure to read Sodium's [Driver Compatibility](https://github.com/CaffeineMC/sodium-fabric/wiki/Driver-Compatibility) section on the wiki before installing Adrenaline. It contains some important instructions on preventing crashes and other performance issues.**
+- [⚡ Performance](#-performance)
+- [📦 What's in the box](#-whats-in-the-box)
+- [🎮 Supported versions](#-supported-versions)
+- [📥 Installing on a client](#-installing-on-a-client)
+- [🖥️ Installing on a server](#%EF%B8%8F-installing-on-a-server)
+- [✅ Hardware compatibility](#-hardware-compatibility)
+- [🐛 Something broken?](#-something-broken)
+- [❓ Questions](#-questions)
+- [🧑‍💻 Development](#-development)
 
-If you would like to install the modpack, go to this page on [the SkywardMC website](https://skywardmc.org/adrenaline/installation). You can install the modpack with a third party launcher or our standalone installer. After you install, you can figure out how to tweak things to give greater optimizations in the [post-install](https://skywardmc.org/adrenaline/post-install) section of the wiki. This includes procedures such as increasing your allocated memory and tweaking your game settings for your device.
+# ⚡ Performance
 
-After installing the modpack, you can easily add your favorite mods so long as they are compatible with the Minecraft version you are playing on. The wiki also has some recommendations on possibly improving performance further with other mods that are not suitable to be included in Adrenaline by default.
+Zitrus goes after the four things that actually cost you frames and stutter:
 
-<details>
+- **Rendering** — Sodium rebuilds the chunk renderer, so higher render distances stop being a slideshow. Culling mods remove entities and faces you can't see, and batching cuts draw calls and overdraw.
+- **Frame pacing** — Gnetum spreads HUD updates over frames, Ixeris moves input polling off the main thread, and Dynamic FPS drops the game to 10 FPS when the window isn't focused.
+- **Memory and load time** — FerriteCore shrinks block state models, ModernFix trims what the game loads at startup, and Jasione and Put A Plug In it! cut allocation churn and leak fixes.
+- **Server tick rate** — Lithium optimises game logic, CCME and Structure Layout Optimizer move chunk work off the main thread, and Krypton plus Very Many Players keep the network out of your tick budget.
 
-<summary>Installing Adrenaline on a server</summary>
 
-Adrenaline also optionally functions server-side! We now use Modrinth's mrpack environment feature to install the proper mods for the correct environment. Client-side mods that are part of Adrenaline will not be installed through these methods. The server portion of this modpack was previously known as [Adrenaserver](https://modrinth.com/modpack/adrenaserver).
+# 📦 What's in the box
 
-<details>
-<summary>
-🏷️ Install using Aternos
-</summary>
+Everything Zitrus ships, grouped by what it does for you. Libraries and dependencies are omitted — they exist to make the mods below work and nothing more.
 
-You can get a low-power, free server at [Aternos](https://aternos.org). However, it is often a bit slow on vanilla Minecraft without any performance patches. Aternos supports installing Adrenaline by going to `Software -> Change -> Modpacks -> Modrinth -> Adrenaline`, which will speed up your server by quite a lot without affecting vanilla behavior.
+A mod tagged **(client)** or **(server)** only installs in that environment; everything untagged ships for both. **(older versions)** means it isn't part of the current Minecraft version, but is still included where it fits. **+ Addons** means the parent mod ships here together with its addons, so you get the full feature set without hunting down each one — addons are counted as part of their parent.
+
+<details open>
+<summary><b>⚡ Performance (35 mods)</b></summary>
+
+- **[Sodium + Addons](https://modrinth.com/mod/sodium)**
+  - [Sodium Extra](https://modrinth.com/mod/sodium-extra)
+  - [Reese's Sodium Options](https://modrinth.com/mod/reeses-sodium-options)
+  - [Sodium Extra Information](https://modrinth.com/mod/sodium-extra-information)
+  - [Sodium Shadowy Path Blocks (SSPB)](https://modrinth.com/mod/sodium-shadowy-path-blocks)
+- [Lithium](https://modrinth.com/mod/lithium)
+- [ImmediatelyFast](https://modrinth.com/mod/immediatelyfast) (client)
+- [FerriteCore](https://modrinth.com/mod/ferrite-core)
+- [CCME](https://modrinth.com/mod/c2me-fabric)
+- [Optimized Block Entities (OBE)](https://modrinth.com/mod/obe)
+- [ModernFix](https://modrinth.com/mod/modernfix)
+- [BadOptimizations](https://modrinth.com/mod/badoptimizations)
+- [Krypton](https://modrinth.com/mod/krypton) (server)
+- [Iris Shaders](https://modrinth.com/mod/iris)
+- [Entity Culling](https://modrinth.com/mod/entityculling) (client)
+- [MoreCulling](https://modrinth.com/mod/moreculling)
+- [Cull Fewer Leaves](https://modrinth.com/mod/cull-fewer-leaves) (client)
+- [Entity Model Features (EMF)](https://modrinth.com/mod/entity-model-features)
+- [Entity Texture Features (ETF)](https://modrinth.com/mod/entitytexturefeatures)
+- [Packet Fixer](https://modrinth.com/mod/packet-fixer)
+- [Dynamic FPS](https://modrinth.com/mod/dynamic-fps) (client)
+- [Very Many Players](https://modrinth.com/mod/vmp-fabric) (server)
+- [Better Biome Blend](https://modrinth.com/mod/better-biome-blend)
+- [BetterGrassify](https://modrinth.com/mod/bettergrassify)
+- [Structure Layout Optimizer](https://modrinth.com/mod/structure-layout-optimizer)
+- [Ixeris](https://modrinth.com/mod/ixeris) (client)
+- [Smart Particles](https://modrinth.com/mod/smart-particles)
+- [Async Particles](https://modrinth.com/mod/asyncparticles)
+- [ServerCore](https://modrinth.com/mod/servercore)
+- [Gnetum](https://modrinth.com/mod/gnetum)
+- [Jasione](https://modrinth.com/mod/jasione)
+- [Put A Plug In it!](https://modrinth.com/mod/put-a-plug-in-it%21)
+- [Fast Surface](https://modrinth.com/mod/zfastsurface)
+- [Fast Noise](https://modrinth.com/mod/zfastnoise)
+- [Material Rule Compiler](https://modrinth.com/mod/zmaterial-rule-compiler)
+- [Async Logger](https://modrinth.com/mod/asynclogger) (client)
+- [Quick Pack](https://modrinth.com/mod/quick-pack)
+- [Kerria](https://modrinth.com/mod/kerria-opt) (client, older versions)
+- [Starlight](https://modrinth.com/mod/starlight) (older versions)
 
 </details>
 
 <details>
-<summary>
-📦 Install using mrpack-install
-</summary>
+<summary><b>🎨 Visuals (12 mods)</b></summary>
 
-Download `mrpack-install` through [GitHub releases](https://github.com/nothub/mrpack-install/releases) (or your distro's package if it has one) and take a look at the commands on the [README](https://github.com/nothub/mrpack-install). In Adrenaline's case, to install in your server you would run:
+- [Continuity](https://modrinth.com/mod/continuity)
+- [Animatica Refabricated](https://modrinth.com/mod/animatica)
+- [ScalableLux](https://modrinth.com/mod/scalablelux) (client & server)
+- [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights)
+- [Skyboxify](https://modrinth.com/mod/skyboxify)
+- [3D Skin Layers](https://modrinth.com/mod/3dskinlayers)
+- [Better Capes](https://modrinth.com/mod/better-capes)
+- [Not Enough Animations](https://modrinth.com/mod/not-enough-animations)
+- [Chat Patches](https://modrinth.com/mod/chatpatches)
+- [Chat Heads](https://modrinth.com/mod/chat-heads)
+- [Subtle Effects](https://modrinth.com/mod/subtle-effects)
+- [Cubes Without Borders](https://modrinth.com/mod/cubes-without-borders) (older versions)
+
+</details>
+
+<details>
+<summary><b>✨ Quality of life (22 mods)</b></summary>
+
+- **[Xaero's + Addons](https://modrinth.com/mod/xaeros-minimap)**
+- **[Litematica + Addons](https://modrinth.com/mod/litematica)**
+  - [Litematica Printer](https://modrinth.com/mod/litematica-printer)
+  - [Litematica Material Filter](https://modrinth.com/mod/litematica-material-filter)
+  - [SchematicPreview](https://modrinth.com/mod/schematicpreview)
+- [Jade](https://modrinth.com/mod/jade)
+- [Fullbright](https://modrinth.com/mod/optimized-fullbright)
+- [Mouse Tweaks](https://modrinth.com/mod/mouse-tweaks)
+- [Mod Menu](https://modrinth.com/mod/modmenu) (client)
+- [BetterF3](https://modrinth.com/mod/betterf3)
+- [AppleSkin](https://modrinth.com/mod/appleskin)
+- [Accurate Block Placement Reborn](https://modrinth.com/mod/accurate-block-placement-reborn)
+- [Zoomify](https://modrinth.com/mod/zoomify)
+- [ViaFabricPlus](https://modrinth.com/mod/viafabricplus)
+- [Auth Me](https://modrinth.com/mod/auth-me)
+- [Better Advancements](https://modrinth.com/mod/better-advancements)
+- [InventoryHUD+](https://modrinth.com/mod/inventoryhudplus)
+- [Better Statistics Screen](https://modrinth.com/mod/better-stats)
+- [Better Mount HUD](https://modrinth.com/mod/better-mount-hud)
+- [Held Item Info](https://modrinth.com/mod/held-item-info)
+- [Shulker Box Tooltip](https://modrinth.com/mod/shulkerboxtooltip)
+- [Skin Shuffle](https://modrinth.com/mod/skinshuffle)
+- [Auto Reconnect Reforged](https://modrinth.com/mod/autoreconnectrf)
+- **[Flashback + Addons](https://modrinth.com/mod/flashback)**
+  - [Flashback Turbo](https://modrinth.com/mod/flashbackturbo)
+  - [Flashback Extras](https://modrinth.com/mod/flashback-extras)
+- [Controlify](https://modrinth.com/mod/controlify)
+
+</details>
+
+<details>
+<summary><b>🔧 Tweaks (9 mods)</b></summary>
+
+- [Crash Assistant](https://modrinth.com/mod/crash-assistant) (client)
+- [Fast Server Pings](https://modrinth.com/mod/fastserverpings)
+- [FastQuit](https://modrinth.com/mod/fastquit)
+- [Adaptive Tooltips](https://modrinth.com/mod/adaptive-tooltips)
+- [Better Highlighting](https://modrinth.com/mod/better-highlighting)
+- [Paginated Advancements](https://modrinth.com/mod/paginatedadvancements) (older versions)
+- [Polytone](https://modrinth.com/mod/polytone) (older versions)
+- [No Chat Reports](https://modrinth.com/mod/no-chat-reports)
+- [Language Reload](https://modrinth.com/mod/language-reload)
+
+</details>
+
+
+# 📥 Installing on a client
+
+1. Read [Sodium's driver compatibility notes](https://github.com/CaffeineMC/sodium-fabric/wiki/Driver-Compatibility) first.
+2. Install the pack for your Minecraft version from the [installation page](https://skywardmc.org/zitrus/installation) — either through a third-party launcher (Modrinth App, Prism Launcher, ATLauncher, MultiMC, …) or the standalone installer.
+3. Follow the [post-install guide](https://skywardmc.org/zitrus/post-install) to allocate enough memory and set the few game options that matter for your hardware.
+
+Adding more mods afterwards is the intended workflow: drop in anything compatible with your Minecraft version and it will sit happily on top of Zitrus. The [wiki](https://skywardmc.org/zitrus) also lists performance mods that are *not* bundled by default and when they are worth installing.
+
+# 🖥️ Installing on a server
+
+<details>
+<summary>Server notes</summary>
+
+Zitrus works server-side too. The pack uses Modrinth's mrpack environment feature, so installing it on a server pulls the server-side mods only — no client mods, and vanilla clients can still join.
+
+<details>
+<summary>🏷️ Aternos</summary>
+
+[Aternos](https://aternos.org) gives you a free, low-power server, but vanilla Minecraft on it is slow. Aternos can install Zitrus via `Software → Change → Modpacks → Modrinth → Zitrus`, which speeds the server up considerably without changing vanilla behaviour.
+
+</details>
+
+<details>
+<summary>📦 mrpack-install</summary>
+
+Install [`mrpack-install`](https://github.com/nothub/mrpack-install/releases) (or your distro's package) and run:
 
 ```sh
-mrpack-install adrenaline [optional version number]
+mrpack-install zitrus [optional version number]
 ```
 
 </details>
 
 <details>
-<summary>
-🐋 Install using Docker Compose
-</summary>
+<summary>🐋 Docker Compose</summary>
 
-> It's a good idea to have some knowledge on using Docker before doing this.
+> Some Docker knowledge is assumed.
 
-1. Make sure you have Docker Engine installed properly according to the [Docker docs](https://docs.docker.com/engine/install)
-2. Create a new directory
-3. Place the contents below in a file called `docker-compose.yml`. This Compose file also contains some other server tweaks meant for performance, such as disabling `sync-chunk-writes`, reducing render and simulation distance, and more
-4. Run `docker compose up -d` in that directory
+1. Install [Docker Engine](https://docs.docker.com/engine/install).
+2. Create a directory and save the Compose file below as `docker-compose.yml`. It also carries server-side performance settings: `sync-chunk-writes` disabled, reduced render and simulation distance.
+3. Run `docker compose up -d` in that directory.
 
-For any other information, you can read through the [Docker Minecraft Server documentation](https://docker-minecraft-server.readthedocs.io).
+See the [itzg/minecraft-server docs](https://docker-minecraft-server.readthedocs.io) for everything else.
 
 ```yaml
 services:
@@ -83,47 +218,42 @@ services:
       - "25565:25565"
     environment:
       EULA: "TRUE"
-      # Adrenaline and other mods
+      # Zitrus and other mods
       MOD_PLATFORM: MODRINTH
       MODRINTH_DOWNLOAD_DEPENDENCIES: required
-      MODRINTH_MODPACK: adrenaline # this installs the latest version of Adrenaline, you can also use a specific MR link to a version
-      MODRINTH_PROJECTS: spark, chunky # comma separated list of extra mods
+      MODRINTH_MODPACK: zitrus # latest Zitrus, or a specific Modrinth version link
+      MODRINTH_PROJECTS: spark, chunky # comma-separated extra mods
       # Server properties
       VIEW_DISTANCE: 8
       SIMULATION_DISTANCE: 5
-      SYNC_CHUNK_WRITES: false # having this set to false will significantly improve performance but may cause desync issues and (extremely rare) data corruption. set to true if you don't have a backup system
+      SYNC_CHUNK_WRITES: false # big performance win, but can cause desync and (very rarely) data corruption — set to true if you have no backups
     volumes:
-      # Attach the relative directory 'data' to the container's /data path
       - ./data:/data
 ```
 
 </details>
 
 <details>
-<summary>
-✨ Install using mcman
-</summary>
+<summary>✨ mcman</summary>
 
-[mcman](https://github.com/ParadigmMC/mcman) is a tool for managing the mods/plugins/configurations of a Minecraft server. First, install mcman from [releases](https://github.com/ParadigmMC/mcman/releases). To import Adrenaline while initializing a server, use this command:
+[mcman](https://github.com/ParadigmMC/mcman) manages a server's mods, plugins and configs. Import Zitrus while initializing:
 
 ```sh
-mcman init --mrpack mr:adrenaline
+mcman init --mrpack mr:zitrus
 ```
 
-After initializing and importing the mrpack, run `mcman build` to build the server into the `server/` directory, from which you can call `cd server && sh start.sh` or `cd server && call start.bat`. For more information, check out [mcman's docs](https://github.com/ParadigmMC/mcman/blob/main/DOCS.md).
+Then `mcman build`, and start it from `server/` with `sh start.sh` (or `call start.bat`). See [mcman's docs](https://github.com/ParadigmMC/mcman/blob/main/DOCS.md).
 
 </details>
 
 <details>
-<summary>
-💿 Install using mrpack4server
-</summary>
+<summary>💿 mrpack4server</summary>
 
-See the [mrpack4server](https://github.com/Patbox/mrpack4server) Git repository for installation info. `modpack-info.json`:
+[mrpack4server](https://github.com/Patbox/mrpack4server) takes a `modpack-info.json`:
 
 ```json
 {
-	"project_id": "adrenaline",
+	"project_id": "zitrus",
 	"version_id": "version id or name"
 }
 ```
@@ -131,62 +261,53 @@ See the [mrpack4server](https://github.com/Patbox/mrpack4server) Git repository 
 </details>
 
 <details>
-<summary>
-🧙 Install using packwiz-installer
-</summary>
+<summary>🧙 packwiz-installer</summary>
 
-> Before doing any of this, be sure to have a backup of the server in case anything goes wrong.
+> Back up your server first.
 
-[packwiz-installer](https://github.com/packwiz/packwiz-installer) is a useful tool that lets you automatically install and update a modpack through the `pack.toml` file of that pack.
-
-Some server hosts may let you set a command that runs before the server actually starts. It's called a pre-launch command. I can't exactly help if you are using an external server provider as many don't support pre-launch commands or require you to supply your own jar file that will run the command.
-
-First, you need to install `packwiz-installer-bootstrap` from [here](https://github.com/packwiz/packwiz-installer-bootstrap/releases). After that, move it to the same folder as your server's Fabric loader jar. This will usually be the root of the server.
-
-You may change the MC version of the modpack ([available versions only](https://github.com/skywardmc/adrenaline/tree/main/versions)).
+Some hosts let you run a command before the server starts — a *pre-launch command*. First grab [`packwiz-installer-bootstrap`](https://github.com/packwiz/packwiz-installer-bootstrap/releases) and place it next to your Fabric loader jar (usually the server root). Then point it at a [pack.toml](https://github.com/Bruderjulian/LemonlightModpack3/tree/main/versions) from a version you support:
 
 ```sh
-java -jar packwiz-installer-bootstrap.jar -g -s server https://raw.githack.com/skywardmc/adrenaline/dist/versions/fabric/1.21.1/pack.toml
+java -jar packwiz-installer-bootstrap.jar -g -s server https://raw.githack.com/skywardmc/zitrus/dist/versions/fabric/1.21.1/pack.toml
 ```
 
-If you are running this server through a batch file or shell script, you can add this command before your server's launch command and it should work just fine.
+Adding that command to your batch file or shell script before the launch command works fine.
 
-_Having trouble? Check out the [packwiz wiki](https://packwiz.infra.link/tutorials/installing/packwiz-installer/#using-a-modpack-with-a-server) and, if that doesn't help, ask in the [packwiz Discord server](https://discord.gg/DcSkRF4)._
-
-</details>
+_Stuck? Try the [packwiz installer tutorial](https://packwiz.infra.link/tutorials/installing/packwiz-installer/#using-a-modpack-with-a-server), then ask in the [packwiz Discord](https://discord.gg/DcSkRF4)._
 
 </details>
 
-# ⭐ Features
+</details>
 
-### 🚀 Major performance improvement
+# ✅ Hardware compatibility
 
-Adrenaline aims to significantly improve rendering and game logic performance, along with memory and hardware usage, without compromising on the game's looks or features in any way. This is done with various optimization mods that are actively tested for stability and improvement. Some mods are also pre-configured. Adrenaline wouldn't exist without projects like [Sodium](https://modrinth.com/mod/sodium), so I advise you to donate to mod authors and contributors if you can.
+Zitrus inherits its limits from the mods it ships — see the corresponding section in [Sodium's Modrinth description](https://modrinth.com/mod/sodium#hardware-compatibility) for GPUs and drivers that are known to misbehave, plus guidance for unusual setups (older iGPUs, laptops with switchable graphics, ARM/ADB devices).
 
-For the list of performance mods that are included, see this [wiki page](https://skywardmc.org/adrenaline/performance-features). Adrenaline can be installed on both clients and servers, so this list tells you what is installed depending on the environment.
+# 🐛 Something broken?
 
-### 🪶 Lightweight
+Check these first — they cover most reports:
 
-I only pick the combination of mods that work best with eachother, and don't include performance mods that aren't necessary or often break compatibility with other mods or device hardware. I also don't include any quality of life mods in the pack for the sole purpose of keeping it simple and flexible. This simplicity allows you to very easily build your own modpacks based on Adrenaline, or simply install Adrenaline and play with your favorite mods.
+1. **Crash on launch or black screen?** Read [Sodium's driver compatibility page](https://github.com/CaffeineMC/sodium-fabric/wiki/Driver-Compatibility) and disable the driver it tells you to. This is the single most common cause.
+2. **Low FPS?** Raise render distance before blaming the pack, give the game enough RAM (the [post-install guide](https://skywardmc.org/zitrus/post-install) has the numbers), and make sure your launcher isn't running the game on an integrated GPU.
+3. **Started after adding a mod?** Remove it and confirm. Zitrus is tuned as a set — mods that replace the same work (another renderer, another minimap, another block-entities mod) will fight it.
+4. **Server-side only?** Client mods aren't installed on servers, so a client-only feature won't exist there. That's the [mrpack environment feature](https://docs.modrinth.com/modpacks/environment-format) doing its job.
 
-### ⚙️ Source-available
+Still stuck? Open an issue on the [issue tracker](https://github.com/Bruderjulian/LemonlightModpack3/issues) with your CPU, GPU, RAM, OS, Minecraft version, modpack version and `latest.log`. Crash Assistant, bundled with the pack, collects all of that for you.
 
-All mods in Adrenaline are either open-source or source-available, which means you can view the code of mods and see exactly what they are doing. Adrenaline is also available as [packwiz projects on GitHub](https://github.com/skywardmc/adrenaline) so that you can easily view what's being changed, contribute if you would like to, or fork the modpack to create your own project. If you would like to view the mods shipped with Adrenaline, simply look at the dependencies in the Modrinth page or look in the Git repository.
+There are also templates for [mod requests](https://github.com/Bruderjulian/LemonlightModpack3/issues/new?template=mod-request.md) and [config requests](https://github.com/Bruderjulian/LemonlightModpack3/issues/new?template=config-request.md) if you'd rather see something added than report a bug.
 
-# ✅ Hardware Compatibility
+# ❓ Questions
 
-For Hardware Compatibility information, see the corresponding section in [Sodium's Modrinth description](https://modrinth.com/mod/sodium#hardware-compatibility).
+The [wiki](https://skywardmc.org/zitrus) covers installation, post-install tuning, troubleshooting and FAQs, and is updated far more often than this README. For anything else, come say hi on [Discord](https://discord.gg/36Tv44cYte).
 
-# 🐛 How to Report Issues
+# 🧑‍💻 Development
 
-Experiencing bugs, crashes, or other issues? Feel free to open an issue on the [issue tracker](https://github.com/skywardmc/Adrenaline/issues). Be sure to include necessary information like your hardware/software (e.g. GPU and CPU, modpack version and OS) so that it's easier for us to find issues and resolve them.
+The repo is driven by [packwiz](https://packwiz.infra.link) and [just](https://github.com/casey/just). One directory per Minecraft version under [`versions/fabric`](./versions):
 
-# ❓ Frequently Asked Questions
+```sh
+just refresh fabric    # rewrite pack.toml & index.toml
+just update fabric     # update every pinned mod
+just export fabric     # export .mrpack files to build/
+```
 
-For a few frequently asked questions, along with tons of other information, consider visiting the [wiki](https://skywardmc.org/adrenaline). It has a few other helpful resources that I suggest you read, such as troubleshooting info and more. This wiki is often updated with new information.
-
-# 🍉 Sponsor
-
-Need a fast, reliable Minecraft server? Feel free to use my code `devin` for 25% off your first month of any server from Bisect Hosting, supporting me in the process. Click this banner for more information. You can also setup [Adrenaline](https://modrinth.com/modpack/adrenaline) to improve your server's optimization while still allowing vanilla clients to join.
-
-[![Bisect Hosting Image](https://www.bisecthosting.com/partners/custom-banners/bddbdb84-1a70-405f-b773-01b20b7eda5e.webp)](https://www.bisecthosting.com/devin)
+Release builds are produced by `.github/workflows/build-dist.yml`, which publishes the resolved packs to the `dist` branch and tags them, so `pack.toml` files there are the ones to install with `packwiz-installer`.
