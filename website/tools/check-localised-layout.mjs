@@ -7,7 +7,7 @@
  * at the narrowest widths, with the mod list expanded so the longest mod names
  * and the longest toolbar labels are on screen.
  *
- * Run: pnpm --dir website run check:rtl -- [url]
+ * Run: pnpm --dir website run check:layout-i18n -- [url]
  */
 
 import { withSite, launchBrowser, openPage, reporter } from "./harness.mjs";
@@ -83,9 +83,14 @@ const PROBE = `(() => {
 		overflow: [...new Set(over)].slice(0, 10),
 		clipped: [...new Set(clipped)].slice(0, 10),
 		moreWraps: wrap('#more-toggle'),
+		// The environment filter is the other control that carries real copy,
+		// and unlike the show-all button it is allowed to wrap: three options on
+		// one line is the design, so two lines at 360px is not a defect. What
+		// must not happen is a label clipped mid-word, which the overflow probe
+		// above already covers. Reported for the record rather than asserted.
 		segWraps: wrap('.seg'),
 		menuBox,
-		tabsTall: document.querySelector('.tabs').getBoundingClientRect().height
+		tabsTall: Math.round(document.querySelector('.tabs').getBoundingClientRect().height)
 	};
 })()`;
 
@@ -136,6 +141,13 @@ await withSite(async (url) => {
 					`${locale} @ ${width}px language menu fits the viewport`,
 					r.menuBox?.fits === true,
 					r.menuBox ? `L${r.menuBox.left} R${r.menuBox.right} vw${r.vw}` : "menu closed"
+				);
+				// Measured, not asserted: segWraps is allowed to be true (the
+				// filter wraps by design at phone widths) and tabsTall grows with
+				// translated group names. Logged so a jump in either is visible in
+				// the diff of two runs rather than silently different.
+				console.log(
+					`      ${locale} @ ${width}px  tabs=${r.tabsTall}px  seg=${r.segWraps ? "wrapped" : "one line"}`
 				);
 
 				await context.close();

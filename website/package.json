@@ -6,20 +6,26 @@
 	"description": "Homepage for the Zitrus Fabric modpack.",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "node tools/build-icons.mjs && vite build",
 		"preview": "vite preview",
 		"data": "node tools/build-data.mjs",
 		"fetch": "node tools/fetch-modrinth.mjs",
+		"report-size": "node tools/report-size.mjs",
 		"check": "node tools/check.mjs",
 		"check:layout": "node tools/check-layout.mjs",
 		"check:interactions": "node tools/check-interactions.mjs",
 		"check:contrast": "node tools/check-contrast.mjs",
 		"check:layout-i18n": "node tools/check-localised-layout.mjs",
 		"check:i18n": "node tools/check-i18n.mjs",
+		"check:seo": "node tools/check-seo.mjs",
 		"shoot": "node tools/shoot.mjs"
 	},
 	"devDependencies": {
+		"html-minifier-terser": "^7.2.0",
+		"lightningcss": "^1.33.0",
 		"playwright": "^1.56.0",
+		"sharp": "^0.35.5",
+		"terser": "^5.51.2",
 		"vite": "^7.1.12"
 	}
 }

@@ -19,13 +19,20 @@ const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /* Mod icons are hashed and served by Vite, so the generated JSON only records
-   the file name and this map turns it back into a built URL. */
-const icons = import.meta.glob("./assets/img/*.png", {
+   the file name and this map turns it back into a built URL.
+
+   build-icons.mjs writes two widths per icon, `<slug>-34.webp` and
+   `<slug>-68.webp`, and the JSON records the 2x one. The 1x is derived rather
+   than stored: it is always the same name with a different suffix, and holding
+   both in the data would mean every mod carries a second field that only
+   exists to spell out a filename pattern. */
+const icons = import.meta.glob("./assets/img/*.webp", {
 	eager: true,
 	query: "?url",
 	import: "default"
 });
 const iconUrl = (file) => icons[`./assets/img/${file}`] || null;
+const iconAt = (file, width) => iconUrl(file.replace(/\.webp$/, `-${width}.webp`));
 
 /* ---------- i18n -------------------------------------------------------- */
 /* Runs first, before any module paints, so the page never flashes English on
@@ -328,6 +335,11 @@ function wireRadioGroup(root, onSelect, itemSel = ".pick") {
 
 	const items = () => $$(itemSel, root);
 
+	/* Exported as `paint` because a group whose options are rebuilt from data
+	   has to re-apply the roving tabindex afterwards. paintVersions() replaces
+	   every button in the group on a language change, and a freshly created
+	   button has no tabindex, so it defaults to 0 and the group silently grew
+	   one tab stop per option. */
 	const paint = () => {
 		for (const el of items()) {
 			const on = el.getAttribute("aria-checked") === "true";
@@ -364,7 +376,7 @@ function wireRadioGroup(root, onSelect, itemSel = ".pick") {
 	});
 
 	paint();
-	return select;
+	return { select, paint };
 }
 
 /* ---------- Mod browser ------------------------------------------------ */
@@ -409,10 +421,6 @@ const browser = (function modBrowser() {
 		(rank.get(a.group) ?? 99) - (rank.get(b.group) ?? 99) || byDownloads(a, b);
 	const SORTERS = { downloads: byDownloads, relevance: byRelevance };
 
-	// Entry count for the whole browser: mods that are not somebody's addon.
-	// The pack still installs all of them, so the mod count stays separate.
-	const allEntries = data.mods.filter((m) => !m.parent).length;
-
 	// Row index the next render should animate from. null means "no animation",
 	// which is what a filter change wants: the rows that stay are not new.
 	let animateFrom = 0;
@@ -442,6 +450,15 @@ const browser = (function modBrowser() {
 		img.decoding = "async";
 		img.width = size;
 		img.height = size;
+		// The row paints the icon at a fixed 34px, so the browser can pick the
+		// 1x file on a phone instead of downloading 2x pixels nobody sees.
+		// Without sizes="34px" a srcset is measured against the viewport and
+		// always resolves to the largest candidate.
+		const one = mod.icon && iconAt(mod.icon, 34);
+		if (one) {
+			img.sizes = `${size}px`;
+			img.srcset = `${one} 1x, ${src} 2x`;
+		}
 		img.addEventListener("error", () => img.replaceWith(monogram(mod.name)), {
 			once: true
 		});
@@ -509,11 +526,21 @@ const browser = (function modBrowser() {
 			// both. The sentence is split on the placeholder rather than
 			// concatenated, because where the query lands in the sentence is a
 			// translation decision.
-			const [before, after = ""] = t("mods.noMatch", { query: "\u0000" }).split("\u0000");
-			const q = document.createElement("code");
-			q.textContent = query.replace(/[<>&]/g, "");
+			//
+			// Every occurrence is substituted, not just the first. Taking only
+			// the first two segments assumed the message mentions the query once;
+			// a translation that mentions it twice lost everything after the
+			// second placeholder.
 			const lead = document.createElement("p");
-			lead.append(document.createTextNode(before), q, document.createTextNode(after));
+			const segments = t("mods.noMatch", { query: "\u0000" }).split("\u0000");
+			for (const [i, segment] of segments.entries()) {
+				if (i) {
+					const q = document.createElement("code");
+					q.textContent = query.replace(/[<>&]/g, "");
+					lead.append(q);
+				}
+				lead.append(document.createTextNode(segment));
+			}
 			const btn = document.createElement("button");
 			btn.className = "btn btn--ghost btn--sm";
 			btn.type = "button";
@@ -707,8 +734,7 @@ const browser = (function modBrowser() {
 		);
 		// Rebuilt rather than relabelled, because a tab is a title plus a count
 		// in two spans and both are language dependent.
-		const open = $('[aria-selected="true"]', tabsEl);
-		const keepFocus = open && tabsEl.contains(document.activeElement);
+		const keepFocus = tabsEl.contains(document.activeElement);
 		tabsEl.textContent = "";
 		for (const g of groups) {
 			const b = document.createElement("button");
@@ -716,7 +742,13 @@ const browser = (function modBrowser() {
 			b.type = "button";
 			b.role = "tab";
 			b.dataset.group = g.key;
-			b.setAttribute("aria-selected", "false");
+			// Stamped here rather than left entirely to sync(): the focus restore
+			// at the end of this function looks the selected tab up by this
+			// attribute, and sync() only runs after paintTabs() has returned.
+			// Rebuilding every tab as unselected and then searching for the
+			// selected one found nothing, so a language change dropped focus to
+			// <body> rather than holding it on the tab.
+			b.setAttribute("aria-selected", String(g.key === group));
 			const title = document.createElement("span");
 			title.className = "tab__t";
 			title.textContent = g.key === "all" ? t("mods.tabAll") : groupTitle(g.key, g.title);
@@ -1011,6 +1043,10 @@ const browser = (function modBrowser() {
 	}
 
 	function paintVersions() {
+		// A rebuild drops the focused option on the floor along with everything
+		// else, so a language change would throw a keyboard user out of the
+		// group. Remember that the group had focus and hand it back afterwards.
+		const keepFocus = versionsEl.contains(document.activeElement);
 		versionsEl.textContent = "";
 		// data.versions arrives newest first, so the default choice is the
 		// first card and arrow keys walk backwards through the pack's history.
@@ -1027,6 +1063,9 @@ const browser = (function modBrowser() {
 				 <span class="v__n">${v.minecraft}</span>`;
 			versionsEl.append(b);
 		}
+		// The roving tabindex lives on the elements this function just replaced.
+		versions?.paint();
+		if (keepFocus) $('[aria-checked="true"]', versionsEl)?.focus();
 	}
 
 	/* The launcher names are proper nouns from their own vendors, so they stay
@@ -1049,20 +1088,23 @@ const browser = (function modBrowser() {
 		launchersEl.append(b);
 	}
 
+	version = data.versions.find((v) => v.minecraft === data.latest) || data.versions[0];
+
 	wireRadioGroup(launchersEl, (el) => {
 		launcher = LAUNCHERS.find((l) => l.key === el.dataset.key) || launcher;
 		paintOut();
 	});
 
-	version = data.versions.find((v) => v.minecraft === data.latest) || data.versions[0];
-	paintLaunchers();
-	paintVersions();
-	paintOut();
-
-	wireRadioGroup(versionsEl, (el) => {
+	// Wired before the first paintVersions() so the options that call paints
+	// them, and paintVersions() hands the roving tabindex back afterwards.
+	const versions = wireRadioGroup(versionsEl, (el) => {
 		version = data.versions.find((v) => v.minecraft === el.dataset.mc) || version;
 		paintOut();
 	});
+
+	paintLaunchers();
+	paintVersions();
+	paintOut();
 
 	repaint(() => {
 		paintLaunchers();

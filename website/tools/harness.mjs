@@ -23,7 +23,15 @@ const siteDir = join(dirname(fileURLToPath(import.meta.url)), "..");
 export async function withSite(body, url) {
 	if (url) return body(url);
 
-	const server = await createServer({ root: siteDir, logLevel: "warn" });
+	// Port 0 asks the OS for a free one. vite.config.js pins 8791 with
+	// strictPort so a dev server is reproducible, but the checks must never
+	// fight a `pnpm dev` that happens to be running, and a collision there
+	// reads as a broken check rather than as a busy port.
+	const server = await createServer({
+		root: siteDir,
+		logLevel: "warn",
+		server: { port: 0, strictPort: false }
+	});
 	await server.listen();
 	const address = server.resolvedUrls?.local?.[0];
 	if (!address) {

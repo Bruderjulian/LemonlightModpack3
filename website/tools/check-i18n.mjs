@@ -73,18 +73,22 @@ for (const code of others) {
 	check(`${code}: no empty strings`, !empty.length, empty.join(", "));
 	check(`${code}: no key echoed as its own value`, !echoed.length, echoed.join(", "));
 
-	// Placeholders must line up. A missing one silently drops text, and an
-	// extra one prints a literal "{version}" to the reader.
 	/* Placeholders must line up. A missing one silently drops text; an extra one
    prints a literal "{version}" to the reader. The comparison is per form, and
    a locale with a single plural form holds a bare string, so its one value is
-   held against every English form it stands in for. */
+   held against every English form it stands in for.
+
+   Repeat counts are compared too, not just membership: phSet() collapses them,
+   which let a translation mention a placeholder twice and still pass. */
 	const phSet = (forms) =>
 		new Set(
 			Object.values(forms)
 				.flatMap((v) => placeholders(v).split(","))
 				.filter(Boolean)
 		);
+
+	// Sorted with repeats intact, so "n,n" and "n" are distinguishable.
+	const phList = (value) => placeholders(value).split(",").filter(Boolean).sort().join(",");
 
 	const drift = [];
 	for (const key of enKeys) {
@@ -97,15 +101,31 @@ for (const code of others) {
 			// No matching form in the target means the plural message was
 			// collapsed to one string; that is legal, and the separate plural
 			// check below is what judges it. The value still has to carry the
-			// placeholders.
-			const got = shared ? placeholders(dictForms[form] ?? "") : phSet(dictForms);
-			const wantSet = phSet({ x: want });
-			const gotSet = shared ? new Set(got.split(",").filter(Boolean)) : got;
+			// placeholders. A collapsed message is held as the union of its own
+			// forms, so it is judged on membership; a per-form one is held
+			// against the same English form, repeats included.
+			const wantList = phList(want);
+			if (shared) {
+				// Same form on both sides: the placeholder lists have to match
+				// exactly, repeats included.
+				const gotList = phList(dictForms[form] ?? "");
+				if (wantList !== gotList) {
+					drift.push(`${key}.${form}: ${wantList || "-"} vs ${gotList || "-"}`);
+				}
+				continue;
+			}
+			// No matching form: the locale collapsed the message to one string
+			// that stands in for every English form, so it is judged on which
+			// placeholders it mentions, not how often.
+			const gotSet = phSet(dictForms);
+			const wantSet = new Set(wantList.split(",").filter(Boolean));
 			if (
 				wantSet.size !== gotSet.size ||
 				[...wantSet].some((w) => !gotSet.has(w))
 			) {
-				drift.push(`${key}.${form}: ${[...wantSet].join(",") || "-"} vs ${[...gotSet].join(",") || "-"}`);
+				drift.push(
+					`${key}.${form}: ${[...wantSet].join(",") || "-"} vs ${[...gotSet].join(",") || "-"}`
+				);
 			}
 		}
 	}

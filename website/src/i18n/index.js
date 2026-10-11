@@ -58,15 +58,21 @@ function rulesFor(code) {
 	return pluralRules.get(code);
 }
 
+/** Whether a code is one we ship. Object.hasOwn, not a truthiness test: the
+    dictionary is a plain object, so "constructor" and "toString" are inherited
+    and truthy. Accepting one of those as a locale hands it to
+    Intl.PluralRules, which throws on it and takes the page down with it. */
+const shipped = (code) => Object.hasOwn(DICTIONARIES, code);
+
 /** Resolves a locale tag such as "de-AT" or "zh-Hans-CN" to a shipped code. */
 function normalise(tag) {
 	const raw = String(tag || "").trim().toLowerCase().replace(/_/g, "-");
 	if (!raw) return null;
-	if (DICTIONARIES[raw]) return raw;
+	if (shipped(raw)) return raw;
 	// A region is never a reason to miss: pt-BR reads fine as pt, zh-Hant-CN
 	// as zh. Only the primary subtag matters here.
 	const base = raw.split("-")[0];
-	return DICTIONARIES[base] ? base : null;
+	return shipped(base) ? base : null;
 }
 
 /** Reads the ?lang= parameter without disturbing the other filters. */
@@ -133,9 +139,6 @@ export function t(key, vars = {}, fallback) {
 		name in filled ? String(filled[name]) : match
 	);
 }
-
-/** Picks the plural form of a key. `n` is injected, so callers pass it twice. */
-export const plural = (key, n, fallback) => t(key, { n }, fallback);
 
 /** Subscribes to locale changes. Returns an unsubscribe function. */
 export const onLocaleChange = (fn) => {

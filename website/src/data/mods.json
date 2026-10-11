@@ -112,7 +112,7 @@
 			"parent": null,
 			"blurb": "A high-performance rendering engine replacement for Minecraft, which greatly improves frame rates and reduces micro-stutter.",
 			"slug": "sodium",
-			"icon": "sodium.png",
+			"icon": "sodium.webp",
 			"downloads": 242648220,
 			"followers": 41672,
 			"library": false
@@ -126,7 +126,7 @@
 			"parent": null,
 			"blurb": "A modern shader pack loader for Minecraft intended to be compatible with existing OptiFine shader packs",
 			"slug": "iris",
-			"icon": "iris.png",
+			"icon": "iris.webp",
 			"downloads": 188532357,
 			"followers": 29913,
 			"library": false
@@ -140,7 +140,7 @@
 			"parent": null,
 			"blurb": "Using async path-tracing to hide Block-/Entities that are not visible",
 			"slug": "entityculling",
-			"icon": "entityculling.png",
+			"icon": "entityculling.webp",
 			"downloads": 180164763,
 			"followers": 17783,
 			"library": false
@@ -154,7 +154,7 @@
 			"parent": null,
 			"blurb": "Memory usage optimizations",
 			"slug": "ferrite-core",
-			"icon": "ferrite-core.png",
+			"icon": "ferrite-core.webp",
 			"downloads": 159667711,
 			"followers": 16571,
 			"library": false
@@ -168,7 +168,7 @@
 			"parent": null,
 			"blurb": "Adds a mod menu to view the list of mods you have installed.",
 			"slug": "modmenu",
-			"icon": "modmenu.png",
+			"icon": "modmenu.webp",
 			"downloads": 153989949,
 			"followers": 27571,
 			"library": false
@@ -182,7 +182,7 @@
 			"parent": null,
 			"blurb": "No-compromises game logic optimization mod, useful for both single-player games and multi-player servers.",
 			"slug": "lithium",
-			"icon": "lithium.png",
+			"icon": "lithium.webp",
 			"downloads": 135820526,
 			"followers": 23868,
 			"library": false
@@ -196,7 +196,7 @@
 			"parent": null,
 			"blurb": "Speed up immediate mode rendering in Minecraft",
 			"slug": "immediatelyfast",
-			"icon": "immediatelyfast.png",
+			"icon": "immediatelyfast.webp",
 			"downloads": 131423042,
 			"followers": 11647,
 			"library": false
@@ -210,7 +210,7 @@
 			"parent": null,
 			"blurb": "Displays a map of the nearby world terrain, players, mobs, entities in the corner of your screen. Lets you create waypoints which help you find the locations you've marked.",
 			"slug": "xaeros-minimap",
-			"icon": "xaeros-minimap.png",
+			"icon": "xaeros-minimap.webp",
 			"downloads": 116622811,
 			"followers": 18743,
 			"library": false
@@ -224,7 +224,7 @@
 			"parent": null,
 			"blurb": "Emissive, Random & Custom texture support for entities in resourcepacks just like Optifine but for Fabric",
 			"slug": "entitytexturefeatures",
-			"icon": "entitytexturefeatures.png",
+			"icon": "entitytexturefeatures.webp",
 			"downloads": 106728183,
 			"followers": 10627,
 			"library": false
@@ -238,7 +238,7 @@
 			"parent": "xaeros-minimap",
 			"blurb": "Adds a full screen world map which shows you what you have explored in the world. Works great together with Xaero's Minimap.",
 			"slug": "xaeros-world-map",
-			"icon": "xaeros-world-map.png",
+			"icon": "xaeros-world-map.webp",
 			"downloads": 102067054,
 			"followers": 14167,
 			"library": false
@@ -252,7 +252,7 @@
 			"parent": "sodium",
 			"blurb": "A Sodium addon that adds features that shouldn't be in Sodium.",
 			"slug": "sodium-extra",
-			"icon": "sodium-extra.png",
+			"icon": "sodium-extra.webp",
 			"downloads": 102041801,
 			"followers": 13676,
 			"library": false
@@ -266,7 +266,7 @@
 			"parent": null,
 			"blurb": "EMF is an, OptiFine format, Custom Entity Model replacement mod available for Fabric and Forge.",
 			"slug": "entity-model-features",
-			"icon": "entity-model-features.png",
+			"icon": "entity-model-features.webp",
 			"downloads": 101354441,
 			"followers": 10158,
 			"library": false
@@ -280,7 +280,7 @@
 			"parent": null,
 			"blurb": "Food/hunger-related HUD improvements",
 			"slug": "appleskin",
-			"icon": "appleskin.png",
+			"icon": "appleskin.webp",
 			"downloads": 94749770,
 			"followers": 18206,
 			"library": false
@@ -294,7 +294,7 @@
 			"parent": null,
 			"blurb": "Bringing first-person animations to the third-person",
 			"slug": "not-enough-animations",
-			"icon": "not-enough-animations.png",
+			"icon": "not-enough-animations.webp",
 			"downloads": 91291053,
 			"followers": 9145,
 			"library": false
@@ -308,7 +308,7 @@
 			"parent": "sodium",
 			"blurb": "Alternative Options Menu for Sodium",
 			"slug": "reeses-sodium-options",
-			"icon": "reeses-sodium-options.png",
+			"icon": "reeses-sodium-options.webp",
 			"downloads": 85106058,
 			"followers": 8965,
 			"library": false
@@ -322,7 +322,7 @@
 			"parent": null,
 			"blurb": "Render the player skin layer in 3d!",
 			"slug": "3dskinlayers",
-			"icon": "3dskinlayers.png",
+			"icon": "3dskinlayers.webp",
 			"downloads": 81413307,
 			"followers": 11791,
 			"library": false
@@ -336,7 +336,7 @@
 			"parent": null,
 			"blurb": "All-in-one mod that improves performance, reduces memory usage, and fixes many bugs. Compatible with all your favorite performance mods!",
 			"slug": "modernfix",
-			"icon": "modernfix.png",
+			"icon": "modernfix.webp",
 			"downloads": 81171371,
 			"followers": 7169,
 			"library": false
@@ -350,7 +350,7 @@
 			"parent": null,
 			"blurb": "A Minecraft mod that allows for efficient connected textures",
 			"slug": "continuity",
-			"icon": "continuity.png",
+			"icon": "continuity.webp",
 			"downloads": 76987222,
 			"followers": 16700,
 			"library": false
@@ -364,7 +364,7 @@
 			"parent": null,
 			"blurb": "Shows information about what you are looking at. (Hwyla/Waila fork for Minecraft 1.16+)",
 			"slug": "jade",
-			"icon": "jade.png",
+			"icon": "jade.webp",
 			"downloads": 71271230,
 			"followers": 9191,
 			"library": false
@@ -378,7 +378,7 @@
 			"parent": null,
 			"blurb": "A mod that changes how multiple types of culling are handled in order to improve performance",
 			"slug": "moreculling",
-			"icon": "moreculling.png",
+			"icon": "moreculling.webp",
 			"downloads": 69855535,
 			"followers": 6251,
 			"library": false
@@ -392,7 +392,7 @@
 			"parent": null,
 			"blurb": "A zoom mod with infinite customizability.",
 			"slug": "zoomify",
-			"icon": "zoomify.png",
+			"icon": "zoomify.webp",
 			"downloads": 69672911,
 			"followers": 10974,
 			"library": false
@@ -406,7 +406,7 @@
 			"parent": null,
 			"blurb": "Reduce resource usage while Minecraft is in the background, idle, or on battery.",
 			"slug": "dynamic-fps",
-			"icon": "dynamic-fps.png",
+			"icon": "dynamic-fps.webp",
 			"downloads": 69199750,
 			"followers": 9026,
 			"library": false
@@ -420,7 +420,7 @@
 			"parent": null,
 			"blurb": "Enhances inventory management by adding various functions to the mouse buttons. ",
 			"slug": "mouse-tweaks",
-			"icon": "mouse-tweaks.png",
+			"icon": "mouse-tweaks.webp",
 			"downloads": 61783934,
 			"followers": 9138,
 			"library": false
@@ -434,7 +434,7 @@
 			"parent": null,
 			"blurb": "Adds dynamic lights to Minecraft as the most feature-complete and optimized dynamic lighting mod.",
 			"slug": "lambdynamiclights",
-			"icon": "lambdynamiclights.png",
+			"icon": "lambdynamiclights.webp",
 			"downloads": 61460005,
 			"followers": 14669,
 			"library": false
@@ -448,7 +448,7 @@
 			"parent": null,
 			"blurb": "Makes chat unreportable (where possible)",
 			"slug": "no-chat-reports",
-			"icon": "no-chat-reports.png",
+			"icon": "no-chat-reports.webp",
 			"downloads": 60193464,
 			"followers": 3355,
 			"library": false
@@ -462,7 +462,7 @@
 			"parent": null,
 			"blurb": "See who you're chatting with!",
 			"slug": "chat-heads",
-			"icon": "chat-heads.png",
+			"icon": "chat-heads.webp",
 			"downloads": 51148834,
 			"followers": 6895,
 			"library": false
@@ -476,7 +476,7 @@
 			"parent": null,
 			"blurb": "Optimization mod that focuses on things other than rendering",
 			"slug": "badoptimizations",
-			"icon": "badoptimizations.png",
+			"icon": "badoptimizations.webp",
 			"downloads": 45639392,
 			"followers": 3434,
 			"library": false
@@ -490,7 +490,7 @@
 			"parent": null,
 			"blurb": "A mod to optimize the Minecraft networking stack",
 			"slug": "krypton",
-			"icon": "krypton.png",
+			"icon": "krypton.webp",
 			"downloads": 43603620,
 			"followers": 5785,
 			"library": false
@@ -504,7 +504,7 @@
 			"parent": null,
 			"blurb": "Reduces load times and adds fallbacks for languages",
 			"slug": "language-reload",
-			"icon": "language-reload.png",
+			"icon": "language-reload.webp",
 			"downloads": 42445580,
 			"followers": 1894,
 			"library": false
@@ -518,7 +518,7 @@
 			"parent": null,
 			"blurb": "A Fabric mod designed to improve the chunk performance of Minecraft.",
 			"slug": "c2me-fabric",
-			"icon": "c2me-fabric.png",
+			"icon": "c2me-fabric.webp",
 			"downloads": 39817022,
 			"followers": 7806,
 			"library": false
@@ -532,7 +532,7 @@
 			"parent": null,
 			"blurb": "View the contents of shulker boxes from your inventory",
 			"slug": "shulkerboxtooltip",
-			"icon": "shulkerboxtooltip.png",
+			"icon": "shulkerboxtooltip.webp",
 			"downloads": 39483187,
 			"followers": 10444,
 			"library": false
@@ -546,7 +546,7 @@
 			"parent": null,
 			"blurb": "BetterF3 is a mod that replaces Minecraft's original debug HUD with a highly customizable, more human-readable HUD.",
 			"slug": "betterf3",
-			"icon": "betterf3.png",
+			"icon": "betterf3.webp",
 			"downloads": 35347083,
 			"followers": 11529,
 			"library": false
@@ -560,7 +560,7 @@
 			"parent": null,
 			"blurb": "A simple mod to fix various problems with packets, nbt and timeouts.",
 			"slug": "packet-fixer",
-			"icon": "packet-fixer.png",
+			"icon": "packet-fixer.webp",
 			"downloads": 30178603,
 			"followers": 1252,
 			"library": false
@@ -574,7 +574,7 @@
 			"parent": null,
 			"blurb": "A client-side schematic mod with extra features for creative mode work",
 			"slug": "litematica",
-			"icon": "litematica.png",
+			"icon": "litematica.webp",
 			"downloads": 26900006,
 			"followers": 8816,
 			"library": false
@@ -588,7 +588,7 @@
 			"parent": null,
 			"blurb": "Better Advancements tries to improve the UI and UX for the advancements system in minecraft 1.12+ in a modded environment",
 			"slug": "better-advancements",
-			"icon": "better-advancements.png",
+			"icon": "better-advancements.webp",
 			"downloads": 26780133,
 			"followers": 3022,
 			"library": false
@@ -602,7 +602,7 @@
 			"parent": null,
 			"blurb": "Adds the best controller support to Minecraft Java edition!",
 			"slug": "controlify",
-			"icon": "controlify.png",
+			"icon": "controlify.webp",
 			"downloads": 24624232,
 			"followers": 2020,
 			"library": false
@@ -616,7 +616,7 @@
 			"parent": null,
 			"blurb": "Improves the ingame HUD while riding a mount",
 			"slug": "better-mount-hud",
-			"icon": "better-mount-hud.png",
+			"icon": "better-mount-hud.webp",
 			"downloads": 24426373,
 			"followers": 2243,
 			"library": false
@@ -630,7 +630,7 @@
 			"parent": "sodium",
 			"blurb": "Reintroduces vanilla-like smooth lighting to non-full blocks (e.g. dirt paths and how they have dark shading when directly next to a full block) when using Sodium. ",
 			"slug": "sodium-shadowy-path-blocks",
-			"icon": "sodium-shadowy-path-blocks.png",
+			"icon": "sodium-shadowy-path-blocks.webp",
 			"downloads": 24231287,
 			"followers": 1272,
 			"library": false
@@ -644,7 +644,7 @@
 			"parent": null,
 			"blurb": "Lets you return to the Title Screen early while your world is still saving in the background!",
 			"slug": "fastquit",
-			"icon": "fastquit.png",
+			"icon": "fastquit.webp",
 			"downloads": 23845975,
 			"followers": 1671,
 			"library": false
@@ -658,7 +658,7 @@
 			"parent": null,
 			"blurb": "A mod implementing the OptiFine/MCPatcher animated texture format",
 			"slug": "animatica",
-			"icon": "animatica.png",
+			"icon": "animatica.webp",
 			"downloads": 21284774,
 			"followers": 1968,
 			"library": false
@@ -672,7 +672,7 @@
 			"parent": null,
 			"blurb": "Shows a GUI after Minecraft crashes, immediately showing and analyzing all affected logs.",
 			"slug": "crash-assistant",
-			"icon": "crash-assistant.png",
+			"icon": "crash-assistant.webp",
 			"downloads": 20474727,
 			"followers": 556,
 			"library": false
@@ -686,7 +686,7 @@
 			"parent": null,
 			"blurb": "A Minecraft mod that improves the statistics screen and makes it more useful.",
 			"slug": "better-stats",
-			"icon": "better-stats.png",
+			"icon": "better-stats.webp",
 			"downloads": 19939401,
 			"followers": 3929,
 			"library": false
@@ -700,7 +700,7 @@
 			"parent": null,
 			"blurb": "A mod that aims to optimize the minecraft server.",
 			"slug": "servercore",
-			"icon": "servercore.png",
+			"icon": "servercore.webp",
 			"downloads": 17990229,
 			"followers": 1489,
 			"library": false
@@ -714,7 +714,7 @@
 			"parent": null,
 			"blurb": "Gamers can finally touch grass!?\n\nOptiFine's Fancy and Fast better grass implemented on Fabric and NeoForge!",
 			"slug": "bettergrassify",
-			"icon": "bettergrassify.png",
+			"icon": "bettergrassify.webp",
 			"downloads": 17493081,
 			"followers": 707,
 			"library": false
@@ -728,7 +728,7 @@
 			"parent": null,
 			"blurb": "A Fabric mod designed to improve server performance at high playercounts.",
 			"slug": "vmp-fabric",
-			"icon": "vmp-fabric.png",
+			"icon": "vmp-fabric.webp",
 			"downloads": 17360635,
 			"followers": 2040,
 			"library": false
@@ -742,7 +742,7 @@
 			"parent": null,
 			"blurb": "A Fabric mod based on Starlight that improves the performance of light updates in Minecraft.",
 			"slug": "scalablelux",
-			"icon": "scalablelux.png",
+			"icon": "scalablelux.webp",
 			"downloads": 15211888,
 			"followers": 2282,
 			"library": false
@@ -756,7 +756,7 @@
 			"parent": null,
 			"blurb": "A skybox mod that allows you to use OptiFine skies in Fabric 1.21+",
 			"slug": "skyboxify",
-			"icon": "skyboxify.png",
+			"icon": "skyboxify.webp",
 			"downloads": 14716494,
 			"followers": 401,
 			"library": false
@@ -770,7 +770,7 @@
 			"parent": null,
 			"blurb": "Buffered raw input and threaded event polling",
 			"slug": "ixeris",
-			"icon": "ixeris.png",
+			"icon": "ixeris.webp",
 			"downloads": 12710784,
 			"followers": 552,
 			"library": false
@@ -784,7 +784,7 @@
 			"parent": null,
 			"blurb": "Record your Minecraft gameplay, play it back and create stunning cinematic shots",
 			"slug": "flashback",
-			"icon": "flashback.png",
+			"icon": "flashback.webp",
 			"downloads": 12426100,
 			"followers": 3798,
 			"library": false
@@ -798,7 +798,7 @@
 			"parent": null,
 			"blurb": "Adding many new subtle details through particles and a few sounds",
 			"slug": "subtle-effects",
-			"icon": "subtle-effects.png",
+			"icon": "subtle-effects.webp",
 			"downloads": 12202468,
 			"followers": 3325,
 			"library": false
@@ -812,7 +812,7 @@
 			"parent": "xaeros-minimap",
 			"blurb": "Xaero WorldMap / Minimap Extra Features",
 			"slug": "xaeroplus",
-			"icon": "xaeroplus.png",
+			"icon": "xaeroplus.webp",
 			"downloads": 12150859,
 			"followers": 720,
 			"library": false
@@ -826,7 +826,7 @@
 			"parent": null,
 			"blurb": "A Minecraft optimization mod for Fabric-Sodium that improves framerates by improving block entity rendering via a hybrid renderer",
 			"slug": "better-block-entities",
-			"icon": "better-block-entities.png",
+			"icon": "better-block-entities.webp",
 			"downloads": 10449186,
 			"followers": 1151,
 			"library": false
@@ -840,7 +840,7 @@
 			"parent": null,
 			"blurb": "Adds your main inventory, potion effects and your equipments to your HUD. And few other features.",
 			"slug": "inventoryhudplus",
-			"icon": "inventoryhudplus.png",
+			"icon": "inventoryhudplus.webp",
 			"downloads": 10421613,
 			"followers": 972,
 			"library": false
@@ -854,7 +854,7 @@
 			"parent": null,
 			"blurb": "Async particle tick, GPU accelerated particle rendering.",
 			"slug": "asyncparticles",
-			"icon": "asyncparticles.png",
+			"icon": "asyncparticles.webp",
 			"downloads": 8525628,
 			"followers": 761,
 			"library": false
@@ -868,7 +868,7 @@
 			"parent": null,
 			"blurb": "Vanilla Worldgen optimization mod",
 			"slug": "zfastnoise",
-			"icon": "zfastnoise.png",
+			"icon": "zfastnoise.webp",
 			"downloads": 8236675,
 			"followers": 536,
 			"library": false
@@ -882,7 +882,7 @@
 			"parent": null,
 			"blurb": "Minecraft Fabric mod which allows you to join EVERY Minecraft server version (Classic, Alpha, Beta, Release, April Fools, Bedrock)",
 			"slug": "viafabricplus",
-			"icon": "viafabricplus.png",
+			"icon": "viafabricplus.webp",
 			"downloads": 8123341,
 			"followers": 1127,
 			"library": false
@@ -896,7 +896,7 @@
 			"parent": null,
 			"blurb": "Attempts to optimize the generation of Jigsaw Structures and NBT pieces",
 			"slug": "structure-layout-optimizer",
-			"icon": "structure-layout-optimizer.png",
+			"icon": "structure-layout-optimizer.webp",
 			"downloads": 8063144,
 			"followers": 387,
 			"library": false
@@ -910,7 +910,7 @@
 			"parent": null,
 			"blurb": "Authenticate yourself and re-validate your session",
 			"slug": "auth-me",
-			"icon": "auth-me.png",
+			"icon": "auth-me.webp",
 			"downloads": 7280149,
 			"followers": 735,
 			"library": false
@@ -924,7 +924,7 @@
 			"parent": null,
 			"blurb": "A Minecraft Fabric client-side mod that touches up a few aspects of Minecraft's mundane chat, with as much configurability as possible!",
 			"slug": "chatpatches",
-			"icon": "chatpatches.png",
+			"icon": "chatpatches.webp",
 			"downloads": 7213131,
 			"followers": 1033,
 			"library": false
@@ -938,7 +938,7 @@
 			"parent": null,
 			"blurb": "Shows information (like enchantments) about the held item under its name.",
 			"slug": "held-item-info",
-			"icon": "held-item-info.png",
+			"icon": "held-item-info.webp",
 			"downloads": 6071256,
 			"followers": 1690,
 			"library": false
@@ -952,7 +952,7 @@
 			"parent": null,
 			"blurb": "Distribute HUD updates over multiple frames to improve performance",
 			"slug": "gnetum",
-			"icon": "gnetum.png",
+			"icon": "gnetum.webp",
 			"downloads": 4799828,
 			"followers": 253,
 			"library": false
@@ -966,7 +966,7 @@
 			"parent": null,
 			"blurb": "Makes block placement smarter by timing it for you.",
 			"slug": "accurate-block-placement-reborn",
-			"icon": "accurate-block-placement-reborn.png",
+			"icon": "accurate-block-placement-reborn.webp",
 			"downloads": 3938213,
 			"followers": 1719,
 			"library": false
@@ -980,7 +980,7 @@
 			"parent": null,
 			"blurb": "Effortless in-game skin customization and management—change, store, and customize your skins with SkinShuffle. Instant skin changes available on compatible servers.",
 			"slug": "skinshuffle",
-			"icon": "skinshuffle.png",
+			"icon": "skinshuffle.webp",
 			"downloads": 3827375,
 			"followers": 1584,
 			"library": false
@@ -994,7 +994,7 @@
 			"parent": "litematica",
 			"blurb": "This fork adds the missing printing functionality for Litematica",
 			"slug": "litematica-printer",
-			"icon": "litematica-printer.png",
+			"icon": "litematica-printer.webp",
 			"downloads": 3009716,
 			"followers": 1443,
 			"library": false
@@ -1008,7 +1008,7 @@
 			"parent": null,
 			"blurb": "Asynchronous logging and efficient filtering - performance improvements and utility for keeping your logs clean",
 			"slug": "asynclogger",
-			"icon": "asynclogger.png",
+			"icon": "asynclogger.webp",
 			"downloads": 2064424,
 			"followers": 87,
 			"library": false
@@ -1022,7 +1022,7 @@
 			"parent": null,
 			"blurb": "Optimize datapack / resourcepack zip file loading times",
 			"slug": "quick-pack",
-			"icon": "quick-pack.png",
+			"icon": "quick-pack.webp",
 			"downloads": 1976180,
 			"followers": 171,
 			"library": false
@@ -1036,7 +1036,7 @@
 			"parent": null,
 			"blurb": "Improves biome colors",
 			"slug": "better-biome-blend",
-			"icon": "better-biome-blend.png",
+			"icon": "better-biome-blend.webp",
 			"downloads": 1895906,
 			"followers": 706,
 			"library": false
@@ -1050,7 +1050,7 @@
 			"parent": null,
 			"blurb": "A client-side optimization mod to make block entities render faster",
 			"slug": "obe",
-			"icon": "obe.png",
+			"icon": "obe.webp",
 			"downloads": 1716492,
 			"followers": 202,
 			"library": false
@@ -1064,7 +1064,7 @@
 			"parent": null,
 			"blurb": "Highly configurable tooltip rendering, so you can always read them!",
 			"slug": "adaptive-tooltips",
-			"icon": "adaptive-tooltips.png",
+			"icon": "adaptive-tooltips.webp",
 			"downloads": 1577673,
 			"followers": 557,
 			"library": false
@@ -1078,7 +1078,7 @@
 			"parent": null,
 			"blurb": "Select your own Cape for Free! No Account Needed!",
 			"slug": "better-capes",
-			"icon": "better-capes.png",
+			"icon": "better-capes.webp",
 			"downloads": 1047078,
 			"followers": 471,
 			"library": false
@@ -1092,7 +1092,7 @@
 			"parent": "sodium",
 			"blurb": "A Sodium Extra addon that adds more in-game information.",
 			"slug": "sodium-extra-information",
-			"icon": "sodium-extra-information.png",
+			"icon": "sodium-extra-information.webp",
 			"downloads": 719385,
 			"followers": 256,
 			"library": false
@@ -1106,7 +1106,7 @@
 			"parent": null,
 			"blurb": "Cull leaves while looking hot! A continuation of Cull Less Leaves.",
 			"slug": "cull-fewer-leaves",
-			"icon": "cull-fewer-leaves.png",
+			"icon": "cull-fewer-leaves.webp",
 			"downloads": 671364,
 			"followers": 62,
 			"library": false
@@ -1120,7 +1120,7 @@
 			"parent": null,
 			"blurb": "Rewritten server ping pipeline using optimized Netty I/O, along with SWR caching.",
 			"slug": "fastserverpings",
-			"icon": "fastserverpings.png",
+			"icon": "fastserverpings.webp",
 			"downloads": 511406,
 			"followers": 46,
 			"library": false
@@ -1134,7 +1134,7 @@
 			"parent": null,
 			"blurb": "A performance mod that greatly optimizes particle rendering and particle limits.",
 			"slug": "smart-particles",
-			"icon": "smart-particles.png",
+			"icon": "smart-particles.webp",
 			"downloads": 427748,
 			"followers": 99,
 			"library": false
@@ -1148,7 +1148,7 @@
 			"parent": null,
 			"blurb": "A multi-loader update of Bstn1802's AutoReconnect mod",
 			"slug": "autoreconnectrf",
-			"icon": "autoreconnectrf.png",
+			"icon": "autoreconnectrf.webp",
 			"downloads": 330328,
 			"followers": 120,
 			"library": false
@@ -1162,7 +1162,7 @@
 			"parent": "litematica",
 			"blurb": "3D schematic previews & other utilities for litematica",
 			"slug": "schematicpreview",
-			"icon": "schematicpreview.png",
+			"icon": "schematicpreview.webp",
 			"downloads": 309744,
 			"followers": 512,
 			"library": false
@@ -1176,7 +1176,7 @@
 			"parent": null,
 			"blurb": "A vanilla worldgen optimization mod to optimise block calculations during surface builder",
 			"slug": "zfastsurface",
-			"icon": "zfastsurface.png",
+			"icon": "zfastsurface.webp",
 			"downloads": 223888,
 			"followers": 30,
 			"library": false
@@ -1190,7 +1190,7 @@
 			"parent": null,
 			"blurb": "Reduce GC pressure by safely eliminating Enum#values array cloning and memory allocation overhead through bytecode analysis",
 			"slug": "jasione",
-			"icon": "jasione.png",
+			"icon": "jasione.webp",
 			"downloads": 187701,
 			"followers": 56,
 			"library": false
@@ -1204,7 +1204,7 @@
 			"parent": null,
 			"blurb": "A small mod that fixes Memory Leak issues, optimizes Memory Usage, and increases version/loader support for features of other Memory Leak Fix/Memory Optimization mods",
 			"slug": "put-a-plug-in-it!",
-			"icon": "put-a-plug-in-it!.png",
+			"icon": "put-a-plug-in-it!.webp",
 			"downloads": 138146,
 			"followers": 35,
 			"library": false
@@ -1218,7 +1218,7 @@
 			"parent": null,
 			"blurb": "A vanilla worldgen optimization mod. Works by compiling material rules to bytecode and optimizing material rules.",
 			"slug": "zmaterial-rule-compiler",
-			"icon": "zmaterial-rule-compiler.png",
+			"icon": "zmaterial-rule-compiler.webp",
 			"downloads": 103006,
 			"followers": 20,
 			"library": false
@@ -1232,7 +1232,7 @@
 			"parent": "flashback",
 			"blurb": "Extra tools and quality-of-life improvements for the Flashback replay editor.",
 			"slug": "flashback-extras",
-			"icon": "flashback-extras.png",
+			"icon": "flashback-extras.webp",
 			"downloads": 70966,
 			"followers": 30,
 			"library": false
@@ -1246,7 +1246,7 @@
 			"parent": null,
 			"blurb": "Fullbright mod that disables the lighting system to improve performance. Now toggleable with a keybind!",
 			"slug": "optimized-fullbright",
-			"icon": "optimized-fullbright.png",
+			"icon": "optimized-fullbright.webp",
 			"downloads": 52292,
 			"followers": 25,
 			"library": false
@@ -1260,7 +1260,7 @@
 			"parent": null,
 			"blurb": "Fixed easy placement orientation issue\n(修复了轻松放置朝向问题)",
 			"slug": "easyplacefix",
-			"icon": "easyplacefix.png",
+			"icon": "easyplacefix.webp",
 			"downloads": 39615,
 			"followers": 37,
 			"library": false
@@ -1274,7 +1274,7 @@
 			"parent": null,
 			"blurb": "Improved syntax highlighting for Minecraft commands with theme support using TextMate",
 			"slug": "better-highlighting",
-			"icon": "better-highlighting.png",
+			"icon": "better-highlighting.webp",
 			"downloads": 31284,
 			"followers": 65,
 			"library": false
@@ -1288,7 +1288,7 @@
 			"parent": "xaeros-minimap",
 			"blurb": "Adds multiplayer features to Xaero's Minimap and World Map, such as world map syncing",
 			"slug": "xaeros-maps-multiplayer-plus",
-			"icon": "xaeros-maps-multiplayer-plus.png",
+			"icon": "xaeros-maps-multiplayer-plus.webp",
 			"downloads": 23632,
 			"followers": 36,
 			"library": false
@@ -1302,7 +1302,7 @@
 			"parent": "flashback",
 			"blurb": "Field-proven faster Flashback exports, without quality loss — up to ~11x, ~8.5s for a 1080p60 clip on NVIDIA.",
 			"slug": "flashbackturbo",
-			"icon": "flashbackturbo.png",
+			"icon": "flashbackturbo.webp",
 			"downloads": 19896,
 			"followers": 18,
 			"library": false
@@ -1316,7 +1316,7 @@
 			"parent": "litematica",
 			"blurb": "Litematica addon: filtering materials in the Info HUD by search query",
 			"slug": "litematica-material-filter",
-			"icon": "litematica-material-filter.png",
+			"icon": "litematica-material-filter.webp",
 			"downloads": 1187,
 			"followers": 8,
 			"library": false

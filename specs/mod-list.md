@@ -6,7 +6,7 @@
 - [ ] Icon downloaded at build time and served from the site itself;
 - [ ] Environment tag (both / client-only / server-only) from pack metadata
 - [x] Addons nested under their parent (e.g. Sodium + Addons counts as one entry)
-- [ ] Libraries / bare dependencies hidden
+- [x] Libraries / bare dependencies hidden
 
 ## Browse & filter
 

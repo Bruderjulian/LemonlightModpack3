@@ -1,0 +1,10 @@
+{
+	"critical.gzip": 46122,
+	"html.gzip": 7797,
+	"css.gzip": 5660,
+	"js.gzip": 32665,
+	"image.raw": 733385,
+	"image.maxFile": 24788,
+	"total.raw": 889026,
+	"total.gzip": 765256
+}

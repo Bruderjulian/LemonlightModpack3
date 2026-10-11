@@ -9,7 +9,7 @@
  * Run: node website/tools/fetch-modrinth.mjs
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -38,6 +38,19 @@ const found = new Set(projects.map((p) => p.slug));
 const missing = slugs.filter((s) => !found.has(s));
 if (missing.length) console.warn(`not on Modrinth: ${missing.join(", ")}`);
 
+/* Modrinth's CDN answers with whatever it likes, and that is currently lossless
+   WebP. Writing those bytes to <slug>.png is how 84 icons ended up 716 kB big,
+   already compressed, served as Content-Type: image/png, and painted at 34px.
+   So the extension is taken from what came back, not assumed. build-icons.mjs
+   then re-encodes to the two widths the page renders at, and removes the
+   source, which is why this step and that one have to agree. */
+const EXTENSION = new Map([
+	["image/png", "png"],
+	["image/jpeg", "jpg"],
+	["image/webp", "webp"],
+	["image/avif", "avif"]
+]);
+
 let icons = 0;
 for (const p of projects) {
 	if (!p.icon_url) continue;
@@ -45,9 +58,30 @@ for (const p of projects) {
 	if (!res.ok) continue;
 	const buf = Buffer.from(await res.arrayBuffer());
 	if (buf.length < 300) continue; // Modrinth serves a placeholder for missing art
-	writeFileSync(join(imgDir, `${p.slug}.png`), buf);
+
+	const ext = EXTENSION.get(res.headers.get("content-type")?.split(";")[0]?.trim());
+	if (!ext) {
+		console.warn(`skipping ${p.slug}: unknown content-type ${res.headers.get("content-type")}`);
+		continue;
+	}
+
+	// Drop the widths build-icons.mjs already generated for this slug, or the
+	// stale pair would survive the re-fetch and win the glob.
+	for (const width of [34, 68]) {
+		const stale = join(imgDir, `${p.slug}-${width}.webp`);
+		if (existsSync(stale)) unlinkSync(stale);
+	}
+
+	writeFileSync(join(imgDir, `${p.slug}.${ext}`), buf);
 	icons++;
 }
+
+/* Anything left in the directory that is not a generated `<slug>-<width>.webp`
+   is a source build-icons.mjs has not seen. Naming them here turns a silent
+   stale icon into a line in the fetch output. */
+const sources = readdirSync(imgDir).filter(
+	(name) => !/^.+-\d+\.webp$/.test(name) && !name.startsWith(".")
+);
 
 // Modrinth titles carry loader suffixes like "[EMF] Entity Model Features
 // [Fabric & Forge]". Strip the bracketed parts for display; keep the leading
@@ -82,4 +116,7 @@ writeFileSync(
 	) + "\n"
 );
 
-console.log(`cached ${projects.length} projects, wrote ${icons} icons`);
+console.log(
+	`cached ${projects.length} projects, wrote ${icons} icons` +
+		(sources.length ? `\nrun build-icons.mjs to convert ${sources.length} source icon(s)` : "")
+);
