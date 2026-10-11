@@ -1,258 +1,16 @@
 [
 	{
-		"slug": "better-biome-blend",
-		"title": "Better Biome Blend",
-		"displayTitle": "Better Biome Blend",
-		"description": "Improves biome colors",
+		"slug": "lithium",
+		"title": "Lithium",
+		"displayTitle": "Lithium",
+		"description": "No-compromises game logic optimization mod, useful for both single-player games and multi-player servers.",
 		"categories": [
 			"optimization"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/Rs6c7WyL/068a7bca64043abf480ba9d36d61cef9e1f6a503_96.webp"
-	},
-	{
-		"slug": "smart-particles",
-		"title": "Smart Particles",
-		"displayTitle": "Smart Particles",
-		"description": "A performance mod that greatly optimizes particle rendering and particle limits.",
-		"categories": [
-			"game-mechanics",
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/l8rWP4Tc/57f5774fa5c3eb82cb5500f899eed5fd9c592bc3_96.webp"
-	},
-	{
-		"slug": "subtle-effects",
-		"title": "Subtle Effects",
-		"displayTitle": "Subtle Effects",
-		"description": "Adding many new subtle details through particles and a few sounds",
-		"categories": [
-			"adventure",
-			"decoration",
-			"game-mechanics"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/4q8UOK1d/8a5d3febe9a9badba435a3f66a49668d04ada01f_96.webp"
-	},
-	{
-		"slug": "sodium-extra-information",
-		"title": "Sodium Extra Information",
-		"displayTitle": "Sodium Extra Information",
-		"description": "A Sodium Extra addon that adds more in-game information.",
-		"categories": [
-			"cursed",
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/696WgnvT/410287c4b17a1ee494689368e9d1ced47716a05b_96.webp"
-	},
-	{
-		"slug": "structure-layout-optimizer",
-		"title": "Structure Layout Optimizer",
-		"displayTitle": "Structure Layout Optimizer",
-		"description": "Attempts to optimize the generation of Jigsaw Structures and NBT pieces",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/ayPU0OHc/0e99f63cf0ba0080df6c35ca50731a849a9decbb_96.webp"
-	},
-	{
-		"slug": "chatpatches",
-		"title": "Chat Patches",
-		"displayTitle": "Chat Patches",
-		"description": "A Minecraft Fabric client-side mod that touches up a few aspects of Minecraft's mundane chat, with as much configurability as possible!",
-		"categories": [
-			"decoration",
-			"social",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/MOqt4Z5n/56c954dea290ef4dd1b0d6ea92a811acac62ca85.png"
-	},
-	{
-		"slug": "asynclogger",
-		"title": "Async Logger",
-		"displayTitle": "Async Logger",
-		"description": "Asynchronous logging and efficient filtering - performance improvements and utility for keeping your logs clean",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/zvNzKfGF/b3cd32f8aa093ca73b960e384bf4ac46ac68aaec_96.webp"
-	},
-	{
-		"slug": "better-block-entities",
-		"title": "Better Block Entities",
-		"displayTitle": "Better Block Entities",
-		"description": "A Minecraft optimization mod for Fabric-Sodium that improves framerates by improving block entity rendering via a hybrid renderer",
-		"categories": [
-			"management",
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/ONZm0H7Y/5ff4f3ad6948a0bf185f641c407878932bae3dcf.png"
-	},
-	{
-		"slug": "zfastnoise",
-		"title": "Fast Noise",
-		"displayTitle": "Fast Noise",
-		"description": "Vanilla Worldgen optimization mod",
-		"categories": [
-			"optimization",
-			"worldgen"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/OnlVIpq5/6f2393cd87c37ef685efb82aacc5b0c9fae0c28d.png"
-	},
-	{
-		"slug": "entityculling",
-		"title": "Entity Culling",
-		"displayTitle": "Entity Culling",
-		"description": "Using async path-tracing to hide Block-/Entities that are not visible",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/NNAgCjsB/7873452d6cede4daed12da3d7d8c193ab88b4fd6_96.webp"
-	},
-	{
-		"slug": "lambdynamiclights",
-		"title": "LambDynamicLights - Dynamic Lights",
-		"displayTitle": "LambDynamicLights - Dynamic Lights",
-		"description": "Adds dynamic lights to Minecraft as the most feature-complete and optimized dynamic lighting mod.",
-		"categories": [
-			"adventure",
-			"decoration",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/yBW8D80W/d4f5c3ff8df7caf024178b04eca6d69f95979cfe_96.webp"
-	},
-	{
-		"slug": "bettergrassify",
-		"title": "BetterGrassify",
-		"displayTitle": "BetterGrassify",
-		"description": "Gamers can finally touch grass!?\n\nOptiFine's Fancy and Fast better grass implemented on Fabric and NeoForge!",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/m5T5xmUy/a69f6abbc0c2007e7b630f55f797c505c23c11f5_96.webp"
-	},
-	{
-		"slug": "dynamic-fps",
-		"title": "Dynamic FPS",
-		"displayTitle": "Dynamic FPS",
-		"description": "Reduce resource usage while Minecraft is in the background, idle, or on battery.",
-		"categories": [
-			"management",
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/LQ3K71Q1/5056368d0d87c1a9f3efead0cb48ab39a4ea87bf_96.webp"
-	},
-	{
-		"slug": "reeses-sodium-options",
-		"title": "Reese's Sodium Options",
-		"displayTitle": "Reese's Sodium Options",
-		"description": "Alternative Options Menu for Sodium",
-		"categories": [
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/Bh37bMuy/icon.png"
-	},
-	{
-		"slug": "cull-fewer-leaves",
-		"title": "Cull Fewer Leaves",
-		"displayTitle": "Cull Fewer Leaves",
-		"description": "Cull leaves while looking hot! A continuation of Cull Less Leaves.",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/alhWWxax/43c3ec9ab8231f826e892d6a655548d2aba84cde.png"
-	},
-	{
-		"slug": "sodium",
-		"title": "Sodium",
-		"displayTitle": "Sodium",
-		"description": "A high-performance rendering engine replacement for Minecraft, which greatly improves frame rates and reduces micro-stutter.",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp"
-	},
-	{
-		"slug": "zmaterial-rule-compiler",
-		"title": "Material Rule Compiler",
-		"displayTitle": "Material Rule Compiler",
-		"description": "A vanilla worldgen optimization mod. Works by compiling material rules to bytecode and optimizing material rules.",
-		"categories": [
-			"optimization",
-			"worldgen"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/vnpqfrJN/6963040cae639580f9505d32de8110143fce7db1.png"
-	},
-	{
-		"slug": "packet-fixer",
-		"title": "Packet Fixer",
-		"displayTitle": "Packet Fixer",
-		"description": "A simple mod to fix various problems with packets, nbt and timeouts.",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/c7m1mi73/388af00d61fa57e7e10612bcc099bf6ee0794e5e.png"
-	},
-	{
-		"slug": "zfastsurface",
-		"title": "Fast Surface",
-		"displayTitle": "Fast Surface",
-		"description": "A vanilla worldgen optimization mod to optimise block calculations during surface builder",
-		"categories": [
-			"optimization",
-			"worldgen"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/FRSaEVFk/c393b58d86fd5fc416158aaabf84210fa20d568c.png"
-	},
-	{
-		"slug": "skyboxify",
-		"title": "Skyboxify",
-		"displayTitle": "Skyboxify",
-		"description": "A skybox mod that allows you to use OptiFine skies in Fabric 1.21+",
-		"categories": [
-			"adventure",
-			"decoration",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/DWuwk8aA/7fe3045177b02be3aaf2706fdbbe469a1e268bd6_96.webp"
-	},
-	{
-		"slug": "scalablelux",
-		"title": "ScalableLux",
-		"displayTitle": "ScalableLux",
-		"description": "A Fabric mod based on Starlight that improves the performance of light updates in Minecraft.",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/Ps1zyz6x/27133942a1a58af1bb11b087957ea4cc14414dd3_96.webp"
-	},
-	{
-		"slug": "servercore",
-		"title": "ServerCore",
-		"displayTitle": "ServerCore",
-		"description": "A mod that aims to optimize the minecraft server.",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/4WWQxlQP/5207e4657a1d0e929506a8c07491a42fa73b0a29_96.webp"
-	},
-	{
-		"slug": "put-a-plug-in-it!",
-		"title": "Put A Plug In it! (PAPI)",
-		"displayTitle": "Put A Plug In it!",
-		"description": "A small mod that fixes Memory Leak issues, optimizes Memory Usage, and increases version/loader support for features of other Memory Leak Fix/Memory Optimization mods",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/xedaBnSm/74e048d839a965b381ce4c50bd0e4df3bdf2c2ef_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/gvQqBUqZ/bcc8686c13af0143adf4285d741256af824f70b7_96.webp",
+		"downloads": 135820526,
+		"followers": 23868,
+		"published": "2021-01-03T00:56:52.292581Z"
 	},
 	{
 		"slug": "quick-pack",
@@ -262,27 +20,10 @@
 		"categories": [
 			"optimization"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/pSISfJ4O/fa5672b029c13f52a4c767724539a955548b97f2.png"
-	},
-	{
-		"slug": "badoptimizations",
-		"title": "BadOptimizations",
-		"displayTitle": "BadOptimizations",
-		"description": "Optimization mod that focuses on things other than rendering",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": null
-	},
-	{
-		"slug": "ixeris",
-		"title": "Ixeris",
-		"displayTitle": "Ixeris",
-		"description": "Buffered raw input and threaded event polling",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/p8RJPJIC/4ca312df105cb246a91f5b782bfd863930d8888f_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/pSISfJ4O/fa5672b029c13f52a4c767724539a955548b97f2.png",
+		"downloads": 1976180,
+		"followers": 171,
+		"published": "2025-10-23T20:22:52.663033Z"
 	},
 	{
 		"slug": "gnetum",
@@ -292,117 +33,10 @@
 		"categories": [
 			"optimization"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/7MoE34WK/859d00e4c659579b988c3a10ecec1c30fb572158.png"
-	},
-	{
-		"slug": "xaeros-minimap",
-		"title": "Xaero's Minimap",
-		"displayTitle": "Xaero's Minimap",
-		"description": "Displays a map of the nearby world terrain, players, mobs, entities in the corner of your screen. Lets you create waypoints which help you find the locations you've marked.",
-		"categories": [
-			"adventure",
-			"transportation",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/1bokaNcj/354080f65407e49f486fcf9c4580e82c45ae63b8_96.webp"
-	},
-	{
-		"slug": "not-enough-animations",
-		"title": "Not Enough Animations",
-		"displayTitle": "Not Enough Animations",
-		"description": "Bringing first-person animations to the third-person",
-		"categories": [
-			"adventure",
-			"decoration"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/MPCX6s5C/b97fd5f7a893165052408b747286d6eb38d57abb_96.webp"
-	},
-	{
-		"slug": "ferrite-core",
-		"title": "FerriteCore",
-		"displayTitle": "FerriteCore",
-		"description": "Memory usage optimizations",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/uXXizFIs/222a126f26f8f9ae1eb339f3b767677f18bff31f_96.webp"
-	},
-	{
-		"slug": "lithium",
-		"title": "Lithium",
-		"displayTitle": "Lithium",
-		"description": "No-compromises game logic optimization mod, useful for both single-player games and multi-player servers.",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/gvQqBUqZ/bcc8686c13af0143adf4285d741256af824f70b7_96.webp"
-	},
-	{
-		"slug": "modernfix",
-		"title": "ModernFix",
-		"displayTitle": "ModernFix",
-		"description": "All-in-one mod that improves performance, reduces memory usage, and fixes many bugs. Compatible with all your favorite performance mods!",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/nmDcB62a/2af94de5e08ae54567ee86b968fc7ce076d9fee5_96.webp"
-	},
-	{
-		"slug": "asyncparticles",
-		"title": "AsyncParticles",
-		"displayTitle": "AsyncParticles",
-		"description": "Async particle tick, GPU accelerated particle rendering.",
-		"categories": [
-			"game-mechanics",
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/c3onkd5k/5d159d5d5067cee28e5a73709321bebc0e47a265.png"
-	},
-	{
-		"slug": "chat-heads",
-		"title": "Chat Heads",
-		"displayTitle": "Chat Heads",
-		"description": "See who you're chatting with!",
-		"categories": [
-			"decoration",
-			"social"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/Wb5oqrBJ/icon.png"
-	},
-	{
-		"slug": "entity-model-features",
-		"title": "[EMF] Entity Model Features",
-		"displayTitle": "[EMF] Entity Model Features",
-		"description": "EMF is an, OptiFine format, Custom Entity Model replacement mod available for Fabric and Forge.",
-		"categories": [
-			"mobs",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/4I1XuqiY/6e5bbd0d06b1741bfdab6c0cfab6de8fdaf0064c_96.webp"
-	},
-	{
-		"slug": "c2me-fabric",
-		"title": "Concurrent Chunk Management Engine (Fabric)",
-		"displayTitle": "Concurrent Chunk Management Engine",
-		"description": "A Fabric mod designed to improve the chunk performance of Minecraft.",
-		"categories": [
-			"optimization"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/VSNURh3q/3c2ce471054466712a44c8758a03e03bb868f93b_96.webp"
-	},
-	{
-		"slug": "better-capes",
-		"title": "Better Capes",
-		"displayTitle": "Better Capes",
-		"description": "Select your own Cape for Free! No Account Needed!",
-		"categories": [
-			"decoration",
-			"optimization",
-			"social"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/c8slFMT1/e6fa3a58bd0b59556a093c5811a1aa42803413ec_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/7MoE34WK/859d00e4c659579b988c3a10ecec1c30fb572158.png",
+		"downloads": 4799828,
+		"followers": 253,
+		"published": "2025-03-14T23:45:01.590121Z"
 	},
 	{
 		"slug": "moreculling",
@@ -414,29 +48,160 @@
 			"optimization",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/51shyZVL/c51b07193b56e952269ef50101d12aecba2b4747_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/51shyZVL/c51b07193b56e952269ef50101d12aecba2b4747_96.webp",
+		"downloads": 69855535,
+		"followers": 6251,
+		"published": "2022-06-02T22:36:08.467225Z"
 	},
 	{
-		"slug": "3dskinlayers",
-		"title": "3D Skin Layers",
-		"displayTitle": "3D Skin Layers",
-		"description": "Render the player skin layer in 3d!",
+		"slug": "immediatelyfast",
+		"title": "ImmediatelyFast",
+		"displayTitle": "ImmediatelyFast",
+		"description": "Speed up immediate mode rendering in Minecraft",
 		"categories": [
-			"adventure",
-			"decoration"
+			"optimization"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/zV5r3pPn/ff7010d4ec0275609866c8b0f603b25e25949c08_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/5ZwdcRci/e57b6b451425692ac17ad322d5e14bea686a383a_96.webp",
+		"downloads": 131423042,
+		"followers": 11647,
+		"published": "2022-10-01T16:19:12.500476Z"
 	},
 	{
-		"slug": "animatica",
-		"title": "Animatica",
-		"displayTitle": "Animatica",
-		"description": "A mod implementing the OptiFine/MCPatcher animated texture format",
+		"slug": "continuity",
+		"title": "Continuity",
+		"displayTitle": "Continuity",
+		"description": "A Minecraft mod that allows for efficient connected textures",
 		"categories": [
 			"decoration",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/PRN43VSY/a3e7ee6b63650e8ec58b78e9348e5e64d7ccad89_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/1IjD5062/icon.png",
+		"downloads": 76987222,
+		"followers": 16700,
+		"published": "2021-09-25T20:27:10.714654Z"
+	},
+	{
+		"slug": "entityculling",
+		"title": "Entity Culling",
+		"displayTitle": "Entity Culling",
+		"description": "Using async path-tracing to hide Block-/Entities that are not visible",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/NNAgCjsB/7873452d6cede4daed12da3d7d8c193ab88b4fd6_96.webp",
+		"downloads": 180164763,
+		"followers": 17783,
+		"published": "2022-05-25T10:09:09.784330Z"
+	},
+	{
+		"slug": "better-block-entities",
+		"title": "Better Block Entities",
+		"displayTitle": "Better Block Entities",
+		"description": "A Minecraft optimization mod for Fabric-Sodium that improves framerates by improving block entity rendering via a hybrid renderer",
+		"categories": [
+			"management",
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/ONZm0H7Y/5ff4f3ad6948a0bf185f641c407878932bae3dcf.png",
+		"downloads": 10449186,
+		"followers": 1151,
+		"published": "2025-10-29T01:18:49.003697Z"
+	},
+	{
+		"slug": "packet-fixer",
+		"title": "Packet Fixer",
+		"displayTitle": "Packet Fixer",
+		"description": "A simple mod to fix various problems with packets, nbt and timeouts.",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/c7m1mi73/388af00d61fa57e7e10612bcc099bf6ee0794e5e.png",
+		"downloads": 30178603,
+		"followers": 1252,
+		"published": "2022-11-02T15:48:56.445113Z"
+	},
+	{
+		"slug": "obe",
+		"title": "Optimized Block Entities [OBE]",
+		"displayTitle": "Optimized Block Entities",
+		"description": "A client-side optimization mod to make block entities render faster",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/AtOSAunf/69b47bd32742ce09ef7a03ccc2fc5876aff60413_96.webp",
+		"downloads": 1716492,
+		"followers": 202,
+		"published": "2026-06-10T15:18:29.406611Z"
+	},
+	{
+		"slug": "badoptimizations",
+		"title": "BadOptimizations",
+		"displayTitle": "BadOptimizations",
+		"description": "Optimization mod that focuses on things other than rendering",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": null,
+		"downloads": 45639392,
+		"followers": 3434,
+		"published": "2023-12-03T23:38:30.615171Z"
+	},
+	{
+		"slug": "c2me-fabric",
+		"title": "Concurrent Chunk Management Engine (Fabric)",
+		"displayTitle": "Concurrent Chunk Management Engine",
+		"description": "A Fabric mod designed to improve the chunk performance of Minecraft.",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/VSNURh3q/3c2ce471054466712a44c8758a03e03bb868f93b_96.webp",
+		"downloads": 39817022,
+		"followers": 7806,
+		"published": "2021-10-02T10:14:46.020070Z"
+	},
+	{
+		"slug": "zfastnoise",
+		"title": "Fast Noise",
+		"displayTitle": "Fast Noise",
+		"description": "Vanilla Worldgen optimization mod",
+		"categories": [
+			"optimization",
+			"worldgen"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/OnlVIpq5/6f2393cd87c37ef685efb82aacc5b0c9fae0c28d.png",
+		"downloads": 8236675,
+		"followers": 536,
+		"published": "2025-12-13T06:34:05.518945Z"
+	},
+	{
+		"slug": "zmaterial-rule-compiler",
+		"title": "Material Rule Compiler",
+		"displayTitle": "Material Rule Compiler",
+		"description": "A vanilla worldgen optimization mod. Works by compiling material rules to bytecode and optimizing material rules.",
+		"categories": [
+			"optimization",
+			"worldgen"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/vnpqfrJN/6963040cae639580f9505d32de8110143fce7db1.png",
+		"downloads": 103006,
+		"followers": 20,
+		"published": "2026-08-28T07:40:32.496448Z"
+	},
+	{
+		"slug": "chat-heads",
+		"title": "Chat Heads",
+		"displayTitle": "Chat Heads",
+		"description": "See who you're chatting with!",
+		"categories": [
+			"decoration",
+			"social"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/Wb5oqrBJ/icon.png",
+		"downloads": 51148834,
+		"followers": 6895,
+		"published": "2020-12-01T12:40:38.729598Z"
 	},
 	{
 		"slug": "sodium-extra",
@@ -448,17 +213,136 @@
 			"optimization",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/PtjYWJkn/0df4fb22a11e1dcb5e83cb0aadd275b571aca7a9_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/PtjYWJkn/0df4fb22a11e1dcb5e83cb0aadd275b571aca7a9_96.webp",
+		"downloads": 102041801,
+		"followers": 13676,
+		"published": "2021-02-17T04:37:04.928784Z"
 	},
 	{
-		"slug": "jasione",
-		"title": "Jasione",
-		"displayTitle": "Jasione",
-		"description": "Reduce GC pressure by safely eliminating Enum#values array cloning and memory allocation overhead through bytecode analysis",
+		"slug": "better-capes",
+		"title": "Better Capes",
+		"displayTitle": "Better Capes",
+		"description": "Select your own Cape for Free! No Account Needed!",
+		"categories": [
+			"decoration",
+			"optimization",
+			"social"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/c8slFMT1/e6fa3a58bd0b59556a093c5811a1aa42803413ec_96.webp",
+		"downloads": 1047078,
+		"followers": 471,
+		"published": "2025-01-05T23:58:40.582998Z"
+	},
+	{
+		"slug": "modernfix",
+		"title": "ModernFix",
+		"displayTitle": "ModernFix",
+		"description": "All-in-one mod that improves performance, reduces memory usage, and fixes many bugs. Compatible with all your favorite performance mods!",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/nmDcB62a/2af94de5e08ae54567ee86b968fc7ce076d9fee5_96.webp",
+		"downloads": 81171371,
+		"followers": 7169,
+		"published": "2023-04-16T20:56:18.092938Z"
+	},
+	{
+		"slug": "scalablelux",
+		"title": "ScalableLux",
+		"displayTitle": "ScalableLux",
+		"description": "A Fabric mod based on Starlight that improves the performance of light updates in Minecraft.",
 		"categories": [
 			"optimization"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/qlDkBPij/04e5462585378b66a7351c8ecb5d43b191317ff2.png"
+		"icon_url": "https://cdn.modrinth.com/data/Ps1zyz6x/27133942a1a58af1bb11b087957ea4cc14414dd3_96.webp",
+		"downloads": 15211888,
+		"followers": 2282,
+		"published": "2024-07-02T14:11:03.355061Z"
+	},
+	{
+		"slug": "ferrite-core",
+		"title": "FerriteCore",
+		"displayTitle": "FerriteCore",
+		"description": "Memory usage optimizations",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/uXXizFIs/222a126f26f8f9ae1eb339f3b767677f18bff31f_96.webp",
+		"downloads": 159667711,
+		"followers": 16571,
+		"published": "2021-04-03T07:04:43.971189Z"
+	},
+	{
+		"slug": "vmp-fabric",
+		"title": "Very Many Players (Fabric)",
+		"displayTitle": "Very Many Players",
+		"description": "A Fabric mod designed to improve server performance at high playercounts.",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/wnEe9KBa/0bb4b66e80c6cca9c37f6f1021a94670d6f820dc_96.webp",
+		"downloads": 17360635,
+		"followers": 2040,
+		"published": "2021-12-05T03:00:09.272223Z"
+	},
+	{
+		"slug": "subtle-effects",
+		"title": "Subtle Effects",
+		"displayTitle": "Subtle Effects",
+		"description": "Adding many new subtle details through particles and a few sounds",
+		"categories": [
+			"adventure",
+			"decoration",
+			"game-mechanics"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/4q8UOK1d/8a5d3febe9a9badba435a3f66a49668d04ada01f_96.webp",
+		"downloads": 12202468,
+		"followers": 3325,
+		"published": "2024-05-24T01:09:40.334513Z"
+	},
+	{
+		"slug": "sodium-extra-information",
+		"title": "Sodium Extra Information",
+		"displayTitle": "Sodium Extra Information",
+		"description": "A Sodium Extra addon that adds more in-game information.",
+		"categories": [
+			"cursed",
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/696WgnvT/410287c4b17a1ee494689368e9d1ced47716a05b_96.webp",
+		"downloads": 719385,
+		"followers": 256,
+		"published": "2024-07-28T17:11:29.249353Z"
+	},
+	{
+		"slug": "asynclogger",
+		"title": "Async Logger",
+		"displayTitle": "Async Logger",
+		"description": "Asynchronous logging and efficient filtering - performance improvements and utility for keeping your logs clean",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/zvNzKfGF/b3cd32f8aa093ca73b960e384bf4ac46ac68aaec_96.webp",
+		"downloads": 2064424,
+		"followers": 87,
+		"published": "2026-03-21T04:09:38.841848Z"
+	},
+	{
+		"slug": "ixeris",
+		"title": "Ixeris",
+		"displayTitle": "Ixeris",
+		"description": "Buffered raw input and threaded event polling",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/p8RJPJIC/4ca312df105cb246a91f5b782bfd863930d8888f_96.webp",
+		"downloads": 12710784,
+		"followers": 552,
+		"published": "2025-06-12T13:02:01.668376Z"
 	},
 	{
 		"slug": "iris",
@@ -469,38 +353,279 @@
 			"decoration",
 			"optimization"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/YL57xq9U/18d0e7f076d3d6ed5bedd472b853909aac5da202_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/YL57xq9U/18d0e7f076d3d6ed5bedd472b853909aac5da202_96.webp",
+		"downloads": 188532357,
+		"followers": 29913,
+		"published": "2021-05-27T05:11:15.690120Z"
 	},
 	{
-		"slug": "obe",
-		"title": "Optimized Block Entities [OBE]",
-		"displayTitle": "Optimized Block Entities",
-		"description": "A client-side optimization mod to make block entities render faster",
+		"slug": "skyboxify",
+		"title": "Skyboxify",
+		"displayTitle": "Skyboxify",
+		"description": "A skybox mod that allows you to use OptiFine skies in Fabric 1.21+",
 		"categories": [
-			"optimization"
+			"adventure",
+			"decoration",
+			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/AtOSAunf/69b47bd32742ce09ef7a03ccc2fc5876aff60413_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/DWuwk8aA/7fe3045177b02be3aaf2706fdbbe469a1e268bd6_96.webp",
+		"downloads": 14716494,
+		"followers": 401,
+		"published": "2025-06-21T20:55:13.404639Z"
 	},
 	{
-		"slug": "immediatelyfast",
-		"title": "ImmediatelyFast",
-		"displayTitle": "ImmediatelyFast",
-		"description": "Speed up immediate mode rendering in Minecraft",
+		"slug": "sodium-shadowy-path-blocks",
+		"title": "Sodium Shadowy Path Blocks (SSPB)",
+		"displayTitle": "Sodium Shadowy Path Blocks",
+		"description": "Reintroduces vanilla-like smooth lighting to non-full blocks (e.g. dirt paths and how they have dark shading when directly next to a full block) when using Sodium. ",
 		"categories": [
-			"optimization"
+			"decoration"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/5ZwdcRci/e57b6b451425692ac17ad322d5e14bea686a383a_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/EIa1eiMm/7ea3bc26470ba1f45b1c980d5058b033a752396b_96.webp",
+		"downloads": 24231287,
+		"followers": 1272,
+		"published": "2022-03-21T23:07:38.094967Z"
 	},
 	{
-		"slug": "continuity",
-		"title": "Continuity",
-		"displayTitle": "Continuity",
-		"description": "A Minecraft mod that allows for efficient connected textures",
+		"slug": "servercore",
+		"title": "ServerCore",
+		"displayTitle": "ServerCore",
+		"description": "A mod that aims to optimize the minecraft server.",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/4WWQxlQP/5207e4657a1d0e929506a8c07491a42fa73b0a29_96.webp",
+		"downloads": 17990229,
+		"followers": 1489,
+		"published": "2021-09-26T09:44:54.800265Z"
+	},
+	{
+		"slug": "animatica",
+		"title": "Animatica",
+		"displayTitle": "Animatica",
+		"description": "A mod implementing the OptiFine/MCPatcher animated texture format",
 		"categories": [
 			"decoration",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/1IjD5062/icon.png"
+		"icon_url": "https://cdn.modrinth.com/data/PRN43VSY/a3e7ee6b63650e8ec58b78e9348e5e64d7ccad89_96.webp",
+		"downloads": 21284774,
+		"followers": 1968,
+		"published": "2021-10-01T06:51:30.398389Z"
+	},
+	{
+		"slug": "asyncparticles",
+		"title": "AsyncParticles",
+		"displayTitle": "AsyncParticles",
+		"description": "Async particle tick, GPU accelerated particle rendering.",
+		"categories": [
+			"game-mechanics",
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/c3onkd5k/5d159d5d5067cee28e5a73709321bebc0e47a265.png",
+		"downloads": 8525628,
+		"followers": 761,
+		"published": "2025-02-23T09:50:31.148963Z"
+	},
+	{
+		"slug": "bettergrassify",
+		"title": "BetterGrassify",
+		"displayTitle": "BetterGrassify",
+		"description": "Gamers can finally touch grass!?\n\nOptiFine's Fancy and Fast better grass implemented on Fabric and NeoForge!",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/m5T5xmUy/a69f6abbc0c2007e7b630f55f797c505c23c11f5_96.webp",
+		"downloads": 17493081,
+		"followers": 707,
+		"published": "2024-05-27T11:22:17.264235Z"
+	},
+	{
+		"slug": "smart-particles",
+		"title": "Smart Particles",
+		"displayTitle": "Smart Particles",
+		"description": "A performance mod that greatly optimizes particle rendering and particle limits.",
+		"categories": [
+			"game-mechanics",
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/l8rWP4Tc/57f5774fa5c3eb82cb5500f899eed5fd9c592bc3_96.webp",
+		"downloads": 427748,
+		"followers": 99,
+		"published": "2026-01-02T23:08:23.659101Z"
+	},
+	{
+		"slug": "lambdynamiclights",
+		"title": "LambDynamicLights - Dynamic Lights",
+		"displayTitle": "LambDynamicLights - Dynamic Lights",
+		"description": "Adds dynamic lights to Minecraft as the most feature-complete and optimized dynamic lighting mod.",
+		"categories": [
+			"adventure",
+			"decoration",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/yBW8D80W/d4f5c3ff8df7caf024178b04eca6d69f95979cfe_96.webp",
+		"downloads": 61460005,
+		"followers": 14669,
+		"published": "2020-12-21T15:59:13.578447Z"
+	},
+	{
+		"slug": "reeses-sodium-options",
+		"title": "Reese's Sodium Options",
+		"displayTitle": "Reese's Sodium Options",
+		"description": "Alternative Options Menu for Sodium",
+		"categories": [
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/Bh37bMuy/icon.png",
+		"downloads": 85106058,
+		"followers": 8965,
+		"published": "2021-08-21T06:10:10.242065Z"
+	},
+	{
+		"slug": "jasione",
+		"title": "Jasione",
+		"displayTitle": "Jasione",
+		"description": "Reduce GC pressure by safely eliminating Enum#values array cloning and memory allocation overhead through bytecode analysis",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/qlDkBPij/04e5462585378b66a7351c8ecb5d43b191317ff2.png",
+		"downloads": 187701,
+		"followers": 56,
+		"published": "2026-07-02T12:11:52.204247Z"
+	},
+	{
+		"slug": "entity-model-features",
+		"title": "[EMF] Entity Model Features",
+		"displayTitle": "[EMF] Entity Model Features",
+		"description": "EMF is an, OptiFine format, Custom Entity Model replacement mod available for Fabric and Forge.",
+		"categories": [
+			"mobs",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/4I1XuqiY/6e5bbd0d06b1741bfdab6c0cfab6de8fdaf0064c_96.webp",
+		"downloads": 101354441,
+		"followers": 10158,
+		"published": "2023-03-31T23:58:40.453948Z"
+	},
+	{
+		"slug": "chatpatches",
+		"title": "Chat Patches",
+		"displayTitle": "Chat Patches",
+		"description": "A Minecraft Fabric client-side mod that touches up a few aspects of Minecraft's mundane chat, with as much configurability as possible!",
+		"categories": [
+			"decoration",
+			"social",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/MOqt4Z5n/56c954dea290ef4dd1b0d6ea92a811acac62ca85.png",
+		"downloads": 7213131,
+		"followers": 1033,
+		"published": "2022-07-26T17:13:15.684750Z"
+	},
+	{
+		"slug": "zfastsurface",
+		"title": "Fast Surface",
+		"displayTitle": "Fast Surface",
+		"description": "A vanilla worldgen optimization mod to optimise block calculations during surface builder",
+		"categories": [
+			"optimization",
+			"worldgen"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/FRSaEVFk/c393b58d86fd5fc416158aaabf84210fa20d568c.png",
+		"downloads": 223888,
+		"followers": 30,
+		"published": "2026-08-29T05:54:39.171139Z"
+	},
+	{
+		"slug": "3dskinlayers",
+		"title": "3D Skin Layers",
+		"displayTitle": "3D Skin Layers",
+		"description": "Render the player skin layer in 3d!",
+		"categories": [
+			"adventure",
+			"decoration"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/zV5r3pPn/ff7010d4ec0275609866c8b0f603b25e25949c08_96.webp",
+		"downloads": 81413307,
+		"followers": 11791,
+		"published": "2022-05-04T15:49:59.369142Z"
+	},
+	{
+		"slug": "dynamic-fps",
+		"title": "Dynamic FPS",
+		"displayTitle": "Dynamic FPS",
+		"description": "Reduce resource usage while Minecraft is in the background, idle, or on battery.",
+		"categories": [
+			"management",
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/LQ3K71Q1/5056368d0d87c1a9f3efead0cb48ab39a4ea87bf_96.webp",
+		"downloads": 69199750,
+		"followers": 9026,
+		"published": "2020-12-01T15:57:46.862046Z"
+	},
+	{
+		"slug": "cull-fewer-leaves",
+		"title": "Cull Fewer Leaves",
+		"displayTitle": "Cull Fewer Leaves",
+		"description": "Cull leaves while looking hot! A continuation of Cull Less Leaves.",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/alhWWxax/43c3ec9ab8231f826e892d6a655548d2aba84cde.png",
+		"downloads": 671364,
+		"followers": 62,
+		"published": "2025-12-29T07:19:14.992322Z"
+	},
+	{
+		"slug": "not-enough-animations",
+		"title": "Not Enough Animations",
+		"displayTitle": "Not Enough Animations",
+		"description": "Bringing first-person animations to the third-person",
+		"categories": [
+			"adventure",
+			"decoration"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/MPCX6s5C/b97fd5f7a893165052408b747286d6eb38d57abb_96.webp",
+		"downloads": 91291053,
+		"followers": 9145,
+		"published": "2022-05-25T10:21:03.610236Z"
+	},
+	{
+		"slug": "xaeros-minimap",
+		"title": "Xaero's Minimap",
+		"displayTitle": "Xaero's Minimap",
+		"description": "Displays a map of the nearby world terrain, players, mobs, entities in the corner of your screen. Lets you create waypoints which help you find the locations you've marked.",
+		"categories": [
+			"adventure",
+			"transportation",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/1bokaNcj/354080f65407e49f486fcf9c4580e82c45ae63b8_96.webp",
+		"downloads": 116622811,
+		"followers": 18743,
+		"published": "2023-04-21T18:24:45.476148Z"
+	},
+	{
+		"slug": "put-a-plug-in-it!",
+		"title": "Put A Plug In it! (PAPI)",
+		"displayTitle": "Put A Plug In it!",
+		"description": "A small mod that fixes Memory Leak issues, optimizes Memory Usage, and increases version/loader support for features of other Memory Leak Fix/Memory Optimization mods",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/xedaBnSm/74e048d839a965b381ce4c50bd0e4df3bdf2c2ef_96.webp",
+		"downloads": 138146,
+		"followers": 35,
+		"published": "2026-02-14T00:23:28.621823Z"
 	},
 	{
 		"slug": "entitytexturefeatures",
@@ -511,17 +636,10 @@
 			"decoration",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/BVzZfTc1/af683d206d50b05258d865b0d6e4aa2f2cee12f2_96.webp"
-	},
-	{
-		"slug": "sodium-shadowy-path-blocks",
-		"title": "Sodium Shadowy Path Blocks (SSPB)",
-		"displayTitle": "Sodium Shadowy Path Blocks",
-		"description": "Reintroduces vanilla-like smooth lighting to non-full blocks (e.g. dirt paths and how they have dark shading when directly next to a full block) when using Sodium. ",
-		"categories": [
-			"decoration"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/EIa1eiMm/7ea3bc26470ba1f45b1c980d5058b033a752396b_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/BVzZfTc1/af683d206d50b05258d865b0d6e4aa2f2cee12f2_96.webp",
+		"downloads": 106728183,
+		"followers": 10627,
+		"published": "2022-01-26T02:02:53.096382Z"
 	},
 	{
 		"slug": "krypton",
@@ -532,17 +650,89 @@
 			"optimization",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/fQEb0iXm/3ea60899d060a9286e03b87bfa9e71d0cbe2dde7_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/fQEb0iXm/3ea60899d060a9286e03b87bfa9e71d0cbe2dde7_96.webp",
+		"downloads": 43603620,
+		"followers": 5785,
+		"published": "2020-12-21T17:48:09.050177Z"
 	},
 	{
-		"slug": "vmp-fabric",
-		"title": "Very Many Players (Fabric)",
-		"displayTitle": "Very Many Players",
-		"description": "A Fabric mod designed to improve server performance at high playercounts.",
+		"slug": "sodium",
+		"title": "Sodium",
+		"displayTitle": "Sodium",
+		"description": "A high-performance rendering engine replacement for Minecraft, which greatly improves frame rates and reduces micro-stutter.",
 		"categories": [
 			"optimization"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/wnEe9KBa/0bb4b66e80c6cca9c37f6f1021a94670d6f820dc_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/AANobbMI/295862f4724dc3f78df3447ad6072b2dcd3ef0c9_96.webp",
+		"downloads": 242648220,
+		"followers": 41672,
+		"published": "2021-01-03T00:53:34.185936Z"
+	},
+	{
+		"slug": "structure-layout-optimizer",
+		"title": "Structure Layout Optimizer",
+		"displayTitle": "Structure Layout Optimizer",
+		"description": "Attempts to optimize the generation of Jigsaw Structures and NBT pieces",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/ayPU0OHc/0e99f63cf0ba0080df6c35ca50731a849a9decbb_96.webp",
+		"downloads": 8063144,
+		"followers": 387,
+		"published": "2024-08-20T23:48:19.343189Z"
+	},
+	{
+		"slug": "better-biome-blend",
+		"title": "Better Biome Blend",
+		"displayTitle": "Better Biome Blend",
+		"description": "Improves biome colors",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/Rs6c7WyL/068a7bca64043abf480ba9d36d61cef9e1f6a503_96.webp",
+		"downloads": 1895906,
+		"followers": 706,
+		"published": "2022-05-30T13:59:44.201820Z"
+	},
+	{
+		"slug": "modmenu",
+		"title": "Mod Menu",
+		"displayTitle": "Mod Menu",
+		"description": "Adds a mod menu to view the list of mods you have installed.",
+		"categories": [
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png",
+		"downloads": 153989949,
+		"followers": 27571,
+		"published": "2020-11-06T05:11:04.725058Z"
+	},
+	{
+		"slug": "zoomify",
+		"title": "Zoomify (Zoom)",
+		"displayTitle": "Zoomify",
+		"description": "A zoom mod with infinite customizability.",
+		"categories": [
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/w7ThoJFB/e2de67a0bfb9e8aa2347982ab3ec5463f26cca31_96.webp",
+		"downloads": 69672911,
+		"followers": 10974,
+		"published": "2022-01-29T20:52:18.744493Z"
+	},
+	{
+		"slug": "flashbackturbo",
+		"title": "Flashback Turbo",
+		"displayTitle": "Flashback Turbo",
+		"description": "Field-proven faster Flashback exports, without quality loss — up to ~11x, ~8.5s for a 1080p60 clip on NVIDIA.",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/6o9zaNB9/70ac563f44dd0f702dbbb4823cf2d7c6fa22ae60_96.webp",
+		"downloads": 19896,
+		"followers": 18,
+		"published": "2026-05-19T12:20:05.332454Z"
 	},
 	{
 		"slug": "litematica-material-filter",
@@ -554,62 +744,23 @@
 			"management",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/VDP0TPBa/52edeb483e2be4285bf3c0773a926b95b1558249_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/VDP0TPBa/52edeb483e2be4285bf3c0773a926b95b1558249_96.webp",
+		"downloads": 1187,
+		"followers": 8,
+		"published": "2026-06-07T17:23:22.230905Z"
 	},
 	{
-		"slug": "autoreconnectrf",
-		"title": "Auto Reconnect Reforged",
-		"displayTitle": "Auto Reconnect Reforged",
-		"description": "A multi-loader update of Bstn1802's AutoReconnect mod",
+		"slug": "better-mount-hud",
+		"title": "Better Mount HUD",
+		"displayTitle": "Better Mount HUD",
+		"description": "Improves the ingame HUD while riding a mount",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/PRy8Khga/66aacbbe79a694760121795a25140b7eeb13ea40_96.webp"
-	},
-	{
-		"slug": "mouse-tweaks",
-		"title": "Mouse Tweaks",
-		"displayTitle": "Mouse Tweaks",
-		"description": "Enhances inventory management by adding various functions to the mouse buttons. ",
-		"categories": [
-			"storage",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/aC3cM3Vq/6c0eaa4e60a9c87f4766f222ff63286f09da32c0_96.webp"
-	},
-	{
-		"slug": "adaptive-tooltips",
-		"title": "Adaptive Tooltips",
-		"displayTitle": "Adaptive Tooltips",
-		"description": "Highly configurable tooltip rendering, so you can always read them!",
-		"categories": [
-			"game-mechanics",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/wFv8yCxM/6ac50b5d160f260a939bc75a6e3ceed8d613a67f_96.webp"
-	},
-	{
-		"slug": "betterf3",
-		"title": "BetterF3",
-		"displayTitle": "BetterF3",
-		"description": "BetterF3 is a mod that replaces Minecraft's original debug HUD with a highly customizable, more human-readable HUD.",
-		"categories": [
-			"decoration",
-			"game-mechanics",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/8shC1gFX/icon.png"
-	},
-	{
-		"slug": "better-highlighting",
-		"title": "Better Highlighting",
-		"displayTitle": "Better Highlighting",
-		"description": "Improved syntax highlighting for Minecraft commands with theme support using TextMate",
-		"categories": [
-			"library",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/rjsZCeTS/b0aaf17e4d982d6b04fe504f6b5bf0ea8c8f9ab0_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/kqJFAPU9/2347cd97d4d4a5f87842dccebd8eba211d77d37a_96.webp",
+		"downloads": 24426373,
+		"followers": 2243,
+		"published": "2021-11-21T14:06:31.826745Z"
 	},
 	{
 		"slug": "xaeroplus",
@@ -621,27 +772,50 @@
 			"transportation",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/EnPUzSTg/c1924a4ab8bab6def9aa2304491df7bf49b142d1_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/EnPUzSTg/c1924a4ab8bab6def9aa2304491df7bf49b142d1_96.webp",
+		"downloads": 12150859,
+		"followers": 720,
+		"published": "2023-05-25T21:40:36.272573Z"
 	},
 	{
-		"slug": "better-advancements",
-		"title": "Better Advancements",
-		"displayTitle": "Better Advancements",
-		"description": "Better Advancements tries to improve the UI and UX for the advancements system in minecraft 1.12+ in a modded environment",
+		"slug": "jade",
+		"title": "Jade 🔍",
+		"displayTitle": "Jade 🔍",
+		"description": "Shows information about what you are looking at. (Hwyla/Waila fork for Minecraft 1.16+)",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/Q2OqKxDG/b1519a191e62135647f66394d526d179ab5b598d.png"
+		"icon_url": "https://cdn.modrinth.com/data/nvQzSEkH/b04217bc2b7dc524c4d12f81ff42cc1cefb9b0fc_96.webp",
+		"downloads": 71271230,
+		"followers": 9191,
+		"published": "2021-09-18T08:14:16.544897Z"
 	},
 	{
-		"slug": "better-mount-hud",
-		"title": "Better Mount HUD",
-		"displayTitle": "Better Mount HUD",
-		"description": "Improves the ingame HUD while riding a mount",
+		"slug": "flashback",
+		"title": "Flashback",
+		"displayTitle": "Flashback",
+		"description": "Record your Minecraft gameplay, play it back and create stunning cinematic shots",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/kqJFAPU9/2347cd97d4d4a5f87842dccebd8eba211d77d37a_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/4das1Fjq/e81c66aacf2e12c09a95e4f971ea5e2b9f608317_96.webp",
+		"downloads": 12426100,
+		"followers": 3798,
+		"published": "2024-06-05T22:32:47.535341Z"
+	},
+	{
+		"slug": "fastquit",
+		"title": "FastQuit",
+		"displayTitle": "FastQuit",
+		"description": "Lets you return to the Title Screen early while your world is still saving in the background!",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/x1hIzbuY/930154d1ed3e855079c5f6ee63faeb9bcbe87cfd_96.webp",
+		"downloads": 23845975,
+		"followers": 1671,
+		"published": "2022-11-13T13:59:26.954511Z"
 	},
 	{
 		"slug": "viafabricplus",
@@ -653,91 +827,52 @@
 			"library",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/rIC2XJV4/34c6c433ac1cbfc1401dbe749214641fce8f1ebf_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/rIC2XJV4/34c6c433ac1cbfc1401dbe749214641fce8f1ebf_96.webp",
+		"downloads": 8123341,
+		"followers": 1127,
+		"published": "2023-03-01T15:53:22.364374Z"
 	},
 	{
-		"slug": "controlify",
-		"title": "Controlify (Controller support)",
-		"displayTitle": "Controlify",
-		"description": "Adds the best controller support to Minecraft Java edition!",
-		"categories": [
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/DOUdJVEm/5a6c126c4c761ba3e8e9d3ef09a68e16ff60ff22_96.webp"
-	},
-	{
-		"slug": "held-item-info",
-		"title": "Held Item Info",
-		"displayTitle": "Held Item Info",
-		"description": "Shows information (like enchantments) about the held item under its name.",
+		"slug": "betterf3",
+		"title": "BetterF3",
+		"displayTitle": "BetterF3",
+		"description": "BetterF3 is a mod that replaces Minecraft's original debug HUD with a highly customizable, more human-readable HUD.",
 		"categories": [
 			"decoration",
-			"equipment",
+			"game-mechanics",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/tEcWzCZz/39f285a000b8685703bfc5e6939f3f2fb49634f5.png"
+		"icon_url": "https://cdn.modrinth.com/data/8shC1gFX/icon.png",
+		"downloads": 35347083,
+		"followers": 11529,
+		"published": "2021-09-20T05:42:23.778430Z"
 	},
 	{
-		"slug": "appleskin",
-		"title": "AppleSkin",
-		"displayTitle": "AppleSkin",
-		"description": "Food/hunger-related HUD improvements",
+		"slug": "adaptive-tooltips",
+		"title": "Adaptive Tooltips",
+		"displayTitle": "Adaptive Tooltips",
+		"description": "Highly configurable tooltip rendering, so you can always read them!",
 		"categories": [
-			"food",
+			"game-mechanics",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/EsAfCjCV/icon.png"
+		"icon_url": "https://cdn.modrinth.com/data/wFv8yCxM/6ac50b5d160f260a939bc75a6e3ceed8d613a67f_96.webp",
+		"downloads": 1577673,
+		"followers": 557,
+		"published": "2022-11-16T18:13:05.336120Z"
 	},
 	{
-		"slug": "modmenu",
-		"title": "Mod Menu",
-		"displayTitle": "Mod Menu",
-		"description": "Adds a mod menu to view the list of mods you have installed.",
-		"categories": [
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/mOgUt4GM/5a20ed1450a0e1e79a1fe04e61bb4e5878bf1d20.png"
-	},
-	{
-		"slug": "xaeros-maps-multiplayer-plus",
-		"title": "Xaero's Maps: Multiplayer+",
-		"displayTitle": "Xaero's Maps: Multiplayer+",
-		"description": "Adds multiplayer features to Xaero's Minimap and World Map, such as world map syncing",
-		"categories": [],
-		"icon_url": "https://cdn.modrinth.com/data/stTaMuWa/6b8193504f0cdcdca775bcc897866afb99efa6ad_96.webp"
-	},
-	{
-		"slug": "fastquit",
-		"title": "FastQuit",
-		"displayTitle": "FastQuit",
-		"description": "Lets you return to the Title Screen early while your world is still saving in the background!",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/x1hIzbuY/930154d1ed3e855079c5f6ee63faeb9bcbe87cfd_96.webp"
-	},
-	{
-		"slug": "flashback-extras",
-		"title": "Flashback Extras",
-		"displayTitle": "Flashback Extras",
-		"description": "Extra tools and quality-of-life improvements for the Flashback replay editor.",
-		"categories": [
-			"management",
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/SEEukT7F/00aabf1feb1015562c97795b1748b89451bf11f8_96.webp"
-	},
-	{
-		"slug": "jade",
-		"title": "Jade 🔍",
-		"displayTitle": "Jade 🔍",
-		"description": "Shows information about what you are looking at. (Hwyla/Waila fork for Minecraft 1.16+)",
+		"slug": "crash-assistant",
+		"title": "Crash Assistant",
+		"displayTitle": "Crash Assistant",
+		"description": "Shows a GUI after Minecraft crashes, immediately showing and analyzing all affected logs.",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/nvQzSEkH/b04217bc2b7dc524c4d12f81ff42cc1cefb9b0fc_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/ix1qq8Ux/0850872f4de156ee91a8b1d1f71615cb4615bfa4_96.webp",
+		"downloads": 20474727,
+		"followers": 556,
+		"published": "2024-12-20T17:07:25.204074Z"
 	},
 	{
 		"slug": "xaeros-world-map",
@@ -749,63 +884,10 @@
 			"transportation",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/NcUtCpym/354080f65407e49f486fcf9c4580e82c45ae63b8_96.webp"
-	},
-	{
-		"slug": "optimized-fullbright",
-		"title": "Optimized Fullbright",
-		"displayTitle": "Optimized Fullbright",
-		"description": "Fullbright mod that disables the lighting system to improve performance. Now toggleable with a keybind!",
-		"categories": [
-			"game-mechanics",
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/iEtUDGQp/e022d866b31896247aa5d6b5f322d95194bb690e_96.webp"
-	},
-	{
-		"slug": "zoomify",
-		"title": "Zoomify (Zoom)",
-		"displayTitle": "Zoomify",
-		"description": "A zoom mod with infinite customizability.",
-		"categories": [
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/w7ThoJFB/e2de67a0bfb9e8aa2347982ab3ec5463f26cca31_96.webp"
-	},
-	{
-		"slug": "flashbackturbo",
-		"title": "Flashback Turbo",
-		"displayTitle": "Flashback Turbo",
-		"description": "Field-proven faster Flashback exports, without quality loss — up to ~11x, ~8.5s for a 1080p60 clip on NVIDIA.",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/6o9zaNB9/70ac563f44dd0f702dbbb4823cf2d7c6fa22ae60_96.webp"
-	},
-	{
-		"slug": "inventoryhudplus",
-		"title": "InventoryHUD+",
-		"displayTitle": "InventoryHUD+",
-		"description": "Adds your main inventory, potion effects and your equipments to your HUD. And few other features.",
-		"categories": [
-			"adventure",
-			"management",
-			"storage"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/Kp2uclYl/9a7a5546c3e77ecac35c07bf5ea3ec7e71c9a8f3_96.webp"
-	},
-	{
-		"slug": "language-reload",
-		"title": "Language Reload",
-		"displayTitle": "Language Reload",
-		"description": "Reduces load times and adds fallbacks for languages",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/uLbm7CG6/9cae8ec18cac3b1cc6ef1efa239f381d669264e6.png"
+		"icon_url": "https://cdn.modrinth.com/data/NcUtCpym/354080f65407e49f486fcf9c4580e82c45ae63b8_96.webp",
+		"downloads": 102067054,
+		"followers": 14167,
+		"published": "2023-04-22T09:32:10.659737Z"
 	},
 	{
 		"slug": "auth-me",
@@ -815,27 +897,64 @@
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/yjgIrBjZ/icon.png"
+		"icon_url": "https://cdn.modrinth.com/data/yjgIrBjZ/icon.png",
+		"downloads": 7280149,
+		"followers": 735,
+		"published": "2021-04-12T06:57:23.436619Z"
 	},
 	{
-		"slug": "easyplacefix",
-		"title": "EasyPlaceFix",
-		"displayTitle": "EasyPlaceFix",
-		"description": "Fixed easy placement orientation issue\n(修复了轻松放置朝向问题)",
+		"slug": "mouse-tweaks",
+		"title": "Mouse Tweaks",
+		"displayTitle": "Mouse Tweaks",
+		"description": "Enhances inventory management by adding various functions to the mouse buttons. ",
+		"categories": [
+			"storage",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/aC3cM3Vq/6c0eaa4e60a9c87f4766f222ff63286f09da32c0_96.webp",
+		"downloads": 61783934,
+		"followers": 9138,
+		"published": "2021-03-20T15:55:49.895120Z"
+	},
+	{
+		"slug": "better-stats",
+		"title": "Better Statistics Screen",
+		"displayTitle": "Better Statistics Screen",
+		"description": "A Minecraft mod that improves the statistics screen and makes it more useful.",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/PTkF76pD/6a96fb2af11d4cf5e7008344b16b093c140c4ff1.png"
+		"icon_url": "https://cdn.modrinth.com/data/n6PXGAoM/c5a85914f01be35575abe61c2d19d48e08581034_96.webp",
+		"downloads": 19939401,
+		"followers": 3929,
+		"published": "2022-09-02T19:38:08.030776Z"
 	},
 	{
-		"slug": "litematica",
-		"title": "Litematica",
-		"displayTitle": "Litematica",
-		"description": "A client-side schematic mod with extra features for creative mode work",
+		"slug": "skinshuffle",
+		"title": "Skin Shuffle",
+		"displayTitle": "Skin Shuffle",
+		"description": "Effortless in-game skin customization and management—change, store, and customize your skins with SkinShuffle. Instant skin changes available on compatible servers.",
+		"categories": [
+			"social",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/3s19I5jr/3d21d8e87e38c814e8951f26ae0f5cb3ae1fb924_96.webp",
+		"downloads": 3827375,
+		"followers": 1584,
+		"published": "2023-06-15T22:50:15.809894Z"
+	},
+	{
+		"slug": "controlify",
+		"title": "Controlify (Controller support)",
+		"displayTitle": "Controlify",
+		"description": "Adds the best controller support to Minecraft Java edition!",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/bEpr0Arc/25b5529d7a3b030ac136a6ce879d8ed2a1aa4a8d.png"
+		"icon_url": "https://cdn.modrinth.com/data/DOUdJVEm/5a6c126c4c761ba3e8e9d3ef09a68e16ff60ff22_96.webp",
+		"downloads": 24624232,
+		"followers": 2020,
+		"published": "2023-02-05T13:04:45.141986Z"
 	},
 	{
 		"slug": "no-chat-reports",
@@ -846,7 +965,37 @@
 			"social",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/qQyHxfxd/icon.png"
+		"icon_url": "https://cdn.modrinth.com/data/qQyHxfxd/icon.png",
+		"downloads": 60193464,
+		"followers": 3355,
+		"published": "2022-06-17T13:03:46.492544Z"
+	},
+	{
+		"slug": "better-advancements",
+		"title": "Better Advancements",
+		"displayTitle": "Better Advancements",
+		"description": "Better Advancements tries to improve the UI and UX for the advancements system in minecraft 1.12+ in a modded environment",
+		"categories": [
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/Q2OqKxDG/b1519a191e62135647f66394d526d179ab5b598d.png",
+		"downloads": 26780133,
+		"followers": 3022,
+		"published": "2023-04-07T18:06:29.371671Z"
+	},
+	{
+		"slug": "language-reload",
+		"title": "Language Reload",
+		"displayTitle": "Language Reload",
+		"description": "Reduces load times and adds fallbacks for languages",
+		"categories": [
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/uLbm7CG6/9cae8ec18cac3b1cc6ef1efa239f381d669264e6.png",
+		"downloads": 42445580,
+		"followers": 1894,
+		"published": "2021-09-14T13:47:46.722392Z"
 	},
 	{
 		"slug": "schematicpreview",
@@ -858,27 +1007,91 @@
 			"management",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/OC1Ud2T4/72dc4ed0ac7569539960dbdc7c60915c105f1c84.png"
+		"icon_url": "https://cdn.modrinth.com/data/OC1Ud2T4/72dc4ed0ac7569539960dbdc7c60915c105f1c84.png",
+		"downloads": 309744,
+		"followers": 512,
+		"published": "2025-01-22T15:21:43.087542Z"
 	},
 	{
-		"slug": "crash-assistant",
-		"title": "Crash Assistant",
-		"displayTitle": "Crash Assistant",
-		"description": "Shows a GUI after Minecraft crashes, immediately showing and analyzing all affected logs.",
+		"slug": "held-item-info",
+		"title": "Held Item Info",
+		"displayTitle": "Held Item Info",
+		"description": "Shows information (like enchantments) about the held item under its name.",
+		"categories": [
+			"decoration",
+			"equipment",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/tEcWzCZz/39f285a000b8685703bfc5e6939f3f2fb49634f5.png",
+		"downloads": 6071256,
+		"followers": 1690,
+		"published": "2022-08-29T18:00:53.602505Z"
+	},
+	{
+		"slug": "easyplacefix",
+		"title": "EasyPlaceFix",
+		"displayTitle": "EasyPlaceFix",
+		"description": "Fixed easy placement orientation issue\n(修复了轻松放置朝向问题)",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/ix1qq8Ux/0850872f4de156ee91a8b1d1f71615cb4615bfa4_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/PTkF76pD/6a96fb2af11d4cf5e7008344b16b093c140c4ff1.png",
+		"downloads": 39615,
+		"followers": 37,
+		"published": "2024-07-20T09:04:20.779942Z"
 	},
 	{
-		"slug": "fastserverpings",
-		"title": "Fast Server Pings",
-		"displayTitle": "Fast Server Pings",
-		"description": "Rewritten server ping pipeline using optimized Netty I/O, along with SWR caching.",
+		"slug": "litematica-printer",
+		"title": "Litematica Printer",
+		"displayTitle": "Litematica Printer",
+		"description": "This fork adds the missing printing functionality for Litematica",
 		"categories": [
-			"optimization"
+			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/5eVpQJSP/160b7a2f9e98b7790bdbb2c5181b28024e54694c_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/3llatzyE/508a5bc449c099157defc8f09256b66bf1ab8beb_96.webp",
+		"downloads": 3009716,
+		"followers": 1443,
+		"published": "2022-08-12T00:42:55.780045Z"
+	},
+	{
+		"slug": "better-highlighting",
+		"title": "Better Highlighting",
+		"displayTitle": "Better Highlighting",
+		"description": "Improved syntax highlighting for Minecraft commands with theme support using TextMate",
+		"categories": [
+			"library",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/rjsZCeTS/b0aaf17e4d982d6b04fe504f6b5bf0ea8c8f9ab0_96.webp",
+		"downloads": 31284,
+		"followers": 65,
+		"published": "2024-06-04T10:16:21.238189Z"
+	},
+	{
+		"slug": "optimized-fullbright",
+		"title": "Optimized Fullbright",
+		"displayTitle": "Optimized Fullbright",
+		"description": "Fullbright mod that disables the lighting system to improve performance. Now toggleable with a keybind!",
+		"categories": [
+			"game-mechanics",
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/iEtUDGQp/e022d866b31896247aa5d6b5f322d95194bb690e_96.webp",
+		"downloads": 52292,
+		"followers": 25,
+		"published": "2026-01-05T15:49:59.275736Z"
+	},
+	{
+		"slug": "xaeros-maps-multiplayer-plus",
+		"title": "Xaero's Maps: Multiplayer+",
+		"displayTitle": "Xaero's Maps: Multiplayer+",
+		"description": "Adds multiplayer features to Xaero's Minimap and World Map, such as world map syncing",
+		"categories": [],
+		"icon_url": "https://cdn.modrinth.com/data/stTaMuWa/6b8193504f0cdcdca775bcc897866afb99efa6ad_96.webp",
+		"downloads": 23632,
+		"followers": 36,
+		"published": "2026-04-26T16:53:40.501491Z"
 	},
 	{
 		"slug": "accurate-block-placement-reborn",
@@ -889,17 +1102,64 @@
 			"game-mechanics",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/kzwxhsjp/d625b497fc032d684c9c9d1826ee04fbef9f37d9_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/kzwxhsjp/d625b497fc032d684c9c9d1826ee04fbef9f37d9_96.webp",
+		"downloads": 3938213,
+		"followers": 1719,
+		"published": "2023-07-07T10:18:56.811581Z"
 	},
 	{
-		"slug": "flashback",
-		"title": "Flashback",
-		"displayTitle": "Flashback",
-		"description": "Record your Minecraft gameplay, play it back and create stunning cinematic shots",
+		"slug": "autoreconnectrf",
+		"title": "Auto Reconnect Reforged",
+		"displayTitle": "Auto Reconnect Reforged",
+		"description": "A multi-loader update of Bstn1802's AutoReconnect mod",
 		"categories": [
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/4das1Fjq/e81c66aacf2e12c09a95e4f971ea5e2b9f608317_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/PRy8Khga/66aacbbe79a694760121795a25140b7eeb13ea40_96.webp",
+		"downloads": 330328,
+		"followers": 120,
+		"published": "2024-06-20T05:12:08.216005Z"
+	},
+	{
+		"slug": "flashback-extras",
+		"title": "Flashback Extras",
+		"displayTitle": "Flashback Extras",
+		"description": "Extra tools and quality-of-life improvements for the Flashback replay editor.",
+		"categories": [
+			"management",
+			"optimization",
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/SEEukT7F/00aabf1feb1015562c97795b1748b89451bf11f8_96.webp",
+		"downloads": 70966,
+		"followers": 30,
+		"published": "2026-03-16T16:45:35.625383Z"
+	},
+	{
+		"slug": "litematica",
+		"title": "Litematica",
+		"displayTitle": "Litematica",
+		"description": "A client-side schematic mod with extra features for creative mode work",
+		"categories": [
+			"utility"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/bEpr0Arc/25b5529d7a3b030ac136a6ce879d8ed2a1aa4a8d.png",
+		"downloads": 26900006,
+		"followers": 8816,
+		"published": "2023-04-17T18:39:37.893692Z"
+	},
+	{
+		"slug": "fastserverpings",
+		"title": "Fast Server Pings",
+		"displayTitle": "Fast Server Pings",
+		"description": "Rewritten server ping pipeline using optimized Netty I/O, along with SWR caching.",
+		"categories": [
+			"optimization"
+		],
+		"icon_url": "https://cdn.modrinth.com/data/5eVpQJSP/160b7a2f9e98b7790bdbb2c5181b28024e54694c_96.webp",
+		"downloads": 511406,
+		"followers": 46,
+		"published": "2026-02-02T19:24:51.911012Z"
 	},
 	{
 		"slug": "shulkerboxtooltip",
@@ -910,37 +1170,38 @@
 			"storage",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/2M01OLQq/bb490716cf2590cf84100a495931c3d4743bce43_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/2M01OLQq/bb490716cf2590cf84100a495931c3d4743bce43_96.webp",
+		"downloads": 39483187,
+		"followers": 10444,
+		"published": "2022-07-16T03:01:45.246757Z"
 	},
 	{
-		"slug": "better-stats",
-		"title": "Better Statistics Screen",
-		"displayTitle": "Better Statistics Screen",
-		"description": "A Minecraft mod that improves the statistics screen and makes it more useful.",
+		"slug": "appleskin",
+		"title": "AppleSkin",
+		"displayTitle": "AppleSkin",
+		"description": "Food/hunger-related HUD improvements",
 		"categories": [
+			"food",
 			"utility"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/n6PXGAoM/c5a85914f01be35575abe61c2d19d48e08581034_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/EsAfCjCV/icon.png",
+		"downloads": 94749770,
+		"followers": 18206,
+		"published": "2021-11-20T23:37:39.568172Z"
 	},
 	{
-		"slug": "litematica-printer",
-		"title": "Litematica Printer",
-		"displayTitle": "Litematica Printer",
-		"description": "This fork adds the missing printing functionality for Litematica",
+		"slug": "inventoryhudplus",
+		"title": "InventoryHUD+",
+		"displayTitle": "InventoryHUD+",
+		"description": "Adds your main inventory, potion effects and your equipments to your HUD. And few other features.",
 		"categories": [
-			"utility"
+			"adventure",
+			"management",
+			"storage"
 		],
-		"icon_url": "https://cdn.modrinth.com/data/3llatzyE/508a5bc449c099157defc8f09256b66bf1ab8beb_96.webp"
-	},
-	{
-		"slug": "skinshuffle",
-		"title": "Skin Shuffle",
-		"displayTitle": "Skin Shuffle",
-		"description": "Effortless in-game skin customization and management—change, store, and customize your skins with SkinShuffle. Instant skin changes available on compatible servers.",
-		"categories": [
-			"social",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/3s19I5jr/3d21d8e87e38c814e8951f26ae0f5cb3ae1fb924_96.webp"
+		"icon_url": "https://cdn.modrinth.com/data/Kp2uclYl/9a7a5546c3e77ecac35c07bf5ea3ec7e71c9a8f3_96.webp",
+		"downloads": 10421613,
+		"followers": 972,
+		"published": "2025-09-01T19:09:31.308170Z"
 	}
 ]

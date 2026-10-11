@@ -39,8 +39,40 @@ function readPackToml(path) {
 	return out;
 }
 
+/* The pack version is a semver with build metadata:
+   "1.1.0+mc26.3.fabric" -> release 1.1.0, Minecraft 26.3, loader fabric.
+   The site shows all three, so they are split here rather than parsed in the
+   page. The Minecraft version still comes from the directory name, which is
+   the authority; the one in the metadata is only a cross-check. */
+function parsePackVersion(raw) {
+	const text = String(raw || "");
+	const plus = text.indexOf("+");
+	const release = plus === -1 ? text : text.slice(0, plus);
+	const meta = plus === -1 ? "" : text.slice(plus + 1);
+	const parts = /^mc([\d.]+)\.([a-z]+)$/.exec(meta);
+	return {
+		release: release || null,
+		loader: parts ? parts[2] : null,
+		// Kept so a mismatch between folder and metadata is visible, not silent.
+		metaMinecraft: parts ? parts[1] : null
+	};
+}
+
+// Minecraft versions do not sort as text: 1.21.11 is newer than 1.21.1, and
+// 26.x is newer than 1.x. Compare segment by segment, as numbers.
+const mcKey = (mc) => String(mc).split(/[.-]/).map(Number);
+const byMinecraft = (a, b) => {
+	const ka = mcKey(a.minecraft);
+	const kb = mcKey(b.minecraft);
+	for (let i = 0; i < Math.max(ka.length, kb.length); i++) {
+		const d = (ka[i] || 0) - (kb[i] || 0);
+		if (d) return d;
+	}
+	return 0;
+};
+
 const versions = [];
-for (const mc of readdirSync(versionsDir).sort()) {
+for (const mc of readdirSync(versionsDir)) {
 	const dir = join(versionsDir, mc);
 	let packFiles;
 	try {
@@ -65,8 +97,17 @@ for (const mc of readdirSync(versionsDir).sort()) {
 		return acc;
 	}, {});
 
+	const packVersion = parsePackVersion(pack.version);
+	if (packVersion.metaMinecraft && packVersion.metaMinecraft !== mc) {
+		console.warn(
+			`${mc}/pack.toml says +mc${packVersion.metaMinecraft}; the folder wins`
+		);
+	}
+
 	versions.push({
 		minecraft: mc,
+		release: packVersion.release,
+		loader: packVersion.loader,
 		packVersion: pack.version || null,
 		fabric: pack.fabric || null,
 		total: mods.length,
@@ -75,6 +116,7 @@ for (const mc of readdirSync(versionsDir).sort()) {
 	});
 }
 
+versions.sort(byMinecraft);
 const latest = versions[versions.length - 1];
 
 // Library/dependency slugs ship only to satisfy a parent mod. specs/mod-list.md
@@ -96,6 +138,9 @@ const enrich = (mod) => {
 		// Bare file name. Vite owns the URL: main.js maps this through an
 		// import.meta.glob so the built path carries the content hash.
 		icon: project ? `${project.slug}.png` : null,
+		// Popularity, straight from Modrinth. The browser sorts on these.
+		downloads: project?.downloads ?? 0,
+		followers: project?.followers ?? 0,
 		library: libraries.has(mod.file)
 	};
 };
@@ -110,10 +155,13 @@ try {
 	console.warn("no modrinth-cache.json, slugs and blurbs will be sparse");
 }
 
-const curated = latest.mods
-	.map(enrich)
-	.filter((m) => !m.library)
-	.sort((a, b) => a.name.localeCompare(b.name));
+// Default order: most downloaded first, with followers as the tiebreak and
+// the name after that so the order is always deterministic. The page re-sorts
+// per group and for search, so this is only the shipped default.
+const byPopularity = (a, b) =>
+	b.downloads - a.downloads || b.followers - a.followers || a.name.localeCompare(b.name);
+
+const curated = latest.mods.map(enrich).filter((m) => !m.library).sort(byPopularity);
 
 const groupTotals = groups.order.map((key) => ({
 	key,
@@ -138,12 +186,17 @@ writeFileSync(
 			total: latest.total,
 			counts: latest.counts,
 			curated: curated.length,
-			versions: versions.map(({ minecraft, packVersion, total, counts }) => ({
-				minecraft,
-				packVersion,
-				total,
-				counts
-			})),
+			// Newest Minecraft first, so the wizard's default choice is the
+			// first card rather than the last one in the row.
+			versions: [...versions]
+				.sort((a, b) => byMinecraft(b, a))
+				.map(({ minecraft, release, loader, total, counts }) => ({
+					minecraft,
+					release,
+					loader,
+					total,
+					counts
+				})),
 			groups: groupTotals,
 			mods: curated
 		},

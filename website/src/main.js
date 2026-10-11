@@ -9,6 +9,7 @@ import packData from "./data/mods.json";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /* Mod icons are hashed and served by Vite, so the generated JSON only records
    the file name and this map turns it back into a built URL. */
@@ -97,13 +98,27 @@ const iconUrl = (file) => icons[`./assets/img/${file}`] || null;
 	if (!targets.size) return;
 
 	const nav = $("#nav");
+	// Track every entry, not just the ones that are entering. Reacting only
+	// to "is intersecting" left the highlight stuck on the section above after
+	// a jump back up, and never cleared it when scrolling above the first
+	// section.
+	const inBand = new Set();
+	const paint = () => {
+		// The last section in document order wins, so a short section cannot
+		// steal the highlight from the one the reader is actually in.
+		let current = null;
+		for (const el of targets.keys()) if (inBand.has(el)) current = el;
+		for (const a of links) a.removeAttribute("aria-current");
+		if (current) targets.get(current).setAttribute("aria-current", "true");
+	};
+
 	const io = new IntersectionObserver(
 		(entries) => {
 			for (const entry of entries) {
-				if (!entry.isIntersecting) continue;
-				for (const a of links) a.removeAttribute("aria-current");
-				targets.get(entry.target).setAttribute("aria-current", "true");
+				if (entry.isIntersecting) inBand.add(entry.target);
+				else inBand.delete(entry.target);
 			}
+			paint();
 		},
 		// Only the top slice of the viewport decides, so the highlight changes
 		// when a section reaches the nav rather than when it merely appears.
@@ -167,19 +182,23 @@ document.addEventListener("click", async (e) => {
 
 /* ---------- Radio group behaviour (wizard) ---------------------------- */
 /* One roving tabindex per group, so Tab reaches the group once and the arrow
-   keys move inside it. That is the expected pattern for role="radiogroup". */
-function wireRadioGroup(root, onSelect) {
+   keys move inside it. That is the expected pattern for role="radiogroup".
+   The selector is a parameter because the wizard and the browser filter use
+   different class names for the options. */
+function wireRadioGroup(root, onSelect, itemSel = ".pick") {
 	if (!root) return;
 
+	const items = () => $$(itemSel, root);
+
 	const paint = () => {
-		for (const el of $$(".pick", root)) {
+		for (const el of items()) {
 			const on = el.getAttribute("aria-checked") === "true";
 			el.tabIndex = on ? 0 : -1;
 		}
 	};
 
 	const select = (el, focus) => {
-		for (const other of $$(".pick", root)) {
+		for (const other of items()) {
 			other.setAttribute("aria-checked", String(other === el));
 		}
 		paint();
@@ -188,12 +207,12 @@ function wireRadioGroup(root, onSelect) {
 	};
 
 	root.addEventListener("click", (e) => {
-		const el = e.target.closest(".pick");
+		const el = e.target.closest(itemSel);
 		if (el) select(el, false);
 	});
 
 	root.addEventListener("keydown", (e) => {
-		const picks = $$(".pick", root);
+		const picks = items();
 		const i = picks.indexOf(document.activeElement);
 		if (i < 0) return;
 		let next = -1;
@@ -222,7 +241,6 @@ const browser = (function modBrowser() {
 	const moreEl = $("#browser-more");
 	const moreBtn = $("#more-toggle");
 	const moreLabel = $("#more-label");
-	const moreCount = $("#more-count");
 	if (!list) return null;
 
 	// How many rows fit before the list asks permission to grow.
@@ -232,7 +250,31 @@ const browser = (function modBrowser() {
 	const data = packData;
 	let group = params.get("group") || "all";
 	let query = params.get("q") || "";
+	let sort = params.get("sort") === "relevance" ? "relevance" : "downloads";
+	// Environment is one choice, not three toggles. "Client" and "Server"
+	// each include the both-side mods, because a both-side mod does install
+	// on that side; "Client & Server" is the whole list and the default.
+	const envParam = params.get("side");
+	let env = envParam === "client" || envParam === "server" ? envParam : "both";
+	let hideAddons = params.get("addons") === "hide";
 	let expanded = false;
+
+	/* Two orders, both off real Modrinth numbers and the pack's own grouping.
+	   Neither invents a score: "downloads" is what most people pull, and
+	   "relevance" is the pack's answer to which mods matter, most used first. */
+	// Group index as declared in groups.json, which is the pack's own priority:
+// performance first, tweaks last.
+	const rank = new Map(data.groups.map((g, i) => [g.key, i]));
+	const byDownloads = (a, b) =>
+		b.downloads - a.downloads || b.followers - a.followers || a.name.localeCompare(b.name);
+	const byRelevance = (a, b) =>
+		(rank.get(a.group) ?? 99) - (rank.get(b.group) ?? 99) || byDownloads(a, b);
+	const SORTERS = { downloads: byDownloads, relevance: byRelevance };
+
+	// Entry count for the whole browser: mods that are not somebody's addon.
+	// The pack still installs all of them, so the mod count stays separate.
+	const allEntries = data.mods.filter((m) => !m.parent).length;
+
 	// Row index the next render should animate from. null means "no animation",
 	// which is what a filter change wants: the rows that stay are not new.
 	let animateFrom = 0;
@@ -246,9 +288,75 @@ const browser = (function modBrowser() {
 		return el;
 	}
 
-	function renderMods(mods, animateFrom) {
+	function icon(mod, size = 34) {
+		const src = mod.icon && iconUrl(mod.icon);
+		if (!src) return monogram(mod.name);
+		const img = document.createElement("img");
+		img.className = "mod__icon";
+		img.src = src;
+		img.alt = "";
+		img.loading = "lazy";
+		img.decoding = "async";
+		img.width = size;
+		img.height = size;
+		img.addEventListener("error", () => img.replaceWith(monogram(mod.name)), {
+			once: true
+		});
+		return img;
+	}
+
+	function modLink(mod, text = mod.name) {
+		const a = document.createElement("a");
+		a.href = `https://modrinth.com/mod/${encodeURIComponent(mod.slug)}`;
+		a.target = "_blank";
+		a.rel = "noopener noreferrer";
+		a.textContent = text;
+		return a;
+	}
+
+	function sideTag(mod) {
+		const tag = document.createElement("span");
+		tag.className = "mod__side";
+		tag.dataset.side = mod.side;
+		// Every mod gets a tag now, so "works in both places" is stated rather
+		// than inferred from the absence of a badge.
+		tag.textContent = mod.side === "both" ? "Client & Server" : capitalise(mod.side);
+		tag.title =
+			mod.side === "client"
+				? "Client only, not installed on servers"
+				: mod.side === "server"
+					? "Server only, not installed on clients"
+					: "Installed on clients and servers";
+		return tag;
+	}
+
+	/* Addons fold into their parent instead of getting a row of their own:
+	   "Sodium" with four addons listed under it is one entry, which is how the
+	   README counts them too. An addon whose parent is filtered out still needs
+	   a home, so it is promoted to a row of its own rather than vanishing. */
+	function foldAddons(mods) {
+		const rows = [];
+		const index = new Map();
+
+		for (const mod of mods) {
+			const parent = mod.parent ? index.get(mod.parent) : null;
+			if (parent) {
+				parent.addons.push(mod);
+				continue;
+			}
+			const row = { mod, addons: [], orphan: Boolean(mod.parent) };
+			rows.push(row);
+			// The parent claims its addons, whether or not the addon itself
+			// made the cut, so a later filter can never lose one.
+			if (!mod.parent) index.set(mod.file, row);
+		}
+		for (const row of rows) row.addons.sort((a, b) => b.downloads - a.downloads);
+		return rows;
+	}
+
+	function renderMods(rows, animateFrom) {
 		list.textContent = "";
-		if (!mods.length) {
+		if (!rows.length) {
 			const empty = document.createElement("div");
 			empty.className = "empty";
 			empty.innerHTML =
@@ -265,10 +373,18 @@ const browser = (function modBrowser() {
 		}
 
 		const frag = document.createDocumentFragment();
-		for (const [i, mod] of mods.entries()) {
+		for (const [i, { mod, addons, orphan }] of rows.entries()) {
 			const row = document.createElement("div");
 			row.className = "mod";
 			row.setAttribute("role", "listitem");
+			// Carrying the sort key on the row keeps the displayed order
+			// checkable from the DOM.
+			row.dataset.downloads = mod.downloads;
+			row.dataset.group = mod.group || "";
+			if (addons.length) {
+				row.dataset.addons = addons.map((a) => a.name).join("|");
+			}
+			if (orphan) row.dataset.orphan = "true";
 			// Only the rows that just appeared animate, so re-filtering the list
 			// does not replay the cascade on rows that never moved.
 			if (animateFrom !== undefined && i >= animateFrom) {
@@ -276,47 +392,23 @@ const browser = (function modBrowser() {
 				row.style.setProperty("--i", Math.min(i - animateFrom, 14));
 			}
 
-			const src = mod.icon && iconUrl(mod.icon);
-			if (src) {
-				const img = document.createElement("img");
-				img.className = "mod__icon";
-				img.src = src;
-				img.alt = "";
-				img.loading = "lazy";
-				img.decoding = "async";
-				img.width = 34;
-				img.height = 34;
-				img.addEventListener("error", () => img.replaceWith(monogram(mod.name)), {
-					once: true
-				});
-				row.append(img);
-			} else {
-				row.append(monogram(mod.name));
-			}
+			row.append(icon(mod));
 
 			const body = document.createElement("div");
 			body.className = "mod__body";
 
 			const name = document.createElement("div");
 			name.className = "mod__name";
-			const a = document.createElement("a");
-			a.href = `https://modrinth.com/mod/${encodeURIComponent(mod.slug)}`;
-			a.target = "_blank";
-			a.rel = "noopener noreferrer";
-			a.textContent = mod.name;
-			name.append(a);
-
-			if (mod.side !== "both") {
-				const tag = document.createElement("span");
-				tag.className = "mod__side";
-				tag.dataset.side = mod.side;
-				tag.textContent = mod.side;
-				tag.title =
-					mod.side === "client"
-						? "Client only, not installed on servers"
-						: "Server only";
-				name.append(tag);
+			name.append(modLink(mod));
+			// The addon count belongs with the title, not on a line of its own:
+			// "Sodium + 4 addons" is one claim about one mod.
+			if (addons.length) {
+				const count = document.createElement("span");
+				count.className = "mod__addons-count";
+				count.textContent = `+ ${addons.length} addon${addons.length === 1 ? "" : "s"}`;
+				name.append(count);
 			}
+			name.append(sideTag(mod));
 			body.append(name);
 
 			if (mod.blurb) {
@@ -325,56 +417,85 @@ const browser = (function modBrowser() {
 				desc.textContent = mod.blurb;
 				body.append(desc);
 			}
+
+			// Addons read as one row with the parent, not as extra rows.
+			if (addons.length) {
+				const list = document.createElement("ul");
+				list.className = "mod__addons";
+				for (const addon of addons) {
+					const li = document.createElement("li");
+					li.append(modLink(addon));
+					li.append(sideTag(addon));
+					list.append(li);
+				}
+				body.append(list);
+			}
+
 			row.append(body);
 			frag.append(row);
 		}
 		list.append(frag);
 	}
 
-	function paintMore(shown, visible) {
+	function paintMore(entries) {
 		const q = Boolean(query.trim());
 		// A search is deliberate: show every hit rather than hiding rows behind
 		// a button. Without a search, the button exists only if there is a tail.
-		const needed = !q && shown.length > PAGE;
+		const needed = !q && entries > PAGE;
 		moreEl.hidden = !needed;
 		if (!needed) return;
 
 		moreBtn.setAttribute("aria-expanded", String(expanded));
-		moreLabel.textContent = expanded ? "Show fewer" : `Show all ${shown.length} mods`;
-		moreCount.textContent = expanded ? "" : `Showing ${visible} of ${shown.length}`;
+		moreLabel.textContent = expanded ? "Show fewer" : `Show all ${entries} mods`;
 	}
 
 	function sync() {
 		const q = query.trim().toLowerCase();
-		const inGroup = data.mods.filter((m) => group === "all" || m.group === group);
-		const hits = q
-			? inGroup.filter(
+		// Group, then side, then addons: each narrows the pool before the
+		// text search and the sort see it. Mods without a recognised side are
+		// kept so a new pack entry is never silently filtered away.
+		let pool = data.mods.filter((m) => group === "all" || m.group === group);
+		if (env !== "both") pool = pool.filter((m) => m.side === env || m.side === "both");
+		if (hideAddons) pool = pool.filter((m) => !m.parent);
+
+		// filter() returns a fresh array, so sorting it in place is safe.
+		const hits = (q
+			? pool.filter(
 					(m) =>
 						m.name.toLowerCase().includes(q) ||
 						(m.blurb || "").toLowerCase().includes(q) ||
 						(m.slug || "").toLowerCase().includes(q)
 				)
-			: inGroup;
+			: pool
+		).sort(SORTERS[sort]);
 
-		const visible = !q && !expanded ? Math.min(PAGE, hits.length) : hits.length;
+		// Pagination counts entries, not mods: an addon rides along with its
+		// parent, so the page cannot promise 12 rows and then render 10.
+		const rows = foldAddons(hits);
+		const entries = rows.length;
+		const visible = !q && !expanded ? Math.min(PAGE, entries) : entries;
 		const from = animateFrom;
 		animateFrom = null;
-		renderMods(hits.slice(0, visible), from ?? undefined);
+		renderMods(rows.slice(0, visible), from ?? undefined);
 
-		const total = group === "all" ? data.curated : inGroup.length;
+		// The count reflects what is on screen: the filters are part of the
+		// scope, so reporting the unfiltered group total would be a lie.
+		const scoped = foldAddons(pool).length;
+		const count = hideAddons ? pool.length : scoped;
 		countEl.textContent = q
-			? `Showing ${hits.length} of ${total}`
-			: `${total} mod${total === 1 ? "" : "s"}`;
-		// Only worth saying when a group is selected, since "87 mods" and
-		// "of 87 curated" next to each other say the same thing twice.
-		if (sidesEl) sidesEl.textContent = q || group === "all" ? "" : `of ${data.curated} curated`;
+			? `Showing ${entries} of ${count}`
+			: `${count} mod${count === 1 ? "" : "s"}`;
+		if (sidesEl) sidesEl.textContent = "";
 
-		paintMore(hits, visible);
+		paintMore(entries);
 		wrapEl.dataset.filled = String(Boolean(q));
 
 		const next = new URLSearchParams();
 		if (group !== "all") next.set("group", group);
 		if (query.trim()) next.set("q", query.trim());
+		if (sort !== "downloads") next.set("sort", sort);
+		if (env !== "both") next.set("side", env);
+		if (hideAddons) next.set("addons", "hide");
 		const qs = next.toString();
 		history.replaceState(null, "", qs ? `?${qs}${location.hash}` : `${location.pathname}${location.hash}`);
 
@@ -384,6 +505,14 @@ const browser = (function modBrowser() {
 		for (const bar of $$(".bar")) {
 			bar.setAttribute("aria-pressed", String(bar.dataset.group === group));
 		}
+		for (const btn of $$(".sort__btn")) {
+			btn.setAttribute("aria-pressed", String(btn.dataset.sort === sort));
+		}
+		for (const btn of $$(".seg__btn")) {
+			btn.setAttribute("aria-checked", String(btn.dataset.env === env));
+		}
+		const addonsBtn = $(".toggle[data-addons]");
+		if (addonsBtn) addonsBtn.setAttribute("aria-pressed", String(hideAddons));
 	}
 
 	moreBtn.addEventListener("click", () => {
@@ -438,6 +567,34 @@ const browser = (function modBrowser() {
 		sync();
 		searchEl.focus();
 	});
+
+	// Order control. Same treatment as the tabs: a mode button per order.
+	$$(".sort__btn").forEach((b) => {
+		b.addEventListener("click", () => {
+			if (sort === b.dataset.sort) return;
+			sort = b.dataset.sort;
+			expanded = false;
+			sync();
+		});
+	});
+
+	// Environment is one choice of three, so it is a radiogroup: Tab reaches
+	// it once and the arrow keys move between the options. The addons toggle
+	// is a separate control, not a fourth option in the same group.
+	wireRadioGroup($("#env-filter"), (el) => {
+		env = el.dataset.env;
+		expanded = false;
+		sync();
+	}, ".seg__btn");
+
+	const addonsBtn = $(".toggle[data-addons]");
+	if (addonsBtn) {
+		addonsBtn.addEventListener("click", () => {
+			hideAddons = !hideAddons;
+			expanded = false;
+			sync();
+		});
+	}
 
 	if (query) searchEl.value = query;
 	sync();
@@ -502,10 +659,14 @@ const browser = (function modBrowser() {
 			key: "modrinth-app",
 			name: "Modrinth App",
 			tag: "mrpack",
-			desc: "Keeps the pack updated on its own. New versions land in your profile without you touching a file.",
 			out: (v) => ({
 				head: "Modrinth App",
-				body: `Install the app and sign in, then open Zitrus from the button below and press Install. Choose ${v.minecraft} in the version dropdown to land on this exact build.`,
+				steps: [
+					"Install the app and sign in to your account.",
+					"Press the button below to open Zitrus, then press Install.",
+					`Keep ${v.minecraft} selected in the version dropdown to get this exact build.`,
+					"Launch it from your profile. Nothing else to configure."
+				],
 				acts: [
 					{
 						label: "Open in Modrinth App",
@@ -519,10 +680,14 @@ const browser = (function modBrowser() {
 			key: "prism",
 			name: "Prism Launcher",
 			tag: "Modrinth",
-			desc: "Installs the pack as an instance and keeps Java, memory and rendering settings under your control.",
 			out: (v) => ({
 				head: "Prism Launcher",
-				body: `In Prism, open Add Instance, switch the source to Modrinth and search for Zitrus. Create the instance for ${v.minecraft}, then set your Java version and memory before the first launch.`,
+				steps: [
+					"Open Add Instance in Prism Launcher.",
+					"Switch the source to Modrinth and search for Zitrus.",
+					`Create the instance for ${v.minecraft}.`,
+					"Set your Java version and memory, then launch."
+				],
 				acts: [{ label: "Open on Modrinth", href: MODRINTH }]
 			})
 		},
@@ -530,10 +695,14 @@ const browser = (function modBrowser() {
 			key: "curseforge",
 			name: "CurseForge app",
 			tag: "curseforge",
-			desc: "Installs the pack from CurseForge, next to the rest of your modpacks, with dependency handling included.",
 			out: (v) => ({
 				head: "CurseForge app",
-				body: `In the CurseForge app, open Minecraft, then Install a modpack and search for Zitrus. Pick ${v.minecraft}; the app downloads the pack and every dependency into a new profile.`,
+				steps: [
+					"Open Minecraft in the CurseForge app.",
+					"Choose Install a modpack and search for Zitrus.",
+					`Pick ${v.minecraft}, then let the app install it.`,
+					"Every dependency is downloaded into a new profile for you."
+				],
 				acts: [{ label: "Open on CurseForge", href: CURSEFORGE }]
 			})
 		},
@@ -541,10 +710,14 @@ const browser = (function modBrowser() {
 			key: "standalone",
 			name: "Standalone",
 			tag: "packwiz",
-			desc: "No launcher. One command writes the profile, then you start Minecraft yourself.",
 			out: (v) => ({
 				head: "Standalone, packwiz",
-				body: `Download packwiz-installer-bootstrap and put the jar in your instance folder. Run this once for ${v.minecraft}: it writes the profile and downloads the mods. Start Minecraft afterwards as usual.`,
+				steps: [
+					"Download packwiz-installer-bootstrap and put the jar in your instance folder.",
+					"Run the command below once. It writes the profile and fetches the mods.",
+					`Point it at the ${v.minecraft} build with the path above.`,
+					"Start Minecraft afterwards as usual."
+				],
 				code: `java -jar packwiz-installer-bootstrap.jar -g https://raw.githack.com/Bruderjulian/LemonlightModpack3/dist/versions/fabric/${v.minecraft}/pack.toml`,
 				acts: [{ label: "Bootstrap releases", href: PACKWIZ, ghost: true }]
 			})
@@ -564,20 +737,29 @@ const browser = (function modBrowser() {
 		head.className = "wiz-out__head";
 		const forEl = document.createElement("span");
 		forEl.className = "wiz-out__for";
-		forEl.textContent = `${spec.head} · ${v.minecraft}`;
+		// Launcher, then the pack it installs, then the release. All four
+		// describe the same install, so they read as one line rather than a
+		// header plus a footnote. The raw pack version string is gone: it only
+		// repeated the Minecraft version and the loader.
+		const pack = v.loader ? `${v.minecraft} ${capitalise(v.loader)}` : v.minecraft;
+		const parts = [spec.head, pack];
+		if (v.release) parts.push(`v${v.release}`);
+		forEl.textContent = parts.join(" \u00b7 ");
 		head.append(forEl);
 
 		const body = document.createElement("div");
 		body.className = "wiz-out__body";
 
-		const p = document.createElement("p");
-		p.textContent = spec.body;
-		body.append(p);
-
-		const meta = document.createElement("p");
-		meta.className = "wiz-out__meta";
-		meta.textContent = `${v.packVersion} · ${v.total} mods installed`;
-		body.append(meta);
+		// One action per line reads faster than the paragraph it replaces, and
+		// survives a screen reader as an actual list.
+		const steps = document.createElement("ol");
+		steps.className = "wiz-steps";
+		for (const text of spec.steps) {
+			const li = document.createElement("li");
+			li.textContent = text;
+			steps.append(li);
+		}
+		body.append(steps);
 
 		if (spec.code) {
 			const code = document.createElement("div");
@@ -614,6 +796,8 @@ const browser = (function modBrowser() {
 
 	function paintVersions() {
 		versionsEl.textContent = "";
+		// data.versions arrives newest first, so the default choice is the
+		// first card and arrow keys walk backwards through the pack's history.
 		for (const v of data.versions) {
 			const b = document.createElement("button");
 			b.className = "pick pick--ver";
@@ -624,25 +808,21 @@ const browser = (function modBrowser() {
 			b.setAttribute("aria-checked", String(v.minecraft === version.minecraft));
 			b.innerHTML =
 				`<span class="pick__mark"></span>
-				 <span class="v__n">${v.minecraft}</span>
-				 <span class="v__c">${v.total} mods</span>`;
+				 <span class="v__n">${v.minecraft}</span>`;
 			versionsEl.append(b);
 		}
 	}
 
 	for (const l of LAUNCHERS) {
 		const b = document.createElement("button");
-		b.className = "pick";
+		b.className = "pick pick--launcher";
 		b.type = "button";
 		b.role = "radio";
 		b.dataset.key = l.key;
 		b.setAttribute("aria-checked", String(l === launcher));
 		b.innerHTML =
 			`<span class="pick__mark"></span>
-			 <span class="pick__body">
-				<span class="pick__name">${l.name}<span class="pick__tag">${l.tag}</span></span>
-				<span class="pick__desc">${l.desc}</span>
-			 </span>`;
+			 <span class="pick__name">${l.name}<span class="pick__tag">${l.tag}</span></span>`;
 		launchersEl.append(b);
 	}
 

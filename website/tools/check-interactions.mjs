@@ -120,7 +120,14 @@ await withSite(async (url) => {
 				hidden: more.hidden,
 				expanded: btn.getAttribute('aria-expanded'),
 				label: document.getElementById('more-label').textContent,
-				count: document.getElementById('more-count').textContent
+				// The stray "Showing X of Y" was removed; the button is the
+				// only thing left in that row.
+				strays: document.querySelectorAll('#browser-more > *:not(button)').length,
+				centered: (() => {
+					const row = more.getBoundingClientRect();
+					const b = btn.getBoundingClientRect();
+					return Math.abs(row.left + row.width / 2 - (b.left + b.width / 2)) < 1.5;
+				})()
 			});
 			const before = snap();
 			btn.click();
@@ -152,12 +159,14 @@ await withSite(async (url) => {
 			moreTest.before.rows === 12 &&
 				moreTest.before.hidden === false &&
 				moreTest.before.expanded === "false" &&
-				moreTest.before.label === "Show all 87 mods" &&
-				moreTest.open.rows === 87 &&
+				moreTest.before.label === "Show all 75 mods" &&
+				moreTest.open.rows === 75 &&
 				moreTest.open.expanded === "true" &&
 				moreTest.open.label === "Show fewer" &&
 				moreTest.closed.rows === 12 &&
-				moreTest.closed.expanded === "false",
+				moreTest.closed.expanded === "false" &&
+				moreTest.before.strays === 0 &&
+				moreTest.before.centered,
 			JSON.stringify(moreTest)
 		);
 		check(
@@ -191,13 +200,236 @@ await withSite(async (url) => {
 			JSON.stringify(barTest)
 		);
 
-		// Install wizard
+		// Environment and addon filters
+const filterTest = await evalJs(`(async () => {
+	const wait = (ms = 220) => new Promise(r => setTimeout(r, ms));
+	const count = () => document.getElementById('browser-count').textContent;
+	const sideTags = () => [...document.querySelectorAll('.mod__side')].map(t => t.dataset.side);
+	const click = async (sel) => { document.querySelector(sel).click(); await wait(); };
+
+	// The hero-bar test above leaves the group on visuals; start from All so
+	// these assertions are about the environment filter and nothing else.
+	await click('.tab[data-group="all"]');
+
+	// Every row is tagged, whichever side it runs on.
+	const tagged = [...document.querySelectorAll('.mod:not([data-orphan]) .mod__name > .mod__side')];
+	const base = {
+		count: count(),
+		url: location.search,
+		chips: document.querySelectorAll('.mod__addons li').length,
+		rows: document.querySelectorAll('.mod').length,
+		tagged: tagged.length,
+		labels: [...new Set(tagged.map(t => t.textContent))].sort()
+	};
+
+	// Client means client or both, so a both-side mod stays visible.
+	await click('.seg__btn[data-env="client"]');
+	const client = {
+		count: count(),
+		url: location.search,
+		rows: document.querySelectorAll('.mod').length,
+		tags: [...new Set(sideTags())].sort(),
+		checked: document.querySelector('.seg__btn[data-env="client"]').getAttribute('aria-checked')
+	};
+
+	await click('.seg__btn[data-env="server"]');
+	const server = { count: count(), tags: [...new Set(sideTags())].sort(), url: location.search };
+
+	// Arrow keys move between the three options.
+	document.querySelector('.seg__btn[data-env="server"]').focus();
+	document.querySelector('.seg__btn[data-env="server"]')
+		.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowRight', bubbles: true}));
+	await wait();
+	const viaKey = {
+		env: document.querySelector('#env-filter [aria-checked="true"]').dataset.env,
+		tabIndex: document.querySelector('#env-filter [aria-checked="true"]').tabIndex,
+		otherTabIndex: document.querySelector('.seg__btn[data-env="client"]').tabIndex
+	};
+
+	await click('.seg__btn[data-env="both"]');
+	await click('.toggle[data-addons]');
+	const noAddons = {
+		count: count(),
+		chips: document.querySelectorAll('.mod__addons li').length,
+		url: location.search,
+		pressed: document.querySelector('.toggle[data-addons]').getAttribute('aria-pressed')
+	};
+
+	await click('.toggle[data-addons]');
+	const restored = {
+		count: count(),
+		chips: document.querySelectorAll('.mod__addons li').length,
+		url: location.search
+	};
+	return { base, client, server, viaKey, noAddons, restored };
+})()`);
+check(
+	"every mod row carries a side tag",
+	filterTest.base.tagged === filterTest.base.rows &&
+		filterTest.base.labels.length === 2 &&
+		filterTest.base.labels.includes("Client & Server"),
+	JSON.stringify({ rows: filterTest.base.rows, tagged: filterTest.base.tagged, labels: filterTest.base.labels })
+);
+check(
+	"environment filter picks one environment and keeps both-side mods",
+	filterTest.client.count === "72 mods" &&
+		filterTest.client.url === "?side=client" &&
+		filterTest.client.checked === "true" &&
+		filterTest.client.tags.length === 2 &&
+		filterTest.client.tags.includes("client") &&
+		filterTest.client.tags.includes("both") &&
+		!filterTest.client.tags.includes("server"),
+	JSON.stringify(filterTest.client)
+);
+check(
+	"server filter drops the client-only mods",
+	filterTest.server.count === "69 mods" &&
+		// Only the first page renders, so this checks what must be gone
+		// rather than what must be there.
+		!filterTest.server.tags.includes("client") &&
+		filterTest.server.tags.includes("both"),
+	JSON.stringify(filterTest.server)
+);
+check(
+	"environment filter is a single-choice group with arrow keys",
+	filterTest.viaKey.env === "both" &&
+		filterTest.viaKey.tabIndex === 0 &&
+		filterTest.viaKey.otherTabIndex === -1,
+	JSON.stringify(filterTest.viaKey)
+);
+check(
+	"hide addons strips the addon chips and back again",
+	filterTest.noAddons.chips === 0 &&
+		filterTest.noAddons.pressed === "true" &&
+		filterTest.noAddons.url === "?addons=hide" &&
+		filterTest.base.chips > 0 &&
+		filterTest.restored.chips === filterTest.base.chips &&
+		filterTest.restored.url === "",
+	JSON.stringify({ base: filterTest.base.chips, noAddons: filterTest.noAddons, restored: filterTest.restored })
+);
+
+// Ordering: downloads by default, relevance on request
+const sortTest = await evalJs(`(async () => {
+	const wait = (ms = 160) => new Promise(r => setTimeout(r, ms));
+	const reads = () => [...document.querySelectorAll('.mod')].map(r => +r.dataset.downloads);
+	const groups = () => [...document.querySelectorAll('.mod')].map(r => r.dataset.group);
+
+	document.querySelector('.tab[data-group="all"]').click();
+	await wait();
+	const downloads = reads();
+	const desc = downloads.every((d, i) => i === 0 || downloads[i - 1] >= d);
+
+	// Relevance is the pack's own group order, so the first card is a
+	// performance mod and no group ever reappears after a different one.
+	document.querySelector('.sort__btn[data-sort="relevance"]').click();
+	await wait();
+	// Expand, otherwise the first page is all performance and proves nothing.
+	if (document.getElementById('more-toggle').getAttribute('aria-expanded') === 'false') {
+		document.getElementById('more-toggle').click();
+		await wait(280);
+	}
+	const rel = groups();
+	// Each group must appear in one unbroken run: no performance, visuals,
+	// then performance again.
+	const firstOfKind = (() => {
+		const runs = rel.filter((g, i) => i === 0 || g !== rel[i - 1]);
+		return runs.length === new Set(runs).size;
+	})();
+	const perfFirst = document.querySelector('.sort__btn[data-sort="relevance"]').getAttribute('aria-pressed');
+
+	document.querySelector('.sort__btn[data-sort="downloads"]').click();
+	await wait();
+	// Back on downloads: descending again, and collapsed to the first page.
+	const stillDesc = reads().every((d, i, a) => i === 0 || a[i - 1] >= d);
+	return {
+		rows: downloads.length,
+		desc,
+		relevanceGroups: [...new Set(rel)].join(','),
+		relevanceRows: rel.length,
+		firstOfKind,
+		perfFirst,
+		stillDesc,
+		pressed: document.querySelector('.sort__btn[data-sort="downloads"]').getAttribute('aria-pressed'),
+		url: location.search
+	};
+})()`);
+check(
+	"mod list orders by downloads, then by relevance",
+	sortTest.rows === 12 &&
+		sortTest.desc &&
+		sortTest.relevanceRows === 75 &&
+		sortTest.relevanceGroups === "performance,visuals,qol,tweaks" &&
+		sortTest.firstOfKind &&
+		sortTest.stillDesc &&
+		sortTest.perfFirst === "true" &&
+		sortTest.pressed === "true" &&
+		sortTest.url === "",
+	JSON.stringify(sortTest)
+);
+
+// Addons fold into their parent row instead of getting one of their own
+const addonTest = await evalJs(`(async () => {
+	const wait = (ms = 200) => new Promise(r => setTimeout(r, ms));
+	document.querySelector('.tab[data-group="all"]').click();
+	document.getElementById('more-toggle').click();
+	await wait(320);
+	const rows = [...document.querySelectorAll('.mod')];
+	const sodium = rows.find(r => r.querySelector('.mod__name a')?.textContent === 'Sodium');
+	const tagged = rows.filter(r => r.dataset.addons);
+	const chips = sodium ? [...sodium.querySelectorAll('.mod__addons li a')].map(a => a.textContent) : [];
+	const allChips = [...document.querySelectorAll('.mod__addons li a')].map(a => a.textContent);
+	// The count has to live in the title line, not on a line of its own.
+	const label = sodium?.querySelector('.mod__name .mod__addons-count')?.textContent;
+	const standaloneCounts = rows.filter(r => !r.querySelector('.mod__name .mod__addons-count') && r.querySelector('.mod__addons-count')).length;
+	const titleLine = sodium ? [...sodium.querySelectorAll('.mod__name > *')].map(n => n.textContent) : [];
+	// An addon must never also appear as a row of its own.
+	const names = rows.map(r => r.querySelector('.mod__name a')?.textContent);
+	const dupes = chips.filter(c => names.includes(c));
+	// The orphaned case: a search that hits an addon but not its parent.
+	document.getElementById('more-toggle').click();
+	await wait(260);
+	const inp = document.getElementById('search');
+	inp.value = 'Sodium Shadowy';
+	inp.dispatchEvent(new Event('input', {bubbles: true}));
+	await wait(260);
+	const orphan = [...document.querySelectorAll('.mod')].map(r => ({
+		name: r.querySelector('.mod__name a')?.textContent,
+		orphan: r.dataset.orphan === 'true'
+	}));
+	document.getElementById('search-clear').click();
+	await wait();
+	return { rows: rows.length, parents: tagged.length, chips, allChips, label, standaloneCounts, titleLine, dupes, orphan, count: document.getElementById('browser-count').textContent };
+})()`);
+check(
+	"addons fold into their parent row",
+	addonTest.rows === 75 &&
+		addonTest.parents === 4 &&
+		addonTest.allChips.length === 12 &&
+		addonTest.chips.length === 4 &&
+		addonTest.label === "+ 4 addons" &&
+		addonTest.standaloneCounts === 0 &&
+		// Tags carry their display case now that every row has one.
+		addonTest.titleLine.join(" ") === "Sodium + 4 addons Client" &&
+		addonTest.dupes.length === 0 &&
+		addonTest.chips.includes("Reese's Sodium Options"),
+	JSON.stringify({ rows: addonTest.rows, parents: addonTest.parents, chips: addonTest.chips, allChips: addonTest.allChips.length, label: addonTest.label, titleLine: addonTest.titleLine, standaloneCounts: addonTest.standaloneCounts })
+);
+check(
+	"an addon keeps a row when its parent is filtered out",
+	addonTest.orphan.length === 1 &&
+		addonTest.orphan[0].orphan === true &&
+		addonTest.orphan[0].name === "Sodium Shadowy Path Blocks",
+	JSON.stringify(addonTest.orphan)
+);
+
+// Install wizard
 		const wizardTest = await evalJs(`(async () => {
 			const wait = () => new Promise(r => setTimeout(r, 160));
 			const out = () => document.getElementById('wiz-out').textContent.replace(/\\s+/g, ' ').trim();
 			const cmd = () => document.querySelector('#wiz-out [data-copy]')?.dataset.copy || '';
 			const launchers = [...document.querySelectorAll('#wiz-launchers .pick')];
 			const versions = [...document.querySelectorAll('#wiz-versions .pick')];
+			const versionOrder = versions.map(v => v.dataset.mc);
 			const first = out().slice(0, 90);
 
 			launchers[3].click();
@@ -219,26 +451,37 @@ await withSite(async (url) => {
 				tabIndex: document.querySelector('#wiz-versions [aria-checked="true"]').tabIndex,
 				otherTabIndex: document.querySelectorAll('#wiz-versions .pick')[0].tabIndex
 			};
-			return { first, standalone, picked, viaKey, counts: launchers.length + '/' + versions.length };
+			// Arrow Left from the newest has to wrap, or it is a dead end.
+		versions[0].focus();
+		versions[0].dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowLeft', bubbles: true}));
+		await wait();
+		const wrapped = cmd();
+		return { first, standalone, picked, viaKey, wrapped, versionOrder, counts: launchers.length + '/' + versions.length };
 		})()`);
 		check(
-			"wizard opens on the latest version with a real result",
-			/^Modrinth App \S+ 26\.3/.test(wizardTest.first) &&
+			"wizard versions run newest to oldest",
+			wizardTest.versionOrder.join(",") === "26.3,26.2,26.1.2,1.21.11,1.21.1,1.20.1",
+			wizardTest.versionOrder.join(",")
+		);
+		check(
+			"wizard header names launcher, pack and release",
+			/^Modrinth App \S+ 26\.3 Fabric \S+ v1\.1\.0/.test(wizardTest.first) &&
 				wizardTest.counts === "4/6",
 			wizardTest.first
 		);
 		check(
 			"picking a launcher and version rewrites the install",
 			/26\.3\/pack\.toml/.test(wizardTest.standalone) &&
-				/1\.21\.1\/pack\.toml/.test(wizardTest.picked),
+				/26\.2\/pack\.toml/.test(wizardTest.picked),
 			`${wizardTest.standalone} | ${wizardTest.picked}`
 		);
 		check(
 			"wizard groups use arrow keys and one tab stop",
 			wizardTest.viaKey.idx === 2 &&
-				/1\.21\.11\/pack\.toml/.test(wizardTest.viaKey.cmd) &&
+				/26\.1\.2\/pack\.toml/.test(wizardTest.viaKey.cmd) &&
 				wizardTest.viaKey.tabIndex === 0 &&
-				wizardTest.viaKey.otherTabIndex === -1,
+				wizardTest.viaKey.otherTabIndex === -1 &&
+				/1\.20\.1\/pack\.toml/.test(wizardTest.wrapped),
 			JSON.stringify(wizardTest.viaKey)
 		);
 
@@ -280,17 +523,35 @@ await withSite(async (url) => {
 
 		// Reveal + bars + scroll spy
 		const motionTest = await evalJs(`(async () => {
+			const wait = (ms) => new Promise(r => setTimeout(r, ms));
+			const current = () =>
+				document.querySelector('#nav-links a[aria-current]')?.textContent || 'none';
+
 			document.getElementById('mods').scrollIntoView();
-			await new Promise(r => setTimeout(r, 900));
-			const onMods = document.querySelector('#nav-links a[href="#mods"]').getAttribute('aria-current');
+			await wait(900);
+			const onMods = current();
 			document.getElementById('install').scrollIntoView();
-			await new Promise(r => setTimeout(r, 900));
-			const onInstall = document.querySelector('#nav-links a[href="#install"]').getAttribute('aria-current');
+			await wait(900);
+			const onInstall = current();
+
+			// Jumping back up used to leave the highlight on the section above,
+			// because the observer only reacted to entries entering the band.
+			document.querySelector('#nav-links a[href="#mods"]').click();
+			await wait(1500);
+			const afterJumpUp = current();
+
+			// And scrolling above the first section used to leave it stuck on Mods.
+			window.scrollTo(0, 0);
+			await wait(900);
+			const afterTop = current();
+
 			return {
 				revealed: document.querySelectorAll('[data-reveal].is-in').length,
 				bars: document.getElementById('p-bars').classList.contains('is-in'),
 				onMods,
 				onInstall,
+				afterJumpUp,
+				afterTop,
 				active: document.querySelectorAll('#nav-links a[aria-current]').length
 			};
 		})()`);
@@ -305,13 +566,17 @@ await withSite(async (url) => {
 			String(motionTest.bars)
 		);
 		check(
-			"scroll spy marks the section in view",
-			motionTest.onMods === "true" &&
-				motionTest.onInstall === "true" &&
-				motionTest.active === 1,
+			"scroll spy tracks both directions and clears above the first section",
+			motionTest.onMods === "Mods" &&
+				motionTest.onInstall === "Install" &&
+				motionTest.afterJumpUp === "Mods" &&
+				motionTest.afterTop === "none" &&
+				motionTest.active === 0,
 			JSON.stringify({
 				onMods: motionTest.onMods,
-				onInstall: motionTest.onInstall
+				onInstall: motionTest.onInstall,
+				afterJumpUp: motionTest.afterJumpUp,
+				afterTop: motionTest.afterTop
 			})
 		);
 

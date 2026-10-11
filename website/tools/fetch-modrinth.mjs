@@ -67,7 +67,15 @@ writeFileSync(
 			displayTitle: displayTitle(p.title),
 			description: p.description,
 			categories: p.categories,
-			icon_url: p.icon_url
+			icon_url: p.icon_url,
+			// Popularity. The site sorts the mod list by downloads and uses
+			// followers as the tiebreak, so these have to be in the cache:
+			// the page never calls the API at runtime.
+			downloads: p.downloads ?? 0,
+			followers: p.followers ?? 0,
+			// First release date. Cached but unused for now; it is what a
+			// "newest" sort would key off if one is ever added.
+			published: p.published ?? null
 		})),
 		null,
 		"\t"
