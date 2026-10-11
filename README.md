@@ -17,11 +17,11 @@
 
 ![Available for Fabric](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/supported/fabric_vector.svg) [![Chat with us on Discord](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://discord.gg/36Tv44cYte) [![Available on GitHub](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg)](https://github.com/skywardmc/zitrus) [![Available on Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg)](https://modrinth.com/project/zitrus)
 
-Zitrus is a **client-side** or **server-side** modpack, developed for Fabric, comprised of the **best combination of mods** (e.g. Sodium and Lithium, along with many more) — with a curated set of quality-of-life mods, so a fresh install is smooth out of the box instead of a weekend of tweaking.
+Zitrus is an opinionated performance and batteries-included modpack, developed for fabric. Comprised of the **best combination of mods** (e.g. Sodium and Lithium, along with many more) — with a curated set of quality-of-life mods, so a fresh install is smooth out of the box instead of a weekend of tweaking.
 
 Two things set it apart from a bare performance pack:
 
-- **Performance you can feel.** Rendering, game logic, memory and network are all patched, and the imported settings are already configured.
+- **Performance you can feel.** Rendering, game logic, memory and network are all improved, and the imported settings are already configured.
 - **Batteries included.** Xaero's World/Minimap, Connected textures, Shaders and more ship by default.
 
 It stays a *foundation*, not a walled garden. Remove what you don't want, add what you do, and you still end up with a fast, stable game.
