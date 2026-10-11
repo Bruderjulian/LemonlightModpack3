@@ -31,15 +31,24 @@
 				const t = localStorage.getItem("zitrus-theme");
 				if (t) document.documentElement.dataset.theme = t;
 			} catch {}
+			// Same idea for the locale: the dictionaries are already in the
+			// module bundle, so main.js writes the right language before its
+			// first paint. This only needs to set lang early enough for a
+			// reader who has chosen something other than English to get the
+			// right font fallback and hyphenation on the first frame.
+			try {
+				const l = localStorage.getItem("zitrus-lang");
+				if (l) document.documentElement.lang = l;
+			} catch {}
 		</script>
 	</head>
 	<body>
-		<a href="#main" class="sr-only">Skip to content</a>
+		<a href="#main" class="sr-only" data-i18n="a11y.skip">Skip to content</a>
 
 		<!-- ===================== Nav ===================== -->
 		<header class="nav" id="nav">
 			<div class="wrap nav__in">
-				<a class="brand" href="/" aria-label="Zitrus home">
+				<a class="brand" href="/" aria-label="Zitrus home" data-i18n-attr="aria-label:a11y.home">
 					<svg class="brand__mark" viewBox="0 -0.6 24 24" fill="none" aria-hidden="true">
 						<circle cx="12" cy="13" r="8.5" stroke="var(--accent-display)" stroke-width="1.7" />
 						<path d="M12 4.5v8.5M12 13 6.9 16.4M12 13l5.1 3.4" stroke="var(--accent-display)" stroke-width="1.7" />
@@ -48,9 +57,9 @@
 					Zitrus
 				</a>
 
-				<nav class="nav__links" id="nav-links" aria-label="Sections">
-					<a href="#mods">Mods</a>
-					<a href="#install">Install</a>
+				<nav class="nav__links" id="nav-links" aria-label="Sections" data-i18n-attr="aria-label:a11y.sections">
+					<a href="#mods" data-i18n="nav.mods">Mods</a>
+					<a href="#install" data-i18n="nav.install">Install</a>
 				</nav>
 
 				<!-- One Install affordance in the bar, not two: the section
@@ -60,28 +69,53 @@
 					<!-- Brand marks from Simple Icons (CC0), inlined so the page
 					     still makes no third-party request at runtime. -->
 					<div class="nav__social">
-						<a href="https://modrinth.com/project/zitrus" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on Modrinth">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z"/></svg>
+						<a href="https://modrinth.com/project/zitrus" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on Modrinth" data-i18n-attr="aria-label:a11y.onModrinth">
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0.5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z"/></svg>
 						</a>
 						<!-- TODO: confirm the CurseForge slug when the project is published there. -->
-						<a href="https://www.curseforge.com/minecraft/modpacks/zitrus" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on CurseForge">
+						<a href="https://www.curseforge.com/minecraft/modpacks/zitrus" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on CurseForge" data-i18n-attr="aria-label:a11y.onCurseforge">
 							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.326 9.2145S23.2261 8.4418 24 6.1882h-7.5066V4.4H0l2.0318 2.3576V9.173s5.1267-.2665 7.1098 1.2372c2.7146 2.516-3.053 5.917-3.053 5.917L5.0995 19.6c1.5465-1.4726 4.494-3.3775 9.8983-3.2857-2.0565.65-4.1245 1.6651-5.7344 3.2857h10.9248l-1.0288-3.2726s-7.918-4.6688-.8336-7.1127z"/></svg>
 						</a>
-						<a href="https://github.com/Bruderjulian/LemonlightModpack3" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on GitHub">
+						<a href="https://github.com/Bruderjulian/LemonlightModpack3" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on GitHub" data-i18n-attr="aria-label:a11y.onGithub">
 							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
 						</a>
-						<a href="https://discord.gg/36Tv44cYte" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on Discord">
+						<a href="https://discord.gg/36Tv44cYte" target="_blank" rel="noopener noreferrer" aria-label="Zitrus on Discord" data-i18n-attr="aria-label:a11y.onDiscord">
 							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
 						</a>
 					</div>
 
-					<button class="icon-btn nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+					<!-- Language picker. A menu of buttons rather than a <select>:
+					     native selects cannot be styled to match the rest of the
+					     chrome, and this way the current language keeps its own
+					     glyph and reads the same on every platform. -->
+					<div class="lang">
+						<button
+							class="icon-btn lang__btn"
+							id="lang-btn"
+							type="button"
+							aria-label="Language"
+							aria-haspopup="true"
+							aria-expanded="false"
+							aria-controls="lang-menu"
+							data-i18n-attr="aria-label:a11y.language"
+						>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+								<circle cx="12" cy="12" r="8.5" />
+								<path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17" />
+							</svg>
+							<span class="lang__code" id="lang-code">EN</span>
+						</button>
+
+						<div class="lang__menu" id="lang-menu" role="menu" aria-label="Choose a language" data-i18n-attr="aria-label:a11y.languageList" hidden></div>
+					</div>
+
+					<button class="icon-btn nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer" data-i18n-attr="aria-label:a11y.openMenu">
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
 							<path d="M3.5 7h17M3.5 12h17M3.5 17h17" />
 						</svg>
 					</button>
 
-					<button class="icon-btn theme-toggle" id="theme" type="button" aria-label="Toggle colour theme">
+					<button class="icon-btn theme-toggle" id="theme" type="button" aria-label="Toggle colour theme" data-i18n-attr="aria-label:a11y.toggleTheme">
 						<svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
 							<circle cx="12" cy="12" r="4" />
 							<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
@@ -95,11 +129,14 @@
 		</header>
 
 		<div class="drawer" id="drawer">
-			<a href="#mods">Mods</a>
-			<a href="#install">Install</a>
-			<a href="https://github.com/Bruderjulian/LemonlightModpack3#-questions">Wiki</a>
-			<a href="https://discord.gg/36Tv44cYte">Discord</a>
-			<a class="btn btn--primary" href="#install">Install</a>
+			<a href="#mods" data-i18n="nav.mods">Mods</a>
+			<a href="#install" data-i18n="nav.install">Install</a>
+			<a href="https://github.com/Bruderjulian/LemonlightModpack3#-questions" data-i18n="nav.wiki">Wiki</a>
+			<a href="https://discord.gg/36Tv44cYte" data-i18n="nav.discord">Discord</a>
+			<!-- No language row here. The picker stays in the bar at every
+			     width, so a reader on a phone does not have to find it in two
+			     places, and the drawer keeps its original four links. -->
+			<a class="btn btn--primary" href="#install" data-i18n="nav.install">Install</a>
 		</div>
 
 		<main id="main">
@@ -107,44 +144,47 @@
 			<section class="hero">
 				<div class="wrap hero__grid">
 					<div>
-						<p class="eyebrow">Fabric performance modpack</p>
-						<h1 class="hero__title">Fast <em>by default.</em></h1>
-						<p class="hero__sub">
+						<p class="eyebrow" data-i18n="hero.eyebrow">Fabric performance modpack</p>
+						<h1 class="hero__title" data-i18n-html="hero.title">Fast <em>by default.</em></h1>
+						<p class="hero__sub" data-i18n="hero.sub">
 							A performance-first Fabric modpack with quality of life already configured and
 							nothing to set up before you play.
 						</p>
 						<div class="hero__cta">
-							<a class="btn btn--primary" href="#install">Install</a>
-							<a class="btn btn--ghost" href="#mods">Browse the mods</a>
+							<a class="btn btn--primary" href="#install" data-i18n="hero.ctaInstall">Install</a>
+							<a class="btn btn--ghost" href="#mods" data-i18n="hero.ctaBrowse">Browse the mods</a>
 						</div>
 					</div>
 
 					<!-- Real numbers, read from the pack metadata at build time. -->
-					<div class="panel" aria-label="Pack at a glance">
+					<div class="panel" aria-label="Pack at a glance" data-i18n-attr="aria-label:panel.label">
 						<div class="panel__head">
-							<span class="panel__title">Pack at a glance</span>
-							<span class="panel__pill" id="p-ver">loading</span>
+							<span class="panel__title" data-i18n="panel.label">Pack at a glance</span>
+							<span class="panel__pill" id="p-ver" data-i18n="panel.loading">loading</span>
 						</div>
 						<div class="panel__body">
 							<div class="stat-row">
 								<div class="stat">
 									<div class="stat__n" id="p-total">--</div>
-									<div class="stat__l">Mods installed</div>
+									<div class="stat__l" data-i18n="panel.modsInstalled">Mods installed</div>
 								</div>
 								<div class="stat">
 									<div class="stat__n" id="p-curated">--</div>
-									<div class="stat__l">Curated</div>
+									<div class="stat__l" data-i18n="panel.curated">Curated</div>
 								</div>
 								<div class="stat">
 									<div class="stat__n" id="p-versions">--</div>
-									<div class="stat__l">MC versions</div>
+									<div class="stat__l" data-i18n="panel.mcVersions">MC versions</div>
 								</div>
 							</div>
 
-							<p class="panel__label">By group <span class="panel__hint">tap to filter</span></p>
+							<p class="panel__label">
+								<span data-i18n="panel.byGroup">By group</span>
+								<span class="panel__hint" data-i18n="panel.tapToFilter">tap to filter</span>
+							</p>
 							<div class="bars" id="p-bars"></div>
 
-							<p class="panel__label">Supported</p>
+							<p class="panel__label" data-i18n="panel.supported">Supported</p>
 							<div class="panel__foot" id="p-versions-list" style="border: 0; background: 0; padding: 0"></div>
 						</div>
 					</div>
@@ -155,18 +195,18 @@
 			<section class="band" id="foundation">
 				<div class="wrap band__in">
 					<div class="band__lead" data-reveal>
-						<blockquote>
+						<blockquote data-i18n-html="foundation.quote">
 							It stays a <em>foundation</em>, not a walled garden. Remove what you don't want, add
 							what you do.
 						</blockquote>
 						<div class="band__cta">
-							<a class="btn btn--primary" href="https://github.com/Bruderjulian/LemonlightModpack3#-questions">
+							<a class="btn btn--primary" href="https://github.com/Bruderjulian/LemonlightModpack3#-questions" data-i18n="foundation.readWiki">
 								Read the wiki
 							</a>
-							<a class="btn btn--ghost" href="https://discord.gg/36Tv44cYte">Ask on Discord</a>
+							<a class="btn btn--ghost" href="https://discord.gg/36Tv44cYte" data-i18n="foundation.askDiscord">Ask on Discord</a>
 						</div>
 					</div>
-					<p class="band__aside" data-reveal style="--d: 80ms">
+					<p class="band__aside" data-reveal style="--d: 80ms" data-i18n="foundation.aside">
 						Zitrus is tuned as a set, so mods that replace the same work, another renderer or another
 						minimap, will fight it. Drop one or the other and the pack stays fast. The wiki covers which
 						mods are worth adding on top and which ones are not.
@@ -178,8 +218,8 @@
 			<section class="section" id="mods">
 				<div class="wrap">
 					<div class="sec-head" data-reveal>
-						<h2>Everything in the box.</h2>
-						<p>
+						<h2 data-i18n="mods.heading">Everything in the box.</h2>
+						<p data-i18n="mods.lead">
 							Every curated mod Zitrus ships, grouped by what it does for you. Addons ride along
 							under their parent, so a mod you get as a bundle reads as one entry. Libraries are
 							left out because they exist only to make the rest work.
@@ -188,15 +228,15 @@
 
 					<div class="browser" data-reveal>
 						<div class="browser__bar">
-							<div class="tabs" id="tabs" role="tablist" aria-label="Mod groups"></div>
+							<div class="tabs" id="tabs" role="tablist" aria-label="Mod groups" data-i18n-attr="aria-label:mods.groups"></div>
 							<div class="search" id="search-wrap">
 								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
 									<circle cx="11" cy="11" r="6.5" />
 									<path d="m16 16 4 4" />
 								</svg>
-								<label class="sr-only" for="search">Search mods</label>
-								<input id="search" type="search" placeholder="Search mods" autocomplete="off" />
-								<button class="search__clear" id="search-clear" type="button" aria-label="Clear search">
+								<label class="sr-only" for="search" data-i18n="mods.searchLabel">Search mods</label>
+								<input id="search" type="search" placeholder="Search mods" autocomplete="off" data-i18n-attr="placeholder:mods.searchPlaceholder" />
+								<button class="search__clear" id="search-clear" type="button" aria-label="Clear search" data-i18n-attr="aria-label:mods.clearSearch">
 									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
 										<path d="m6 6 12 12M18 6 6 18" />
 									</svg>
@@ -208,21 +248,21 @@
 							     parser closes a p around it, which would strand it
 							     outside this row. -->
 						<div class="browser__meta">
-							<span id="browser-count">Loading mod list...</span>
+							<span id="browser-count" data-i18n="mods.loading">Loading mod list...</span>
 							<span class="browser__meta-tools">
 								<span id="browser-sides"></span>
 								<span class="filters">
 									<button class="toggle" type="button" id="addons-toggle" data-addons="hide" aria-pressed="false">
 										<span class="toggle__box" aria-hidden="true"></span>
-										Hide addons
+										<span data-i18n="mods.hideAddons">Hide addons</span>
 									</button>
-									<div class="seg" id="env-filter" role="radiogroup" aria-label="Filter by environment">
+									<div class="seg" id="env-filter" role="radiogroup" aria-label="Filter by environment" data-i18n-attr="aria-label:mods.filterEnv">
 										<button class="seg__btn" type="button" role="radio" data-env="client" aria-checked="false">
 											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
 												<rect x="3" y="4.5" width="18" height="12" rx="2" />
 												<path d="M9 20h6M12 16.5V20" />
 											</svg>
-											Client
+											<span data-i18n="mods.envClient">Client</span>
 										</button>
 										<button class="seg__btn" type="button" role="radio" data-env="server" aria-checked="false">
 											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
@@ -230,20 +270,20 @@
 												<rect x="3" y="13" width="18" height="7" rx="2" />
 												<path d="M7 7.5h.01M7 16.5h.01" />
 											</svg>
-											Server
+											<span data-i18n="mods.envServer">Server</span>
 										</button>
 										<button class="seg__btn" type="button" role="radio" data-env="both" aria-checked="true">
 											<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
 												<circle cx="12" cy="12" r="8.5" />
 												<path d="M3.5 12h17M12 3.5c2.4 2.6 2.4 14.4 0 17M12 3.5c-2.4 2.6-2.4 14.4 0 17" />
 											</svg>
-											Client &amp; Server
+											<span data-i18n="mods.envBoth">Client &amp; Server</span>
 										</button>
 									</div>
 								</span>
-								<span class="sort" role="group" aria-label="Order the mod list">
-									<button class="sort__btn" type="button" data-sort="downloads" aria-pressed="true">Downloads</button>
-									<button class="sort__btn" type="button" data-sort="relevance" aria-pressed="false">Relevance</button>
+								<span class="sort" role="group" aria-label="Order the mod list" data-i18n-attr="aria-label:mods.sortLabel">
+									<button class="sort__btn" type="button" data-sort="downloads" aria-pressed="true" data-i18n="mods.sortDownloads">Downloads</button>
+									<button class="sort__btn" type="button" data-sort="relevance" aria-pressed="false" data-i18n="mods.sortRelevance">Relevance</button>
 								</span>
 							</span>
 						</div>
@@ -253,7 +293,7 @@
 						<div class="browser__more" id="browser-more" hidden>
 							<button class="btn btn--ghost browser__more-btn" id="more-toggle" type="button"
 								aria-expanded="false" aria-controls="mod-list">
-								<span id="more-label">Show all</span>
+								<span id="more-label" data-i18n="mods.showAll">Show all</span>
 								<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="m6 9 6 6 6-6" />
 								</svg>
@@ -267,8 +307,8 @@
 			<section class="section" id="install">
 				<div class="wrap">
 					<div class="sec-head" data-reveal>
-						<h2>Pick a launcher. Pick a version. Play.</h2>
-						<p>
+						<h2 data-i18n="install.heading">Pick a launcher. Pick a version. Play.</h2>
+						<p data-i18n="install.lead">
 							The wizard below hands you the exact install for your setup. Nothing is left to
 							configure afterwards, because the pack ships already tuned.
 						</p>
@@ -278,15 +318,15 @@
 						<div class="wiz-block">
 							<h3 class="wiz-legend">
 								<span class="wiz-n" aria-hidden="true">1</span>
-								Choose a launcher
+								<span data-i18n="install.step1">Choose a launcher</span>
 							</h3>
-							<div class="launchers" id="wiz-launchers" role="radiogroup" aria-label="Choose a launcher"></div>
+							<div class="launchers" id="wiz-launchers" role="radiogroup" aria-label="Choose a launcher" data-i18n-attr="aria-label:install.chooseLauncher"></div>
 						</div>
 
 						<div class="wiz-block">
 							<h3 class="wiz-legend" id="wiz-ver-legend">
 								<span class="wiz-n" aria-hidden="true">2</span>
-								Choose your Minecraft version
+								<span data-i18n="install.step2">Choose your Minecraft version</span>
 							</h3>
 							<div class="versions" id="wiz-versions" role="radiogroup" aria-labelledby="wiz-ver-legend"></div>
 						</div>
@@ -294,7 +334,7 @@
 						<div class="wiz-block wiz-block--out">
 							<h3 class="wiz-legend">
 								<span class="wiz-n" aria-hidden="true">3</span>
-								Install and launch
+								<span data-i18n="install.step3">Install and launch</span>
 							</h3>
 							<div class="wiz-out" id="wiz-out" aria-live="polite"></div>
 						</div>
@@ -302,27 +342,27 @@
 
 					<div class="wiz-notes" data-reveal style="--d: 80ms">
 						<div class="note">
-							<h4>Black screen or crash on launch?</h4>
+							<h4 data-i18n="note.blackScreenTitle">Black screen or crash on launch?</h4>
 							<p>
-								It is almost always a driver Sodium flags. Read
-								<a href="https://github.com/CaffeineMC/sodium-fabric/wiki/Driver-Compatibility">Sodium's driver notes</a>
-								and disable the one it names, which fixes most reports before anything else is tried.
+								<span data-i18n="note.blackScreenBody">It is almost always a driver Sodium flags. Read</span>
+								<a href="https://github.com/CaffeineMC/sodium-fabric/wiki/Driver-Compatibility" data-i18n="note.blackScreenLink">Sodium's driver notes</a>
+								<span data-i18n="note.blackScreenAfter">and disable the one it names, which fixes most reports before anything else is tried.</span>
 							</p>
 						</div>
 						<div class="note">
-							<h4>Low FPS after the first minute?</h4>
+							<h4 data-i18n="note.lowFpsTitle">Low FPS after the first minute?</h4>
 							<p>
-								Raise render distance, make sure the launcher runs the game on your dedicated GPU,
-								and give it enough RAM. The
-								<a href="https://skywardmc.org/zitrus/post-install">post-install guide</a> has the numbers per setup.
+								<span data-i18n="note.lowFpsBody">Raise render distance, make sure the launcher runs the game on your dedicated GPU, and give it enough RAM. The</span>
+								<a href="https://skywardmc.org/zitrus/post-install" data-i18n="note.lowFpsLink">post-install guide</a>
+								<span data-i18n="note.lowFpsAfter">has the numbers per setup.</span>
 							</p>
 						</div>
 						<div class="note">
-							<h4>Running a server instead?</h4>
+							<h4 data-i18n="note.serverTitle">Running a server instead?</h4>
 							<p>
-								Server setup, Docker and pre-launch commands are in the
-								<a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server">server section of the repo</a>.
-								Vanilla clients still join.
+								<span data-i18n="note.serverBody">Server setup, Docker and pre-launch commands are in the</span>
+								<a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server" data-i18n="note.serverLink">server section of the repo</a>
+								<span data-i18n="note.serverAfter">. Vanilla clients still join.</span>
 							</p>
 						</div>
 					</div>
@@ -335,7 +375,7 @@
 			<div class="wrap">
 				<div class="footer__top">
 					<div>
-						<a class="brand" href="/">
+						<a class="brand" href="/" aria-label="Zitrus home" data-i18n-attr="aria-label:a11y.home">
 							<svg class="brand__mark" viewBox="0 -0.6 24 24" fill="none" aria-hidden="true">
 								<circle cx="12" cy="13" r="8.5" stroke="var(--accent-display)" stroke-width="1.7" />
 								<path d="M12 4.5v8.5M12 13 6.9 16.4M12 13l5.1 3.4" stroke="var(--accent-display)" stroke-width="1.7" />
@@ -343,7 +383,7 @@
 							</svg>
 							Zitrus
 						</a>
-						<p class="footer__tag">
+						<p class="footer__tag" data-i18n="footer.tag">
 							A performance-first Fabric modpack with quality of life included. Maintained by
 							LemonlightMC.
 						</p>
@@ -351,31 +391,31 @@
 
 					<div class="footer__cols">
 						<div class="footer__col">
-							<h4>Get it</h4>
+							<h4 data-i18n="footer.getIt">Get it</h4>
 							<ul>
 								<!-- TODO: confirm the CurseForge slug once the project is published there.
 								     This one is a guess; Modrinth is the source of truth until then. -->
-								<li><a href="https://modrinth.com/project/zitrus">Modrinth</a></li>
-								<li><a href="https://www.curseforge.com/minecraft/modpacks/zitrus">CurseForge</a></li>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/releases">Releases</a></li>
-								<li><a href="https://discord.gg/36Tv44cYte">Discord</a></li>
+								<li><a href="https://modrinth.com/project/zitrus" data-i18n="footer.modrinth">Modrinth</a></li>
+								<li><a href="https://www.curseforge.com/minecraft/modpacks/zitrus" data-i18n="footer.curseforge">CurseForge</a></li>
+								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/releases" data-i18n="footer.releases">Releases</a></li>
+								<li><a href="https://discord.gg/36Tv44cYte" data-i18n="footer.discord">Discord</a></li>
 							</ul>
 						</div>
 						<div class="footer__col">
-							<h4>Learn</h4>
+							<h4 data-i18n="footer.learn">Learn</h4>
 							<ul>
-								<li><a href="#install">Installation</a></li>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server">Server setup</a></li>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#-hardware-compatibility">Hardware</a></li>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#-something-broken">Troubleshooting</a></li>
+								<li><a href="#install" data-i18n="footer.installation">Installation</a></li>
+								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server" data-i18n="footer.serverSetup">Server setup</a></li>
+								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#-hardware-compatibility" data-i18n="footer.hardware">Hardware</a></li>
+								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#-something-broken" data-i18n="footer.troubleshooting">Troubleshooting</a></li>
 							</ul>
 						</div>
 						<div class="footer__col">
-							<h4>Contribute</h4>
+							<h4 data-i18n="footer.contribute">Contribute</h4>
 							<ul>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues">Issue tracker</a></li>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues/new?template=mod-request.md">Request a mod</a></li>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues/new?template=config-request.md">Request a config</a></li>
+								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues" data-i18n="footer.issueTracker">Issue tracker</a></li>
+								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues/new?template=mod-request.md" data-i18n="footer.requestMod">Request a mod</a></li>
+								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues/new?template=config-request.md" data-i18n="footer.requestConfig">Request a config</a></li>
 							</ul>
 						</div>
 					</div>
@@ -383,7 +423,7 @@
 
 				<div class="footer__bot">
 					<span id="foot-ver">Zitrus</span>
-					<span>Not affiliated with Mojang or Microsoft</span>
+					<span data-i18n="footer.notAffiliated">Not affiliated with Mojang or Microsoft</span>
 				</div>
 			</div>
 		</footer>

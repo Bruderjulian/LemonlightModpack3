@@ -20,6 +20,9 @@ website/
   index.html        page markup, unchanged apart from the entry tags
   src/
     main.js         all behaviour
+    i18n/
+      index.js      locale detection, t(), DOM application
+      locales/      one dictionary per language
     styles.css      all styling
     data/mods.json  generated, git tracked
     assets/img/     mod icons, downloaded from Modrinth
@@ -33,6 +36,96 @@ so it works offline and cannot break because someone changed an API.
 Mod icons go through Vite's asset pipeline: `mods.json` records a bare file
 name and `main.js` maps it through `import.meta.glob`, so the built URLs carry
 a content hash.
+
+## Languages
+
+Six ship today: English, German, Spanish, French, Russian and Simplified
+Chinese. The mechanism is about 150 lines in `src/i18n/index.js`, and adding a
+seventh is two steps: drop `src/i18n/locales/xx.js` in, add one line to
+`LOCALES`. Nothing else changes.
+
+Dictionaries are static ES modules imported by `src/i18n/index.js`, so they
+bundle with the JS. There is no runtime fetch and no lazy chunk: switching
+language is synchronous, which is why the page can be correct on its first
+paint instead of flashing English on the way to Russian.
+
+Markup in `index.html` says what is translatable:
+
+```html
+<h2 data-i18n="mods.heading">Everything in the box.</h2>
+<h1 data-i18n-html="hero.title">Fast <em>by default.</em></h1>
+<input data-i18n-attr="placeholder:mods.searchPlaceholder" />
+<nav data-i18n-attr="aria-label:a11y.sections" />
+```
+
+`data-i18n-html` is for inline emphasis only. It is trusted authored copy, not
+user input; the only markup any message uses is `<em>`. Text that has to sit
+around a link is split into `before` / `link` / `after` keys instead, so the
+`<a href>` stays in the HTML rather than inside a translation.
+
+**No string is cached.** Every label goes through `t()` at paint time, so a
+language change is one event: `applyTranslations()` rewrites the marked-up
+nodes, and a list of repaint callbacks rebuilds the mod list, the group bars,
+the tabs and the wizard. The reason is the wizard specifically. Its four
+launchers each have four translated steps, and those steps are produced by a
+function rather than sitting in the markup, so a repaint list is the only thing
+that can reach them without a reload.
+
+### Plural messages
+
+Plurals are keyed by CLDR category, not by `one`/`other`, because Russian needs
+`one`/`few`/`many` and a hand-rolled pair gets it wrong:
+
+```js
+"mods.addonsCount": {
+	one: "+ {n} addon",
+	few: "+ {n} аддона",
+	many: "+ {n} аддонов",
+	other: "+ {n} аддона"
+}
+```
+
+`Intl.PluralRules` picks the form, and a locale that only selects one category
+(simplified Chinese) may hold a bare string instead. `check-i18n.mjs` knows
+which languages those are, from `Intl` itself rather than a hand-kept list.
+
+Nouns that differ by count are separate keys, not one sentence: the footer
+reads "6 версий · 106 модов", which needs `mods.versionCount` and `mods.count`
+rather than a single `{versions} versions · {mods} mods`.
+
+### What is not translated
+
+Mod names, mod blurbs and group blurbs are data, not copy, and stay in English
+for every locale. Translating 87 blurbs by hand would be worse than leaving the
+source language: a mistranslated mod description is a support ticket, whereas
+an English one is recognisably the mod author's own words. Product names are
+in the same category — Fabric, Prism Launcher, CurseForge and packwiz stay in
+Latin script.
+
+### Choosing a language
+
+`?lang=` in the URL wins, then `localStorage` (the key is `zitrus-lang`, and it
+works exactly like `zitrus-theme` already did), then `navigator.languages`.
+Region subtags are dropped, so `pt-BR` reads as `pt` and a reader never misses
+because their browser said `de-AT`. An explicit choice is mirrored into `?lang=`
+so the link can be shared.
+
+The browser filter state and the language share one query string, so `sync()`
+carries `lang` across every filter change rather than clobbering it.
+
+The picker is a popover, not a `<select>`: native selects cannot be styled to
+match the rest of the chrome and look default-ish on some platforms. It stays
+in the bar at every width rather than being duplicated into the mobile drawer,
+because the bar keeps the burger and the theme toggle on a phone anyway, and
+two copies of a switcher would have to be kept in sync.
+
+### Adding a key
+
+1. Add it to `src/i18n/locales/en.js`. That file is the source of truth.
+2. Mark up the node in `index.html`, or call `t()` in `main.js`.
+3. `pnpm --dir website run check:i18n` — it fails on a key the page references
+   but English does not define, and on a key English defines that nothing
+   renders.
 
 ## Where the numbers come from
 
@@ -136,10 +229,12 @@ pnpm --dir website run data     # build-data.mjs only, uses the cache
 ## Checks
 
 ```sh
-pnpm --dir website run check              # all three, in order
+pnpm --dir website run check              # all five, in order
 pnpm --dir website run check:layout
 pnpm --dir website run check:interactions
 pnpm --dir website run check:contrast
+pnpm --dir website run check:layout-i18n
+pnpm --dir website run check:i18n
 pnpm --dir website run shoot              # screenshots -> website/shots
 ```
 
@@ -162,17 +257,38 @@ pnpm --dir website run check -- https://skywardmc.org/zitrus/
   addon folding and the orphan case, the newest first version row, the hero
   group bars, the install wizard, the scroll spy, copy buttons and the mobile
   drawer.
-- `check-contrast.mjs` walks every visible text node in both themes and fails
-  anything under WCAG AA. It steps through every wizard branch, so the command
-  block and its copy button get audited too.
+- `check-contrast.mjs` walks every visible text node and fails anything under
+  WCAG AA. It steps through every wizard branch, so the command block and its
+  copy button get audited too, and it runs both themes against English and one
+  translated locale with the language menu open, since the popover is the only
+  new chrome that renders once per locale rather than once in total.
+- `check-localised-layout.mjs` runs the same overflow probe as
+  `check-layout.mjs` in every locale at the three narrowest widths, with the
+  mod list expanded. English is the shortest locale, so a page that fits in
+  English can overflow in Russian. This is the check that caught the wizard
+  panel blowing past 360px wherever the launcher name was longer than
+  "Modrinth App": a `white-space: nowrap` element with no `min-width: 0` feeds
+  its min-content width into the grid column, and English was the one locale
+  short enough not to notice.
+- `check-i18n.mjs` runs in two halves. Statically, with no browser: every
+  locale must carry exactly English's key set, the `{placeholders}` in a
+  message must match, and plural forms are checked against the categories
+  `Intl` says that language uses. In the browser: each locale must actually
+  render, and a switch made through the UI must repaint the generated rows and
+  not just the static markup.
 - `shoot.mjs` captures full-page screenshots at exact CSS viewports, in both
-  themes on desktop and mobile.
+  themes on desktop and mobile, one per non-English locale, and the language
+  menu open in both themes.
 
 The first run needs the browser binary:
 
 ```sh
 pnpm --dir website exec playwright install chromium
 ```
+
+`openPage` in `tools/harness.mjs` pins the theme and the locale before any page
+script reads them, so the checks assert English against English rather than
+against whatever locale the machine running them happens to be set to.
 
 ## Page order
 

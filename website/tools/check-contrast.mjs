@@ -3,6 +3,10 @@
  * against its effective background, and reports anything under WCAG AA
  * (4.5:1 body, 3:1 for text at 24px or larger, or 18.66px bold).
  *
+ * Runs both themes, and English plus one translated locale, with the language
+ * menu open: the popover's labels are new chrome and the only text that is
+ * rendered once per locale rather than once in total.
+ *
  * Run: pnpm --dir website run check:contrast -- [url]
  */
 
@@ -68,14 +72,26 @@ const AUDIT = `(() => {
 
 let bad = 0;
 
+/* Both themes, and both the English page and one translated page. The theme
+   pairs are the important half; the second locale exists because the language
+   menu is the one piece of new chrome, and it only exists in every locale at
+   once with the popover open. */
+const RUNS = [
+	{ theme: "dark", locale: "en" },
+	{ theme: "light", locale: "en" },
+	{ theme: "dark", locale: "de" },
+	{ theme: "light", locale: "ru" }
+];
+
 await withSite(async (url) => {
 	const browser = await launchBrowser();
 	try {
-		for (const theme of ["dark", "light"]) {
+		for (const { theme, locale } of RUNS) {
 			const { context, page } = await openPage(browser, url, {
 				width: 1280,
 				height: 900,
-				theme
+				theme,
+				locale
 			});
 
 			// Cover every tab group and the empty state too.
@@ -102,8 +118,15 @@ await withSite(async (url) => {
 			);
 			await page.waitForTimeout(400);
 
+			// Open the language menu, so its labels and the muted English
+			// qualifier beside each native name get audited too. It is the only
+			// element that exists in one place per locale rather than one place
+			// total, so it is the easiest thing to add to the page and forget.
+			await page.evaluate(`document.getElementById('lang-btn').click(); true`);
+			await page.waitForTimeout(200);
+
 			const fails = await page.evaluate(AUDIT);
-			console.log(`\n--- ${theme} ---`);
+			console.log(`\n--- ${theme} / ${locale} ---`);
 			if (!fails.length) console.log("all text passes WCAG AA");
 			for (const f of fails) {
 				bad++;
@@ -120,6 +143,8 @@ await withSite(async (url) => {
 }, process.argv[2]);
 
 console.log(
-	bad ? `\n${bad} contrast failure(s)` : "\ncontrast clean in both themes"
+	bad
+		? `\n${bad} contrast failure(s)`
+		: `\ncontrast clean in ${RUNS.length} theme and locale combinations`
 );
 process.exit(bad ? 1 : 0);

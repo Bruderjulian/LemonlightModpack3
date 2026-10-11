@@ -1,5 +1,5 @@
 /**
- * Runs all three checks in sequence and reports one verdict. Each check
+ * Runs all five checks in sequence and reports one verdict. Each check
  * starts its own dev server and browser, so they stay independent and can
  * still be run individually.
  *
@@ -16,7 +16,9 @@ const url = process.argv[2];
 const CHECKS = [
 	"check-layout.mjs",
 	"check-interactions.mjs",
-	"check-contrast.mjs"
+	"check-contrast.mjs",
+	"check-localised-layout.mjs",
+	"check-i18n.mjs"
 ];
 
 const run = (script) =>
@@ -39,7 +41,7 @@ for (const script of CHECKS) {
 
 console.log(
 	failed
-		? `\n${failed} of ${CHECKS.length} checks failing`
+		? `\n${failed} of ${CHECKS.length} check groups failing`
 		: "\nall checks pass"
 );
 process.exit(failed ? 1 : 0);

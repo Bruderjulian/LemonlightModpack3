@@ -406,6 +406,111 @@ ol {
 	}
 }
 
+/* ---------- Language picker ------------------------------------------- */
+/* A wider variant of .icon-btn: it carries a globe and the current code, so
+   it cannot be a square. Same border, radius and hover as the theme toggle so
+   the bar still reads as one row of controls. */
+.lang {
+	position: relative;
+}
+.lang__btn {
+	width: auto;
+	gap: 5px;
+	padding-inline: 9px;
+	grid-auto-flow: column;
+}
+.lang__btn svg {
+	width: 15px;
+	height: 15px;
+}
+/* The code, not the language name. Anything longer than two letters would
+   push the social marks off the bar at 360px. The full name is in the
+   button's aria-label, so the glyph is decoration next to a real label. */
+.lang__code {
+	font-family: var(--font-mono);
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: var(--ink-3);
+}
+.lang__btn:hover .lang__code {
+	color: var(--ink);
+}
+
+/* The popover. Anchored to whichever edge of the trigger has room: the
+   trigger is the last item in the bar on desktop, so it grows leftwards, but
+   below 860px the burger and the theme toggle sit to its right and the trigger
+   moves left with them, so a right-anchored menu runs off the left edge of a
+   phone. The max-width is the backstop for a viewport narrower still. */
+.lang__menu {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	z-index: 40;
+	min-width: 208px;
+	max-width: calc(100vw - var(--gutter) * 2);
+	padding: 5px;
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: var(--r-card);
+	box-shadow: var(--shadow);
+}
+@media (max-width: 860px) {
+	.lang__menu {
+		left: 0;
+		right: auto;
+	}
+}
+.lang__menu[hidden] {
+	display: none;
+}
+.lang__item {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	width: 100%;
+	padding: 8px 10px;
+	border-radius: var(--r-control);
+	text-align: start;
+	font-size: 14.5px;
+	color: var(--ink-2);
+	transition: color 0.15s ease, background-color 0.15s ease;
+}
+.lang__item:hover,
+.lang__item:focus-visible {
+	color: var(--ink);
+	background: var(--surface-2);
+	outline: none;
+}
+/* The native name leads: it is the row of text a reader scans for their own
+   language. The English name is a quieter qualifier for anyone who does not
+   read the script they are looking at. */
+.lang__item-native {
+	flex: 1 1 auto;
+}
+.lang__item-en {
+	flex: none;
+	font-size: 12px;
+	color: var(--ink-3);
+}
+.lang__item[aria-checked="true"] {
+	color: var(--ink);
+	background: color-mix(in oklab, var(--accent) 20%, transparent);
+	box-shadow: inset 0 0 0 1px var(--accent-line);
+}
+/* The check is a glyph rather than a bullet: it reads as "selected" next to
+   the item it marks, and it is the same accent as every other selected
+   control on the page. */
+.lang__item[aria-checked="true"] .lang__item-en::after {
+	content: " ✓";
+	color: var(--accent-text);
+}
+
+/* The popover is the only language control. It stays in the bar at every
+   width rather than being duplicated into the drawer: two copies of the same
+   switcher would have to be kept in sync, and on a phone the bar keeps the
+   burger and the theme toggle anyway, so there is room for it. */
+
 /* Mobile drawer. Hidden by default; the media query only fills it in. */
 .drawer {
 	display: none;
@@ -738,7 +843,13 @@ ol {
 	flex-wrap: wrap;
 	gap: 4px;
 }
+/* flex rather than inline, because the title and the count are now separate
+   elements: the title has to be able to wrap in a long language while the
+   count stays pinned to the end of the chip. */
 .tab {
+	display: flex;
+	align-items: center;
+	gap: 6px;
 	padding: 7px 13px;
 	border-radius: var(--r-control);
 	font-size: 14px;
@@ -757,7 +868,6 @@ ol {
 	font-family: var(--font-mono);
 	font-size: 11.5px;
 	opacity: 0.62;
-	margin-left: 5px;
 }
 .search {
 	position: relative;
@@ -1118,6 +1228,10 @@ ol {
 	border: 1px solid var(--line);
 	border-radius: var(--r-card);
 	padding: clamp(16px, 2.2vw, 22px);
+	/* Grid items default to a minimum size of min-content, so a long
+	   translated heading would widen the column and push the card past the
+	   viewport. Zero lets the text wrap instead. */
+	min-width: 0;
 }
 .wiz-legend {
 	display: flex;
@@ -1127,6 +1241,11 @@ ol {
 	font-size: 15px;
 	font-weight: 550;
 	letter-spacing: -0.015em;
+}
+/* Same reason as .wiz-block: the label is a flex sibling of the numeral, and
+   a long word in it must be allowed to wrap rather than widen the row. */
+.wiz-legend > span:last-child {
+	min-width: 0;
 }
 /* The numeral is the only "step" labelling on the page. */
 .wiz-n {
@@ -1284,6 +1403,12 @@ ol {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	/* Without this the flex item's automatic minimum size is its whole
+	   nowrap string, and that min-content width becomes the wizard grid's
+	   column width: the panel pushed the page past the viewport in every
+	   locale where the launcher name is longer than "Modrinth App". The
+	   ellipsis above is what was always meant to handle it. */
+	min-width: 0;
 }
 /* The result card is the one place the wizard asks for a click, so it is the
    deepest tint on the page: header one step down, body on the base wash. */

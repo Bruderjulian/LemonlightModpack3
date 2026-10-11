@@ -14,6 +14,8 @@
 		"check:layout": "node tools/check-layout.mjs",
 		"check:interactions": "node tools/check-interactions.mjs",
 		"check:contrast": "node tools/check-contrast.mjs",
+		"check:layout-i18n": "node tools/check-localised-layout.mjs",
+		"check:i18n": "node tools/check-i18n.mjs",
 		"shoot": "node tools/shoot.mjs"
 	},
 	"devDependencies": {

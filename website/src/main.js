@@ -1,11 +1,18 @@
 /**
  * Zitrus homepage behaviour. No framework, no runtime dependencies.
- * Sections: theme, mobile drawer, sticky nav, scroll spy, scroll reveal,
- * clipboard, mod browser (tabs, search, show more), hero panel and install
- * wizard. The pack metadata is a build-time import, shared by all three.
+ * Sections: i18n, theme, language picker, mobile drawer, sticky nav, scroll
+ * spy, scroll reveal, clipboard, mod browser (tabs, search, show more), hero
+ * panel and install wizard. The pack metadata is a build-time import, shared
+ * by all three.
+ *
+ * Nothing caches a translated string. Every label goes through t() at paint
+ * time, so the repaint list at the bottom is all a language change needs: the
+ * browser re-renders its rows, the wizard rebuilds its steps, and the static
+ * markup was already rewritten by applyTranslations().
  */
 
 import packData from "./data/mods.json";
+import { initI18n, setLocale, getLocale, onLocaleChange, t, LOCALES } from "./i18n/index.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -19,6 +26,24 @@ const icons = import.meta.glob("./assets/img/*.png", {
 	import: "default"
 });
 const iconUrl = (file) => icons[`./assets/img/${file}`] || null;
+
+/* ---------- i18n -------------------------------------------------------- */
+/* Runs first, before any module paints, so the page never flashes English on
+   the way to another language. The dictionaries are bundled, so this is
+   synchronous and costs nothing at runtime. */
+initI18n();
+
+/* Anything that builds DOM from data has to redraw when the language changes.
+   Collected here rather than inside each section so the order stays
+   deterministic and the list is readable in one place. */
+const repaints = [];
+const repaint = (fn) => {
+	repaints.push(fn);
+	return fn;
+};
+onLocaleChange(() => {
+	for (const fn of repaints) fn();
+});
 
 /* ---------- Theme ------------------------------------------------------ */
 (function theme() {
@@ -39,6 +64,115 @@ const iconUrl = (file) => icons[`./assets/img/${file}`] || null;
 	});
 })();
 
+/* ---------- Language picker -------------------------------------------- */
+/* One popover in the bar, built from LOCALES, open at every viewport width.
+   Not duplicated into the mobile drawer: the bar keeps the burger and the
+   theme toggle on a phone, so the picker is already reachable there. */
+(function languagePicker() {
+	const btn = $("#lang-btn");
+	const menu = $("#lang-menu");
+	const code = $("#lang-code");
+	if (!btn || !menu) return;
+
+	const entryFor = (l) => LOCALES.find((x) => x.code === l) || LOCALES[0];
+
+	/* The trigger shows the code, not the name: at 36px in the bar, anything
+	   longer than two letters would push the social marks out. The full name
+	   is in the aria-label for anyone who cannot see the glyph. */
+	const paintBtn = () => {
+		const here = entryFor(getLocale());
+		code.textContent = here.code.toUpperCase();
+		btn.setAttribute("aria-label", t("lang.current", { language: here.native }));
+	};
+
+	menu.textContent = "";
+	for (const l of LOCALES) {
+		const b = document.createElement("button");
+		b.className = "lang__item";
+		b.type = "button";
+		b.role = "menuitemradio";
+		b.dataset.locale = l.code;
+		b.setAttribute("aria-checked", "false");
+		// The native name leads: it is the row of text a reader scans for their
+		// own language. The English name is a quieter qualifier for anyone who
+		// does not read that script. English drops it, since both are "English".
+		b.innerHTML =
+			`<span class="lang__item-native">${l.native}</span>` +
+			(l.native === l.english
+				? ""
+				: `<span class="lang__item-en">${l.english}</span>`);
+		b.addEventListener("click", () => {
+			setLocale(l.code);
+			close();
+			btn.focus();
+		});
+		menu.append(b);
+	}
+
+	const paintMenu = () => {
+		for (const item of $$(".lang__item", menu)) {
+			item.setAttribute("aria-checked", String(item.dataset.locale === getLocale()));
+		}
+		paintBtn();
+	};
+
+	const open = () => {
+		menu.hidden = false;
+		btn.setAttribute("aria-expanded", "true");
+		// Focus the current language, so Enter on a fresh open confirms
+		// rather than jumping to the top of the list.
+		const here = $('[aria-checked="true"]', menu);
+		if (here) here.focus();
+	};
+	const close = () => {
+		menu.hidden = true;
+		btn.setAttribute("aria-expanded", "false");
+	};
+
+	btn.addEventListener("click", () => (menu.hidden ? open() : close()));
+
+	document.addEventListener("click", (e) => {
+		if (menu.hidden) return;
+		if (!e.target.closest(".lang")) close();
+	});
+
+	menu.addEventListener("keydown", (e) => {
+		const items = $$(".lang__item", menu);
+		const i = items.indexOf(document.activeElement);
+		if (i < 0) return;
+		let next = -1;
+		if (e.key === "ArrowDown" || e.key === "ArrowRight") next = (i + 1) % items.length;
+		else if (e.key === "ArrowUp" || e.key === "ArrowLeft") next = (i - 1 + items.length) % items.length;
+		else if (e.key === "Home") next = 0;
+		else if (e.key === "End") next = items.length - 1;
+		else if (e.key === "Tab") {
+			// The menu is a popover, not a trap: Tab out closes it rather than
+			// cycling the six languages forever.
+			close();
+			return;
+		}
+		if (next < 0) return;
+		e.preventDefault();
+		items[next].focus();
+	});
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape" && !menu.hidden) {
+			close();
+			btn.focus();
+		}
+	});
+
+	// A rotation off the right edge is the same as a click outside, and the
+	// popover is absolutely positioned, so it does not move when the bar does.
+	window.matchMedia("(max-width: 860px)").addEventListener("change", (m) => {
+		if (m.matches) close();
+	});
+
+	repaint(paintMenu);
+	paintMenu();
+})();
+
 /* ---------- Mobile drawer ---------------------------------------------- */
 (function drawer() {
 	const burger = $("#burger");
@@ -48,7 +182,7 @@ const iconUrl = (file) => icons[`./assets/img/${file}`] || null;
 	const set = (open) => {
 		panel.dataset.open = String(open);
 		burger.setAttribute("aria-expanded", String(open));
-		burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+		burger.setAttribute("aria-label", open ? t("a11y.closeMenu") : t("a11y.openMenu"));
 	};
 
 	burger.addEventListener("click", () => set(panel.dataset.open !== "true"));
@@ -68,6 +202,8 @@ const iconUrl = (file) => icons[`./assets/img/${file}`] || null;
 	window.matchMedia("(min-width: 861px)").addEventListener("change", (m) => {
 		if (m.matches) set(false);
 	});
+
+	repaint(() => set(panel.dataset.open === "true"));
 })();
 
 /* ---------- Sticky nav border ----------------------------------------- */
@@ -172,11 +308,13 @@ document.addEventListener("click", async (e) => {
 
 	const label = $("span", btn);
 	btn.dataset.done = "true";
-	if (label) label.textContent = "Copied";
+	if (label) label.textContent = t("wizard.copied");
 	clearTimeout(btn._t);
 	btn._t = setTimeout(() => {
 		btn.dataset.done = "false";
-		if (label) label.textContent = "Copy";
+		// The block is re-rendered on every wizard change, so re-reading the
+		// label is enough to undo a language switch that landed mid-timeout.
+		if (label) label.textContent = t("wizard.copy");
 	}, 1600);
 });
 
@@ -279,6 +417,11 @@ const browser = (function modBrowser() {
 	// which is what a filter change wants: the rows that stay are not new.
 	let animateFrom = 0;
 
+	/* Group names are translated; the English title in the generated JSON is
+	   the fallback, so a group added to groups.json without a dictionary entry
+	   still shows its own name instead of a raw key. */
+	const groupTitle = (key, fallback) => t(`group.${key}`, {}, fallback ?? key);
+
 	function monogram(name) {
 		const el = document.createElement("div");
 		el.className = "mod__icon";
@@ -320,13 +463,14 @@ const browser = (function modBrowser() {
 		tag.dataset.side = mod.side;
 		// Every mod gets a tag now, so "works in both places" is stated rather
 		// than inferred from the absence of a badge.
-		tag.textContent = mod.side === "both" ? "Client & Server" : capitalise(mod.side);
-		tag.title =
+		tag.textContent = t(`side.${mod.side}`);
+		tag.title = t(
 			mod.side === "client"
-				? "Client only, not installed on servers"
+				? "side.clientTitle"
 				: mod.side === "server"
-					? "Server only, not installed on clients"
-					: "Installed on clients and servers";
+					? "side.serverTitle"
+					: "side.bothTitle"
+		);
 		return tag;
 	}
 
@@ -359,16 +503,33 @@ const browser = (function modBrowser() {
 		if (!rows.length) {
 			const empty = document.createElement("div");
 			empty.className = "empty";
-			empty.innerHTML =
-				`<p>No mods match <code>${query.replace(/[<>&]/g, "")}</code>.</p>
-				 <p style="margin-top:10px"><button class="btn btn--ghost btn--sm" id="empty-reset">Clear the search</button></p>`;
-			list.append(empty);
-			$("#empty-reset", empty).addEventListener("click", () => {
+			// The query goes in a <code> so it reads as the literal thing that
+			// was typed. It is built as a text node, never as markup: it comes
+			// from the URL and the search box, and the empty-state check drives
+			// both. The sentence is split on the placeholder rather than
+			// concatenated, because where the query lands in the sentence is a
+			// translation decision.
+			const [before, after = ""] = t("mods.noMatch", { query: "\u0000" }).split("\u0000");
+			const q = document.createElement("code");
+			q.textContent = query.replace(/[<>&]/g, "");
+			const lead = document.createElement("p");
+			lead.append(document.createTextNode(before), q, document.createTextNode(after));
+			const btn = document.createElement("button");
+			btn.className = "btn btn--ghost btn--sm";
+			btn.type = "button";
+			btn.id = "empty-reset";
+			btn.textContent = t("mods.clearTheSearch");
+			const actions = document.createElement("p");
+			actions.style.marginTop = "10px";
+			actions.append(btn);
+			empty.append(lead, actions);
+			btn.addEventListener("click", () => {
 				query = "";
 				searchEl.value = "";
 				expanded = false;
 				sync();
 			});
+			list.append(empty);
 			return;
 		}
 
@@ -405,7 +566,7 @@ const browser = (function modBrowser() {
 			if (addons.length) {
 				const count = document.createElement("span");
 				count.className = "mod__addons-count";
-				count.textContent = `+ ${addons.length} addon${addons.length === 1 ? "" : "s"}`;
+				count.textContent = t("mods.addonsCount", { n: addons.length });
 				name.append(count);
 			}
 			name.append(sideTag(mod));
@@ -446,8 +607,18 @@ const browser = (function modBrowser() {
 		if (!needed) return;
 
 		moreBtn.setAttribute("aria-expanded", String(expanded));
-		moreLabel.textContent = expanded ? "Show fewer" : `Show all ${entries} mods`;
+		moreLabel.textContent = expanded
+			? t("mods.showFewer")
+			: t("mods.showAllCount", { n: entries });
 	}
+
+	/* The language is part of the URL state, so a language change has to
+	   survive every filter change afterwards and vice versa. sync() reads it
+	   back off the live query string rather than a module variable. */
+	const carryLang = (next) => {
+		const current = new URLSearchParams(location.search).get("lang");
+		if (current) next.set("lang", current);
+	};
 
 	function sync() {
 		const q = query.trim().toLowerCase();
@@ -483,8 +654,8 @@ const browser = (function modBrowser() {
 		const scoped = foldAddons(pool).length;
 		const count = hideAddons ? pool.length : scoped;
 		countEl.textContent = q
-			? `Showing ${entries} of ${count}`
-			: `${count} mod${count === 1 ? "" : "s"}`;
+			? t("mods.showing", { shown: entries, total: count })
+			: t("mods.count", { n: count });
 		if (sidesEl) sidesEl.textContent = "";
 
 		paintMore(entries);
@@ -496,6 +667,7 @@ const browser = (function modBrowser() {
 		if (sort !== "downloads") next.set("sort", sort);
 		if (env !== "both") next.set("side", env);
 		if (hideAddons) next.set("addons", "hide");
+		carryLang(next);
 		const qs = next.toString();
 		history.replaceState(null, "", qs ? `?${qs}${location.hash}` : `${location.pathname}${location.hash}`);
 
@@ -529,32 +701,46 @@ const browser = (function modBrowser() {
 		}
 	});
 
-	// Tabs
-	const groups = [{ key: "all", title: "All", count: data.curated }].concat(
-		data.groups.map((g) => ({ key: g.key, title: g.title, count: g.count }))
-	);
-	tabsEl.textContent = "";
-	for (const g of groups) {
-		const b = document.createElement("button");
-		b.className = "tab";
-		b.type = "button";
-		b.role = "tab";
-		b.dataset.group = g.key;
-		b.setAttribute("aria-selected", "false");
-		b.innerHTML = `${g.title}<span class="tab__c">${g.count}</span>`;
-		b.addEventListener("click", () => {
-			if (group === g.key) return;
-			group = g.key;
-			expanded = false;
-			sync();
-		});
-		tabsEl.append(b);
+	function paintTabs() {
+		const groups = [{ key: "all", count: data.curated }].concat(
+			data.groups.map((g) => ({ key: g.key, count: g.count }))
+		);
+		// Rebuilt rather than relabelled, because a tab is a title plus a count
+		// in two spans and both are language dependent.
+		const open = $('[aria-selected="true"]', tabsEl);
+		const keepFocus = open && tabsEl.contains(document.activeElement);
+		tabsEl.textContent = "";
+		for (const g of groups) {
+			const b = document.createElement("button");
+			b.className = "tab";
+			b.type = "button";
+			b.role = "tab";
+			b.dataset.group = g.key;
+			b.setAttribute("aria-selected", "false");
+			const title = document.createElement("span");
+			title.className = "tab__t";
+			title.textContent = g.key === "all" ? t("mods.tabAll") : groupTitle(g.key, g.title);
+			const count = document.createElement("span");
+			count.className = "tab__c";
+			count.textContent = g.count;
+			b.append(title, count);
+			b.addEventListener("click", () => {
+				if (group === g.key) return;
+				group = g.key;
+				expanded = false;
+				sync();
+			});
+			tabsEl.append(b);
+		}
+		if (keepFocus) $('[aria-selected="true"]', tabsEl)?.focus();
 	}
 
-	let t;
+	// Not named "t": the translator is imported as t() and a module-scope
+	// import is shadowed by a block-scoped let anywhere in the same function.
+	let searchTimer;
 	searchEl.addEventListener("input", () => {
-		clearTimeout(t);
-		t = setTimeout(() => {
+		clearTimeout(searchTimer);
+		searchTimer = setTimeout(() => {
 			query = searchEl.value;
 			expanded = false;
 			sync();
@@ -597,30 +783,54 @@ const browser = (function modBrowser() {
 	}
 
 	if (query) searchEl.value = query;
-	sync();
 
-	// Wire up the hero panel with the same source of truth.
-	$("#p-total").textContent = data.total;
-	$("#p-curated").textContent = data.curated;
-	$("#p-versions").textContent = data.versions.length;
-	$("#p-ver").textContent = `${data.latest} · latest`;
+	/* ---------- Hero panel ---------- */
+	/* Also repainted on a language change: the group names and the "latest"
+	   suffix are both translated, and the bars are buttons carrying an
+	   aria-label, which a screen reader reads before the visible text. */
+	function paintPanel() {
+		$("#p-total").textContent = data.total;
+		$("#p-curated").textContent = data.curated;
+		$("#p-versions").textContent = data.versions.length;
+		$("#p-ver").textContent = t("panel.latestSuffix", { version: data.latest });
 
-	const max = Math.max(...data.groups.map((g) => g.count));
-	const barsEl = $("#p-bars");
-	barsEl.innerHTML = data.groups
-		.map(
-			(g, i) => `<button class="bar" type="button" data-group="${g.key}" aria-pressed="false"
-				aria-label="Show the ${g.title} mods">
-				<div class="bar__top"><span>${g.title}</span><span class="bar__n">${g.count}</span></div>
+		const max = Math.max(...data.groups.map((g) => g.count));
+		const barsEl = $("#p-bars");
+		const wasIn = barsEl.classList.contains("is-in");
+		barsEl.innerHTML = data.groups
+			.map(
+				(g, i) => `<button class="bar" type="button" data-group="${g.key}" aria-pressed="false"
+				aria-label="${t("panel.showGroup", { group: groupTitle(g.key, g.title) }).replace(/"/g, "&quot;")}">
+				<div class="bar__top"><span>${groupTitle(g.key, g.title)}</span><span class="bar__n">${g.count}</span></div>
 				<div class="bar__track"><span class="bar__fill" style="--w:${(g.count / max) * 100}%;--d:${i * 90}ms"></span></div>
 			</button>`
-		)
-		.join("");
-	// Let the first frame paint the empty track before the bars grow.
-	requestAnimationFrame(() => requestAnimationFrame(() => barsEl.classList.add("is-in")));
+			)
+			.join("");
+		// Let the first frame paint the empty track before the bars grow. On a
+		// repaint the bars are already in, so they stay in.
+		if (wasIn) barsEl.classList.add("is-in");
+		else requestAnimationFrame(() => requestAnimationFrame(() => barsEl.classList.add("is-in")));
+
+		$("#p-versions-list").innerHTML = data.versions
+			.map(
+				(v) =>
+					`<span class="chip chip--ver">${v.minecraft}${
+						v.minecraft === data.latest ? ' <span style="color:var(--accent-text)">*</span>' : ""
+					}</span>`
+			)
+			.join("");
+
+		// Two different nouns, so two different plurals. "6 versions · 106
+		// mods" is not one number with two labels.
+		$("#foot-ver").textContent = t("footer.summary", {
+			version: data.latest,
+			versions: t("mods.versionCount", { n: data.versions.length }),
+			mods: t("mods.count", { n: data.total })
+		});
+	}
 
 	// The bars are the second door into the browser: they set the same filter.
-	barsEl.addEventListener("click", (e) => {
+	$("#p-bars").addEventListener("click", (e) => {
 		const bar = e.target.closest(".bar");
 		if (!bar) return;
 		group = bar.dataset.group;
@@ -629,16 +839,16 @@ const browser = (function modBrowser() {
 		document.getElementById("mods").scrollIntoView({ block: "start" });
 	});
 
-	$("#p-versions-list").innerHTML = data.versions
-		.map(
-			(v) =>
-				`<span class="chip chip--ver">${v.minecraft}${
-					v.minecraft === data.latest ? ' <span style="color:var(--accent-text)">*</span>' : ""
-				}</span>`
-		)
-		.join("");
+	repaint(() => {
+		paintTabs();
+		paintPanel();
+		sync();
+	});
 
-	$("#foot-ver").textContent = `${data.latest} · ${data.versions.length} versions · ${data.total} mods`;
+	paintTabs();
+	sync();
+	paintPanel();
+
 	return { sync, setGroup: (g) => { group = g; sync(); } };
 })();
 
@@ -654,25 +864,29 @@ const browser = (function modBrowser() {
 	const CURSEFORGE = "https://www.curseforge.com/minecraft/modpacks/zitrus";
 	const PACKWIZ = "https://github.com/packwiz/packwiz-installer-bootstrap/releases";
 
+	/* Each launcher is a key prefix rather than a set of finished strings, so
+	   one dictionary entry carries the name, the four steps and the action
+	   labels. out() is called on every repaint, which is what makes a language
+	   change reach the steps. */
 	const LAUNCHERS = [
 		{
 			key: "modrinth-app",
 			name: "Modrinth App",
 			tag: "mrpack",
 			out: (v) => ({
-				head: "Modrinth App",
+				head: t("wizard.modrinth.name"),
 				steps: [
-					"Install the app and sign in to your account.",
-					"Press the button below to open Zitrus, then press Install.",
-					`Keep ${v.minecraft} selected in the version dropdown to get this exact build.`,
-					"Launch it from your profile. Nothing else to configure."
+					t("wizard.modrinth.step1"),
+					t("wizard.modrinth.step2"),
+					t("wizard.modrinth.step3", { version: v.minecraft }),
+					t("wizard.modrinth.step4")
 				],
 				acts: [
 					{
-						label: "Open in Modrinth App",
+						label: t("wizard.modrinth.open"),
 						href: `modrinth://open?url=${encodeURIComponent(MODRINTH)}`
 					},
-					{ label: "Project page", href: MODRINTH, ghost: true }
+					{ label: t("wizard.modrinth.project"), href: MODRINTH, ghost: true }
 				]
 			})
 		},
@@ -681,14 +895,14 @@ const browser = (function modBrowser() {
 			name: "Prism Launcher",
 			tag: "Modrinth",
 			out: (v) => ({
-				head: "Prism Launcher",
+				head: t("wizard.prism.name"),
 				steps: [
-					"Open Add Instance in Prism Launcher.",
-					"Switch the source to Modrinth and search for Zitrus.",
-					`Create the instance for ${v.minecraft}.`,
-					"Set your Java version and memory, then launch."
+					t("wizard.prism.step1"),
+					t("wizard.prism.step2"),
+					t("wizard.prism.step3", { version: v.minecraft }),
+					t("wizard.prism.step4")
 				],
-				acts: [{ label: "Open on Modrinth", href: MODRINTH }]
+				acts: [{ label: t("wizard.prism.open"), href: MODRINTH }]
 			})
 		},
 		{
@@ -696,14 +910,14 @@ const browser = (function modBrowser() {
 			name: "CurseForge app",
 			tag: "curseforge",
 			out: (v) => ({
-				head: "CurseForge app",
+				head: t("wizard.curseforge.name"),
 				steps: [
-					"Open Minecraft in the CurseForge app.",
-					"Choose Install a modpack and search for Zitrus.",
-					`Pick ${v.minecraft}, then let the app install it.`,
-					"Every dependency is downloaded into a new profile for you."
+					t("wizard.curseforge.step1"),
+					t("wizard.curseforge.step2"),
+					t("wizard.curseforge.step3", { version: v.minecraft }),
+					t("wizard.curseforge.step4")
 				],
-				acts: [{ label: "Open on CurseForge", href: CURSEFORGE }]
+				acts: [{ label: t("wizard.curseforge.open"), href: CURSEFORGE }]
 			})
 		},
 		{
@@ -711,15 +925,15 @@ const browser = (function modBrowser() {
 			name: "Standalone",
 			tag: "packwiz",
 			out: (v) => ({
-				head: "Standalone, packwiz",
+				head: t("wizard.standalone.name"),
 				steps: [
-					"Download packwiz-installer-bootstrap and put the jar in your instance folder.",
-					"Run the command below once. It writes the profile and fetches the mods.",
-					`Point it at the ${v.minecraft} build with the path above.`,
-					"Start Minecraft afterwards as usual."
+					t("wizard.standalone.step1"),
+					t("wizard.standalone.step2"),
+					t("wizard.standalone.step3", { version: v.minecraft }),
+					t("wizard.standalone.step4")
 				],
 				code: `java -jar packwiz-installer-bootstrap.jar -g https://raw.githack.com/Bruderjulian/LemonlightModpack3/dist/versions/fabric/${v.minecraft}/pack.toml`,
-				acts: [{ label: "Bootstrap releases", href: PACKWIZ, ghost: true }]
+				acts: [{ label: t("wizard.standalone.releases"), href: PACKWIZ, ghost: true }]
 			})
 		}
 	];
@@ -741,10 +955,12 @@ const browser = (function modBrowser() {
 		// describe the same install, so they read as one line rather than a
 		// header plus a footnote. The raw pack version string is gone: it only
 		// repeated the Minecraft version and the loader.
+		// Fabric is a product name, not copy, so it stays in its own script
+		// and casing rather than entering the dictionaries.
 		const pack = v.loader ? `${v.minecraft} ${capitalise(v.loader)}` : v.minecraft;
 		const parts = [spec.head, pack];
 		if (v.release) parts.push(`v${v.release}`);
-		forEl.textContent = parts.join(" \u00b7 ");
+		forEl.textContent = parts.join(" · ");
 		head.append(forEl);
 
 		const body = document.createElement("div");
@@ -766,13 +982,13 @@ const browser = (function modBrowser() {
 			code.className = "code";
 			code.innerHTML =
 				`<div class="code__head">
-					<span class="code__label">Pre-launch command</span>
+					<span class="code__label">${t("wizard.prelaunch")}</span>
 					<button class="copy" type="button" data-copy="${spec.code.replace(/"/g, "&quot;")}">
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
 							<rect x="9" y="9" width="11" height="11" rx="2" />
 							<path d="M5 15V5a2 2 0 0 1 2-2h8" />
 						</svg>
-						<span>Copy</span>
+						<span>${t("wizard.copy")}</span>
 					</button>
 				</div>
 				<pre><code>${spec.code.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</code></pre>`;
@@ -813,6 +1029,13 @@ const browser = (function modBrowser() {
 		}
 	}
 
+	/* The launcher names are proper nouns from their own vendors, so they stay
+	   in Latin script and out of the dictionaries. The card is rebuilt only
+	   because the aria-label on the group is translated; the picks are stable. */
+	function paintLaunchers() {
+		launchersEl.setAttribute("aria-label", t("install.chooseLauncher"));
+	}
+
 	for (const l of LAUNCHERS) {
 		const b = document.createElement("button");
 		b.className = "pick pick--launcher";
@@ -832,11 +1055,18 @@ const browser = (function modBrowser() {
 	});
 
 	version = data.versions.find((v) => v.minecraft === data.latest) || data.versions[0];
+	paintLaunchers();
 	paintVersions();
 	paintOut();
 
 	wireRadioGroup(versionsEl, (el) => {
 		version = data.versions.find((v) => v.minecraft === el.dataset.mc) || version;
+		paintOut();
+	});
+
+	repaint(() => {
+		paintLaunchers();
+		paintVersions();
 		paintOut();
 	});
 })();

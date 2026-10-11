@@ -54,7 +54,7 @@ export const launchBrowser = () =>
 export async function openPage(
 	browser,
 	url,
-	{ width = 1280, height = 900, mobile = false, theme } = {}
+	{ width = 1280, height = 900, mobile = false, theme, locale = "en" } = {}
 ) {
 	const context = await browser.newContext({
 		viewport: { width, height },
@@ -62,7 +62,13 @@ export async function openPage(
 		// isMobile flips touch and meta-viewport handling, which is what actually
 		// distinguishes the mobile layout from a narrow desktop one.
 		isMobile: mobile,
-		hasTouch: mobile
+		hasTouch: mobile,
+		// The page honours navigator.languages, so without this the checks
+		// would assert English against whatever the CI machine is set to.
+		locale,
+		// Same reasoning for Accept-Language, which is what a browser sends
+		// ahead of the in-page match.
+		extraHTTPHeaders: { "Accept-Language": `${locale},en;q=0.9` }
 	});
 
 	// Pin the theme before any page script reads it from storage.
@@ -73,6 +79,15 @@ export async function openPage(
 			} catch {}
 		}, theme);
 	}
+
+	// Same for the language. The checks assert English copy, so the locale is
+	// pinned rather than discovered; check-i18n.mjs is where the other five
+	// dictionaries get exercised.
+	await context.addInitScript((l) => {
+		try {
+			localStorage.setItem("zitrus-lang", l);
+		} catch {}
+	}, locale);
 
 	const page = await context.newPage();
 	await page.goto(url, { waitUntil: "load" });
