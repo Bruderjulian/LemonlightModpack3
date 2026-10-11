@@ -1,5 +1,5 @@
 /**
- * Generates website/assets/data/mods.json from the real pack metadata.
+ * Generates website/src/data/mods.json from the real pack metadata.
  *
  * Source of truth is versions/<loader>/<mc>/mods/*.pw.toml, which packwiz
  * reads at export time. Each file declares the mod name, side and Modrinth
@@ -14,8 +14,9 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const versionsDir = join(root, "versions", "fabric");
-const outDir = join(root, "website", "assets", "data");
-const groups = JSON.parse(readFileSync(join(root, "website", "tools", "groups.json"), "utf8"));
+const site = join(root, "website");
+const outDir = join(site, "src", "data");
+const groups = JSON.parse(readFileSync(join(site, "tools", "groups.json"), "utf8"));
 
 /** Parses `key = value` pairs out of one packwiz per-mod file. */
 function readPwToml(path) {
@@ -92,7 +93,9 @@ const enrich = (mod) => {
 		parent: g?.parent ?? null,
 		blurb: project?.description ?? g?.blurb ?? null,
 		slug: project?.slug ?? g?.slug ?? null,
-		icon: project ? `/assets/img/${project.slug}.png` : null,
+		// Bare file name. Vite owns the URL: main.js maps this through an
+		// import.meta.glob so the built path carries the content hash.
+		icon: project ? `${project.slug}.png` : null,
 		library: libraries.has(mod.file)
 	};
 };
@@ -101,7 +104,7 @@ const enrich = (mod) => {
 // and reproducible and the page never calls the Modrinth API at runtime.
 let projectsBySlug = new Map();
 try {
-	const cache = JSON.parse(readFileSync(join(root, "website", "tools", "modrinth-cache.json"), "utf8"));
+	const cache = JSON.parse(readFileSync(join(site, "tools", "modrinth-cache.json"), "utf8"));
 	projectsBySlug = new Map(cache.map((p) => [p.slug, p]));
 } catch {
 	console.warn("no modrinth-cache.json, slugs and blurbs will be sparse");
@@ -130,7 +133,7 @@ writeFileSync(
 	join(outDir, "mods.json"),
 	JSON.stringify(
 		{
-			generated: "node website/tools/build-data.mjs",
+			generated: "pnpm --dir website run data",
 			latest: latest.minecraft,
 			total: latest.total,
 			counts: latest.counts,

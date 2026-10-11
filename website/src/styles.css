@@ -250,6 +250,13 @@ ol {
 .nav[data-stuck="true"] {
 	border-bottom-color: var(--line);
 }
+/* Without backdrop-filter the translucent bar would sit on top of the page
+   text instead of over it, so fall back to an opaque background. */
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+	.nav {
+		background: var(--bg);
+	}
+}
 .nav__in {
 	display: flex;
 	align-items: center;
@@ -283,6 +290,11 @@ ol {
 	transition: color 0.15s ease, background-color 0.15s ease;
 }
 .nav__links a:hover {
+	color: var(--ink);
+	background: var(--surface-2);
+}
+/* Scrollspy state. aria-current is set by the IntersectionObserver in main.js. */
+.nav__links a[aria-current="true"] {
 	color: var(--ink);
 	background: var(--surface-2);
 }
@@ -524,6 +536,10 @@ ol {
 	line-height: 1.35;
 }
 .panel__label {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 10px;
 	margin: 20px 0 10px;
 	font-family: var(--font-mono);
 	font-size: 11px;
@@ -531,11 +547,39 @@ ol {
 	text-transform: uppercase;
 	color: var(--ink-3);
 }
+.panel__hint {
+	letter-spacing: 0.04em;
+	text-transform: none;
+	color: var(--ink-3);
+	opacity: 0.85;
+}
+@media (hover: none) {
+	.panel__hint {
+		/* No hover on touch, so the group bars need to read as tappable. */
+		opacity: 1;
+	}
+}
 
-/* Group bars: real counts, proportional widths */
+/* Group bars: real counts, proportional widths.
+   Each bar is also the filter control for that group, so it is a button. */
 .bars {
 	display: grid;
-	gap: 11px;
+	gap: 9px;
+}
+.bar {
+	display: block;
+	width: 100%;
+	padding: 4px 6px;
+	margin-inline: -6px;
+	border-radius: var(--r-control);
+	text-align: left;
+	transition: background-color 0.15s ease;
+}
+.bar:hover {
+	background: var(--surface-2);
+}
+.bar[aria-pressed="true"] {
+	background: color-mix(in oklab, var(--accent) 13%, transparent);
 }
 .bar__top {
 	display: flex;
@@ -607,56 +651,6 @@ ol {
 	border-color: var(--accent-line);
 	color: var(--accent-text);
 	background: color-mix(in oklab, var(--accent) 12%, transparent);
-}
-
-/* ---------- Pillars (2x2 card grid) ---------------------------------- */
-.pillars {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 16px;
-}
-.pillar {
-	background: var(--surface);
-	border: 1px solid var(--line);
-	border-radius: var(--r-card);
-	padding: clamp(20px, 2.6vw, 28px);
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	transition: border-color 0.2s ease, transform 0.2s ease;
-}
-.pillar:hover {
-	border-color: var(--line-strong);
-	transform: translateY(-2px);
-}
-.pillar__n {
-	font-family: var(--font-mono);
-	font-size: 11.5px;
-	color: var(--accent-text);
-	letter-spacing: 0.06em;
-}
-.pillar h3 {
-	font-size: clamp(19px, 2.1vw, 22px);
-	font-weight: 600;
-	letter-spacing: -0.025em;
-	line-height: 1.2;
-}
-.pillar p {
-	color: var(--ink-2);
-	font-size: 15px;
-	text-wrap: pretty;
-}
-.pillar__mods {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 6px;
-	margin-top: auto;
-	padding-top: 6px;
-}
-@media (max-width: 720px) {
-	.pillars {
-		grid-template-columns: 1fr;
-	}
 }
 
 /* ---------- Mod browser (tabs + rows) --------------------------------- */
@@ -861,65 +855,298 @@ ol {
 	}
 }
 
-/* ---------- Install (steps + code) ------------------------------------ */
-.install {
+/* Show more / show less. Hidden entirely when everything already fits. */
+.browser__more {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 6px 14px;
+	padding: 16px;
+	border-top: 1px solid var(--line);
+	background: var(--surface-2);
+}
+.browser__more[hidden] {
+	display: none;
+}
+.browser__more-btn .chev {
+	width: 15px;
+	height: 15px;
+	transition: transform 0.2s ease;
+}
+.browser__more-btn[aria-expanded="true"] .chev {
+	transform: rotate(180deg);
+}
+.browser__more-count {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	color: var(--ink-3);
+}
+
+/* ---------- Getting started (install wizard) --------------------------- */
+.wizard {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-	gap: clamp(28px, 4vw, 60px);
-	align-items: start;
+	gap: 12px;
 }
-.steps {
-	counter-reset: step;
-	display: grid;
-	gap: 4px;
+.wiz-block {
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: var(--r-card);
+	padding: clamp(16px, 2.2vw, 22px);
 }
-.step {
-	display: grid;
-	grid-template-columns: 30px 1fr;
-	gap: 14px;
-	padding: 16px 0;
-	border-bottom: 1px solid var(--line);
+.wiz-legend {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	font-weight: 550;
+	letter-spacing: -0.015em;
 }
-.step:last-child {
-	border-bottom: none;
-}
-.step::before {
-	counter-increment: step;
-	content: counter(step);
+/* The numeral is the only "step" labelling on the page. */
+.wiz-n {
+	flex: none;
 	display: grid;
 	place-items: center;
-	width: 26px;
-	height: 26px;
+	width: 24px;
+	height: 24px;
 	border-radius: 999px;
 	border: 1px solid var(--accent-line);
 	background: color-mix(in oklab, var(--accent) 14%, transparent);
 	color: var(--accent-text);
 	font-family: var(--font-mono);
-	font-size: 12px;
+	font-size: 11.5px;
 	font-weight: 600;
 }
-.step h3 {
-	font-size: 16.5px;
+
+/* Selectable options. One shape for both groups, sized by content. */
+.launchers {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+}
+.versions {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+	gap: 8px;
+}
+.pick {
+	display: flex;
+	align-items: flex-start;
+	gap: 11px;
+	width: 100%;
+	padding: 13px 14px;
+	border: 1px solid var(--line);
+	border-radius: var(--r-control);
+	background: var(--bg);
+	text-align: left;
+	transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.pick:hover {
+	border-color: var(--line-strong);
+}
+.pick[aria-checked="true"] {
+	border-color: var(--accent-line);
+	background: color-mix(in oklab, var(--accent) 10%, var(--bg));
+}
+/* Radio dot: real state, so it fills rather than sitting there as decoration. */
+.pick__mark {
+	flex: none;
+	margin-top: 3px;
+	width: 16px;
+	height: 16px;
+	border-radius: 999px;
+	border: 1.5px solid var(--line-strong);
+	display: grid;
+	place-items: center;
+	transition: border-color 0.15s ease;
+}
+.pick__mark::after {
+	content: "";
+	width: 7px;
+	height: 7px;
+	border-radius: 999px;
+	background: var(--accent-text);
+	transform: scale(0);
+	transition: transform 0.15s ease;
+}
+.pick[aria-checked="true"] .pick__mark {
+	border-color: var(--accent-text);
+}
+.pick[aria-checked="true"] .pick__mark::after {
+	transform: scale(1);
+}
+.pick__body {
+	min-width: 0;
+}
+.pick__name {
+	display: block;
+	font-size: 14.5px;
+	font-weight: 550;
+	letter-spacing: -0.01em;
+	line-height: 1.35;
+}
+.pick__tag {
+	font-family: var(--font-mono);
+	font-size: 10.5px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ink-3);
+	margin-left: 7px;
+	white-space: nowrap;
+}
+.pick__desc {
+	display: block;
+	margin-top: 3px;
+	font-size: 13px;
+	line-height: 1.45;
+	color: var(--ink-3);
+	text-wrap: pretty;
+}
+
+.pick--ver {
+	align-items: center;
+	gap: 9px;
+	padding: 11px 12px;
+}
+.pick--ver .pick__mark {
+	margin-top: 0;
+	width: 15px;
+	height: 15px;
+}
+.pick--ver .pick__mark::after {
+	width: 6px;
+	height: 6px;
+}
+.v__n {
+	font-size: 14.5px;
 	font-weight: 550;
 	letter-spacing: -0.015em;
+	font-variant-numeric: tabular-nums;
 }
-.step p {
-	margin-top: 4px;
+.pick--ver[data-latest="true"] .v__n {
+	color: var(--accent-text);
+}
+.v__c {
+	margin-left: auto;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	color: var(--ink-3);
+	white-space: nowrap;
+}
+@media (max-width: 660px) {
+	.launchers {
+		grid-template-columns: 1fr;
+	}
+	.versions {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+/* The output panel is the card for this block, so the block itself is bare.
+   Two nested frames would read as a box inside a box. */
+.wiz-block--out {
+	background: none;
+	border: 0;
+	padding: 0;
+}
+.wiz-out {
+	border: 1px solid var(--line);
+	border-radius: var(--r-card);
+	background: var(--surface);
+	overflow: hidden;
+}
+.wiz-out__head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 11px 14px;
+	border-bottom: 1px solid var(--line);
+	background: var(--surface-2);
+}
+.wiz-out__for {
+	font-family: var(--font-mono);
+	font-size: 11.5px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ink-2);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.wiz-out__body {
+	padding: clamp(14px, 1.8vw, 18px);
+}
+.wiz-out__body p {
 	font-size: 14.5px;
+	line-height: 1.6;
 	color: var(--ink-2);
 	text-wrap: pretty;
 }
-.step a {
+.wiz-out__body .wiz-out__meta {
+	margin-top: 8px;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--ink-3);
+}
+.wiz-out__acts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 16px;
+}
+.wiz-out__body .code {
+	margin-top: 14px;
+}
+
+/* Footnotes under the wizard. A divided list, not a card row. */
+.wiz-notes {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 0 clamp(24px, 3vw, 40px);
+	margin-top: clamp(26px, 3.4vw, 42px);
+	padding-top: 24px;
+	border-top: 1px solid var(--line);
+}
+.note {
+	min-width: 0;
+}
+.note + .note {
+	border-left: 1px solid var(--line);
+	padding-left: clamp(24px, 3vw, 40px);
+}
+.note h4 {
+	font-size: 14.5px;
+	font-weight: 600;
+	letter-spacing: -0.015em;
+	line-height: 1.35;
+}
+.note p {
+	margin-top: 6px;
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--ink-2);
+	text-wrap: pretty;
+}
+.note a {
 	color: var(--accent-text);
 	text-decoration: underline;
 	text-underline-offset: 2px;
 	text-decoration-thickness: 1px;
 }
-
-.code-stack {
-	display: grid;
-	gap: 14px;
+@media (max-width: 860px) {
+	.wiz-notes {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+	.note + .note {
+		border-left: 0;
+		padding-left: 0;
+	}
 }
+
+/* ---------- Command blocks ------------------------------------------- */
 .code {
 	border: 1px solid var(--line);
 	border-radius: var(--r-card);
@@ -941,6 +1168,9 @@ ol {
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--ink-2);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .copy {
 	display: inline-flex;
@@ -951,6 +1181,7 @@ ol {
 	border: 1px solid var(--line);
 	font-size: 12.5px;
 	color: var(--ink-2);
+	flex: none;
 	transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 .copy:hover {
@@ -981,25 +1212,25 @@ ol {
 .code .p {
 	color: var(--accent-text);
 }
-@media (max-width: 860px) {
-	.install {
-		grid-template-columns: 1fr;
-	}
-}
 
 /* ---------- Statement band -------------------------------------------- */
+/* Sits directly under the hero, so it reads as the page's thesis rather than
+   as a closing statement. Same surface-2 tint as code panel heads, never an
+   inverted theme. */
 .band {
 	background: var(--surface-2);
 	border-block: 1px solid var(--line);
 }
 .band__in {
 	display: grid;
-	grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-	gap: clamp(24px, 4vw, 64px);
+	grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+	gap: clamp(20px, 3.5vw, 56px);
 	align-items: center;
+	padding-block: clamp(40px, 5vw, 64px);
 }
 .band blockquote {
-	font-size: clamp(23px, 3.4vw, 36px);
+	max-width: 24ch;
+	font-size: clamp(23px, 3.2vw, 34px);
 	font-weight: 550;
 	letter-spacing: -0.032em;
 	line-height: 1.18;
@@ -1009,16 +1240,24 @@ ol {
 	font-style: normal;
 	color: var(--accent-text);
 }
+.band__cta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 26px;
+}
 .band__aside {
 	color: var(--ink-2);
-	font-size: 15.5px;
-}
-.band__aside .btn {
-	margin-top: 20px;
+	font-size: 15px;
+	line-height: 1.6;
+	text-wrap: pretty;
 }
 @media (max-width: 800px) {
 	.band__in {
 		grid-template-columns: 1fr;
+	}
+	.band blockquote {
+		max-width: none;
 	}
 }
 
@@ -1090,6 +1329,13 @@ ol {
 }
 
 /* ---------- Scroll reveal (motion gated) ------------------------------ */
+@keyframes modIn {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+}
+
 @media (prefers-reduced-motion: no-preference) {
 	[data-reveal] {
 		opacity: 0;
@@ -1101,6 +1347,12 @@ ol {
 	[data-reveal].is-in {
 		opacity: 1;
 		transform: none;
+	}
+
+	/* Rows revealed by "show all" cascade in rather than snapping. */
+	.mod--enter {
+		animation: modIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+		animation-delay: calc(var(--i, 0) * 14ms);
 	}
 
 	/* Group bars grow out from the left once the panel has its numbers. */

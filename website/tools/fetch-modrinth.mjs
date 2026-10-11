@@ -1,7 +1,7 @@
 /**
  * One-off developer step: pulls project metadata from the Modrinth API for the
  * slugs listed in groups.json, writes website/tools/modrinth-cache.json and
- * downloads each icon into website/assets/img/.
+ * downloads each icon into website/src/assets/img/.
  *
  * This is the only place the site talks to Modrinth. The generated page makes
  * no runtime requests, so the icons ship with the site.
@@ -14,8 +14,9 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-const groups = JSON.parse(readFileSync(join(root, "website", "tools", "groups.json"), "utf8"));
-const imgDir = join(root, "website", "assets", "img");
+const site = join(root, "website");
+const groups = JSON.parse(readFileSync(join(site, "tools", "groups.json"), "utf8"));
+const imgDir = join(site, "src", "assets", "img");
 
 const slugs = [...new Set(Object.values(groups.mods).map((m) => m.slug).filter(Boolean))];
 mkdirSync(imgDir, { recursive: true });
@@ -58,7 +59,7 @@ const displayTitle = (title) =>
 		.trim();
 
 writeFileSync(
-	join(root, "website", "tools", "modrinth-cache.json"),
+	join(site, "tools", "modrinth-cache.json"),
 	JSON.stringify(
 		projects.map((p) => ({
 			slug: p.slug,

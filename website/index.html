@@ -18,13 +18,13 @@
 		/>
 		<meta property="og:url" content="https://skywardmc.org/zitrus" />
 		<!-- TODO: brand the share image. Needs real art, not a generated placeholder.
-		     Target: /assets/img/og.png at 1200x630. Until then socials fall back to
-		     the default card rather than showing something wrong. -->
+		     Target: 1200x630, dropped in src/assets/img/og.png. Until then socials
+		     fall back to the default card rather than showing something wrong. -->
 		<link rel="preload" as="font" type="font/woff2" crossorigin
 			href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5/files/geist-latin-wght-normal.woff2" />
 		<link rel="preload" as="font" type="font/woff2" crossorigin
 			href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5/files/geist-mono-latin-wght-normal.woff2" />
-		<link rel="stylesheet" href="./assets/css/style.css" />
+		<link rel="stylesheet" href="/src/styles.css" />
 		<script>
 			// Applied before first paint so a dark-mode reload never flashes white.
 			try {
@@ -48,8 +48,7 @@
 					Zitrus
 				</a>
 
-				<nav class="nav__links" aria-label="Sections">
-					<a href="#performance">Performance</a>
+				<nav class="nav__links" id="nav-links" aria-label="Sections">
 					<a href="#mods">Mods</a>
 					<a href="#install">Install</a>
 				</nav>
@@ -64,12 +63,7 @@
 							<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.6 6.6 0 0 0 10.5 10.5Z" />
 						</svg>
 					</button>
-					<a
-						class="btn btn--primary btn--sm"
-						href="https://github.com/Bruderjulian/LemonlightModpack3#-installing-on-a-client"
-					>
-						Install
-					</a>
+					<a class="btn btn--primary btn--sm" href="#install">Install</a>
 					<button class="icon-btn nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
 							<path d="M3.5 7h17M3.5 12h17M3.5 17h17" />
@@ -80,17 +74,11 @@
 		</header>
 
 		<div class="drawer" id="drawer">
-			<a href="#performance">Performance</a>
 			<a href="#mods">Mods</a>
 			<a href="#install">Install</a>
-			<a href="https://github.com/skywardmc/zitrus/wiki">Wiki</a>
+			<a href="https://github.com/Bruderjulian/LemonlightModpack3#-questions">Wiki</a>
 			<a href="https://discord.gg/36Tv44cYte">Discord</a>
-			<a
-				class="btn btn--primary"
-				href="https://github.com/Bruderjulian/LemonlightModpack3#-installing-on-a-client"
-			>
-				Install
-			</a>
+			<a class="btn btn--primary" href="#install">Install</a>
 		</div>
 
 		<main id="main">
@@ -105,12 +93,7 @@
 							nothing to set up before you play.
 						</p>
 						<div class="hero__cta">
-							<a
-								class="btn btn--primary"
-								href="https://github.com/Bruderjulian/LemonlightModpack3#-installing-on-a-client"
-							>
-								Install
-							</a>
+							<a class="btn btn--primary" href="#install">Install</a>
 							<a class="btn btn--ghost" href="#mods">Browse the mods</a>
 						</div>
 					</div>
@@ -137,8 +120,8 @@
 								</div>
 							</div>
 
-							<p class="panel__label">By group</p>
-							<div class="bars" id="p-bars" aria-hidden="true"></div>
+							<p class="panel__label">By group <span class="panel__hint">tap to filter</span></p>
+							<div class="bars" id="p-bars"></div>
 
 							<p class="panel__label">Supported</p>
 							<div class="panel__foot" id="p-versions-list" style="border: 0; background: 0; padding: 0"></div>
@@ -147,77 +130,26 @@
 				</div>
 			</section>
 
-			<!-- ===================== Pillars ===================== -->
-			<section class="section" id="performance">
-				<div class="wrap">
-					<div class="sec-head" data-reveal>
-						<h2>Four things cost you frames.</h2>
-						<p>
-							Zitrus goes after each one, then ships the config that makes the change stick.
-							Every setting listed here is already tuned in the pack.
-						</p>
+			<!-- ===================== Foundation band ===================== -->
+			<section class="band" id="foundation">
+				<div class="wrap band__in">
+					<div class="band__lead" data-reveal>
+						<blockquote>
+							It stays a <em>foundation</em>, not a walled garden. Remove what you don't want, add
+							what you do.
+						</blockquote>
+						<div class="band__cta">
+							<a class="btn btn--primary" href="https://github.com/Bruderjulian/LemonlightModpack3#-questions">
+								Read the wiki
+							</a>
+							<a class="btn btn--ghost" href="https://discord.gg/36Tv44cYte">Ask on Discord</a>
+						</div>
 					</div>
-
-					<div class="pillars">
-						<article class="pillar" data-reveal>
-							<span class="pillar__n">01</span>
-							<h3>Rendering</h3>
-							<p>
-								Sodium rebuilds the chunk renderer, so a higher render distance stops being a
-								slideshow. Culling mods drop entities and faces you cannot see.
-							</p>
-							<div class="pillar__mods">
-								<span class="chip">Sodium</span>
-								<span class="chip">Entity Culling</span>
-								<span class="chip">Cull Fewer Leaves</span>
-								<span class="chip">ImmediatelyFast</span>
-							</div>
-						</article>
-
-						<article class="pillar" data-reveal style="--d: 60ms">
-							<span class="pillar__n">02</span>
-							<h3>Frame pacing</h3>
-							<p>
-								Steady frame times beat a high average. HUD updates spread across frames, input
-								polls move off the main thread, and an unfocused window drops to 10 FPS.
-							</p>
-							<div class="pillar__mods">
-								<span class="chip">Gnetum</span>
-								<span class="chip">Ixeris</span>
-								<span class="chip">Dynamic FPS</span>
-							</div>
-						</article>
-
-						<article class="pillar" data-reveal style="--d: 120ms">
-							<span class="pillar__n">03</span>
-							<h3>Memory and load</h3>
-							<p>
-								Smaller block state models, less loaded at startup and fewer allocations per tick.
-								The difference shows up in load times and in long sessions.
-							</p>
-							<div class="pillar__mods">
-								<span class="chip">FerriteCore</span>
-								<span class="chip">ModernFix</span>
-								<span class="chip">Jasione</span>
-								<span class="chip">Put A Plug In it!</span>
-							</div>
-						</article>
-
-						<article class="pillar" data-reveal style="--d: 180ms">
-							<span class="pillar__n">04</span>
-							<h3>Server tick rate</h3>
-							<p>
-								Game logic is optimised and chunk work moves off the main thread, so the network
-								stays out of your tick budget. Vanilla clients still join.
-							</p>
-							<div class="pillar__mods">
-								<span class="chip">Lithium</span>
-								<span class="chip">CCME</span>
-								<span class="chip">Krypton</span>
-								<span class="chip">ServerCore</span>
-							</div>
-						</article>
-					</div>
+					<p class="band__aside" data-reveal style="--d: 80ms">
+						Zitrus is tuned as a set, so mods that replace the same work, another renderer or another
+						minimap, will fight it. Drop one or the other and the pack stays fast. The wiki covers which
+						mods are worth adding on top and which ones are not.
+					</p>
 				</div>
 			</section>
 
@@ -257,117 +189,83 @@
 						</p>
 
 						<div class="mod-list" id="mod-list" role="list"></div>
+
+						<div class="browser__more" id="browser-more" hidden>
+							<button class="btn btn--ghost browser__more-btn" id="more-toggle" type="button"
+								aria-expanded="false" aria-controls="mod-list">
+								<span id="more-label">Show all</span>
+								<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m6 9 6 6 6-6" />
+								</svg>
+							</button>
+							<span class="browser__more-count" id="more-count"></span>
+						</div>
 					</div>
 				</div>
 			</section>
 
-			<!-- ===================== Install ===================== -->
+			<!-- ===================== Getting started ===================== -->
 			<section class="section" id="install">
 				<div class="wrap">
 					<div class="sec-head" data-reveal>
-						<p class="eyebrow">Getting started</p>
-						<h2>Up and playing in a couple of minutes.</h2>
-					</div>
-
-					<div class="install">
-						<div class="steps" data-reveal>
-							<div class="step">
-								<div>
-									<h3>Read Sodium's driver notes first</h3>
-									<p>
-										A black screen or crash on launch is almost always a driver Sodium flags.
-										Disabling the one it names fixes most reports before anything else is tried.
-									</p>
-								</div>
-							</div>
-							<div class="step">
-								<div>
-									<h3>Install the pack for your version</h3>
-									<p>
-										Grab it from <a href="https://modrinth.com/project/zitrus">Modrinth</a> through
-										any launcher: Modrinth App, Prism, ATLauncher or MultiMC. Adding more mods
-										afterwards is the intended workflow, not a workaround.
-									</p>
-								</div>
-							</div>
-							<div class="step">
-								<div>
-									<h3>Give it enough memory</h3>
-									<p>
-										Render distance is the first thing to raise when FPS feels low, but only after
-										the launcher is pointed at your dedicated GPU and RAM is not the limit. The
-										post-install guide has the numbers per setup.
-									</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="code-stack" data-reveal style="--d: 90ms">
-							<div class="code">
-								<div class="code__head">
-									<span class="code__label">Server, mrpack-install</span>
-									<button class="copy" type="button" data-copy="mrpack-install zitrus [version]">
-										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-											<rect x="9" y="9" width="11" height="11" rx="2" />
-											<path d="M5 15V5a2 2 0 0 1 2-2h8" />
-										</svg>
-										<span>Copy</span>
-									</button>
-								</div>
-								<pre><code>mrpack-install <span class="p">zitrus</span> <span class="c">[version]</span></code></pre>
-							</div>
-
-							<div class="code">
-								<div class="code__head">
-									<span class="code__label">Server, mcman</span>
-									<button class="copy" type="button" data-copy="mcman init --mrpack mr:zitrus">
-										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-											<rect x="9" y="9" width="11" height="11" rx="2" />
-											<path d="M5 15V5a2 2 0 0 1 2-2h8" />
-										</svg>
-										<span>Copy</span>
-									</button>
-								</div>
-								<pre><code>mcman init <span class="p">--mrpack</span> <span class="p">mr:zitrus</span></code></pre>
-							</div>
-
-							<div class="code">
-								<div class="code__head">
-									<span class="code__label">Any host, pre-launch command</span>
-									<button
-										class="copy"
-										type="button"
-										data-copy="java -jar packwiz-installer-bootstrap.jar -g -s server https://raw.githack.com/Bruderjulian/LemonlightModpack3/dist/versions/fabric/1.21.1/pack.toml"
-									>
-										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-											<rect x="9" y="9" width="11" height="11" rx="2" />
-											<path d="M5 15V5a2 2 0 0 1 2-2h8" />
-										</svg>
-										<span>Copy</span>
-									</button>
-								</div>
-								<pre><code>java -jar <span class="p">packwiz-installer-bootstrap.jar</span> <span class="c">-g -s server</span> <span class="p">https://…/pack.toml</span></code></pre>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<!-- ===================== Band ===================== -->
-			<section class="band">
-				<div class="wrap section band__in">
-					<blockquote data-reveal>
-						It stays a <em>foundation</em>, not a walled garden. Remove what you don't want, add what
-						you do.
-					</blockquote>
-					<div class="band__aside" data-reveal style="--d: 80ms">
+						<h2>Pick a launcher. Pick a version. Play.</h2>
 						<p>
-							Zitrus is tuned as a set, so mods that replace the same work, another renderer or
-							another minimap, will fight it. Drop one or the other and the pack stays fast.
+							The wizard below hands you the exact install for your setup. Nothing is left to
+							configure afterwards, because the pack ships already tuned.
 						</p>
-						<a class="btn btn--ghost" href="https://github.com/Bruderjulian/LemonlightModpack3#-questions">
-							Read the wiki
-						</a>
+					</div>
+
+					<div class="wizard" data-reveal>
+						<div class="wiz-block">
+							<h3 class="wiz-legend">
+								<span class="wiz-n" aria-hidden="true">1</span>
+								Choose a launcher
+							</h3>
+							<div class="launchers" id="wiz-launchers" role="radiogroup" aria-label="Choose a launcher"></div>
+						</div>
+
+						<div class="wiz-block">
+							<h3 class="wiz-legend" id="wiz-ver-legend">
+								<span class="wiz-n" aria-hidden="true">2</span>
+								Choose your Minecraft version
+							</h3>
+							<div class="versions" id="wiz-versions" role="radiogroup" aria-labelledby="wiz-ver-legend"></div>
+						</div>
+
+						<div class="wiz-block wiz-block--out">
+							<h3 class="wiz-legend">
+								<span class="wiz-n" aria-hidden="true">3</span>
+								Install and launch
+							</h3>
+							<div class="wiz-out" id="wiz-out" aria-live="polite"></div>
+						</div>
+					</div>
+
+					<div class="wiz-notes" data-reveal style="--d: 80ms">
+						<div class="note">
+							<h4>Black screen or crash on launch?</h4>
+							<p>
+								It is almost always a driver Sodium flags. Read
+								<a href="https://github.com/CaffeineMC/sodium-fabric/wiki/Driver-Compatibility">Sodium's driver notes</a>
+								and disable the one it names, which fixes most reports before anything else is tried.
+							</p>
+						</div>
+						<div class="note">
+							<h4>Low FPS after the first minute?</h4>
+							<p>
+								Raise render distance, make sure the launcher runs the game on your dedicated GPU,
+								and give it enough RAM. The
+								<a href="https://skywardmc.org/zitrus/post-install">post-install guide</a> has the numbers per setup.
+							</p>
+						</div>
+						<div class="note">
+							<h4>Running a server instead?</h4>
+							<p>
+								Server setup, Docker and pre-launch commands are in the
+								<a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server">server section of the repo</a>.
+								Vanilla clients still join.
+							</p>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -396,16 +294,18 @@
 						<div class="footer__col">
 							<h4>Get it</h4>
 							<ul>
+								<!-- TODO: confirm the CurseForge slug once the project is published there.
+								     This one is a guess; Modrinth is the source of truth until then. -->
 								<li><a href="https://modrinth.com/project/zitrus">Modrinth</a></li>
+								<li><a href="https://www.curseforge.com/minecraft/modpacks/zitrus">CurseForge</a></li>
 								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/releases">Releases</a></li>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3">Repository</a></li>
 								<li><a href="https://discord.gg/36Tv44cYte">Discord</a></li>
 							</ul>
 						</div>
 						<div class="footer__col">
 							<h4>Learn</h4>
 							<ul>
-								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#-installing-on-a-client">Installation</a></li>
+								<li><a href="#install">Installation</a></li>
 								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server">Server setup</a></li>
 								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#-hardware-compatibility">Hardware</a></li>
 								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#-something-broken">Troubleshooting</a></li>
@@ -429,6 +329,6 @@
 			</div>
 		</footer>
 
-		<script src="./assets/js/main.js" defer></script>
+		<script type="module" src="/src/main.js"></script>
 	</body>
 </html>
