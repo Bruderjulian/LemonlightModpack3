@@ -8,6 +8,7 @@ export default {
 	"a11y.skip": "跳到正文",
 	"a11y.home": "Zitrus 首页",
 	"a11y.sections": "章节",
+	"a11y.menu": "站点菜单",
 	"a11y.openMenu": "打开菜单",
 	"a11y.closeMenu": "关闭菜单",
 	"a11y.toggleTheme": "切换配色主题",

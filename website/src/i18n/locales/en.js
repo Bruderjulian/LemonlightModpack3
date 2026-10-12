@@ -21,6 +21,7 @@ export default {
 	"a11y.skip": "Skip to content",
 	"a11y.home": "Zitrus home",
 	"a11y.sections": "Sections",
+	"a11y.menu": "Site menu",
 	"a11y.openMenu": "Open menu",
 	"a11y.closeMenu": "Close menu",
 	"a11y.toggleTheme": "Toggle colour theme",

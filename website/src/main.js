@@ -32,7 +32,10 @@ const icons = import.meta.glob("./assets/img/*.webp", {
 	import: "default"
 });
 const iconUrl = (file) => icons[`./assets/img/${file}`] || null;
-const iconAt = (file, width) => iconUrl(file.replace(/\.webp$/, `-${width}.webp`));
+// The 1x name from the 2x one, matching how build-icons.mjs names them:
+// sodium-68.webp -> sodium-34.webp. Replaces the trailing width, not the whole
+// extension, so an unqualified name cannot silently produce sodium-68-34.webp.
+const iconAt = (file, width) => iconUrl(file.replace(/-\d+\.webp$/, `-${width}.webp`));
 
 /* ---------- i18n -------------------------------------------------------- */
 /* Runs first, before any module paints, so the page never flashes English on
@@ -190,12 +193,26 @@ onLocaleChange(() => {
 		panel.dataset.open = String(open);
 		burger.setAttribute("aria-expanded", String(open));
 		burger.setAttribute("aria-label", open ? t("a11y.closeMenu") : t("a11y.openMenu"));
+		// Opening a disclosure that sits right under the bar and leaving focus
+		// on the button means the next Tab walks the reader past their own open
+		// menu into the page below it. Moving focus in on open and handing it
+		// back on close is the whole of the interaction; it is not a modal, so
+		// there is no trap and no aria-modal.
+		if (open) $("a", panel)?.focus();
 	};
 
-	burger.addEventListener("click", () => set(panel.dataset.open !== "true"));
+	const toggle = () => {
+		const open = panel.dataset.open !== "true";
+		set(open);
+		// Closing by click or by link has to return focus, or it lands on <body>
+		// and the reader loses their place in the bar.
+		if (!open) burger.focus();
+	};
+
+	burger.addEventListener("click", toggle);
 
 	panel.addEventListener("click", (e) => {
-		if (e.target.closest("a")) set(false);
+		if (e.target.closest("a")) toggle();
 	});
 
 	document.addEventListener("keydown", (e) => {
@@ -210,7 +227,16 @@ onLocaleChange(() => {
 		if (m.matches) set(false);
 	});
 
-	repaint(() => set(panel.dataset.open === "true"));
+	// A language change only has to relabel the trigger. It must not go through
+	// set(), because the drawer may well be open and set(true) would pull focus
+	// back into it mid-sentence, throwing a screen reader back to the top of the
+	// menu it was already reading.
+	repaint(() =>
+		burger.setAttribute(
+			"aria-label",
+			panel.dataset.open === "true" ? t("a11y.closeMenu") : t("a11y.openMenu")
+		)
+	);
 })();
 
 /* ---------- Sticky nav border ----------------------------------------- */
@@ -408,6 +434,22 @@ const browser = (function modBrowser() {
 	let env = envParam === "client" || envParam === "server" ? envParam : "both";
 	let hideAddons = params.get("addons") === "hide";
 	let expanded = false;
+
+	/* Adoption of the prerendered default state.
+	   tools/prerender.mjs builds this page in a real browser, captures the
+	   markup main.js produced and writes it back into dist/index.html, so a
+	   crawler that never runs JavaScript still sees the mod list, the group
+	   chips, the hero numbers and the wizard. On load, if the state described by
+	   the query string is exactly the state that was captured, the first render
+	   is skipped and the markup already in the document is adopted as-is.
+
+	   The key is written by the page and read back by the build, never built by
+	   hand in two places: prerender.mjs copies whatever this function stamped,
+	   so the two cannot drift into disagreeing about what "the default" means.
+	   Any query parameter at all, ?lang=ru included, produces a different key and
+	   the normal render runs. */
+	const stateKey = () => [group, query, sort, env, hideAddons, expanded, getLocale()].join("|");
+	let adoptPrerender = list.dataset.prerender === stateKey();
 
 	/* Two orders, both off real Modrinth numbers and the pack's own grouping.
 	   Neither invents a score: "downloads" is what most people pull, and
@@ -674,7 +716,19 @@ const browser = (function modBrowser() {
 		const visible = !q && !expanded ? Math.min(PAGE, entries) : entries;
 		const from = animateFrom;
 		animateFrom = null;
-		renderMods(rows.slice(0, visible), from ?? undefined);
+		if (adoptPrerender) {
+			// The rows are already in the document, produced by this same code
+			// in the prerender browser. Everything else in sync() is an
+			// idempotent update of existing nodes — counts, aria state, the URL
+			// — so it can still run and will land on the same values.
+			adoptPrerender = false;
+		} else {
+			renderMods(rows.slice(0, visible), from ?? undefined);
+		}
+		// Stamp the state this element currently shows. prerender.mjs reads this
+		// straight back out of the rendered page, so the build copies the real
+		// key rather than guessing at the format.
+		list.dataset.prerender = stateKey();
 
 		// The count reflects what is on screen: the filters are part of the
 		// scope, so reporting the unfiltered group total would be a lie.
@@ -699,7 +753,7 @@ const browser = (function modBrowser() {
 		history.replaceState(null, "", qs ? `?${qs}${location.hash}` : `${location.pathname}${location.hash}`);
 
 		$$(".tab", tabsEl).forEach((t) =>
-			t.setAttribute("aria-selected", String(t.dataset.group === group))
+			t.setAttribute("aria-pressed", String(t.dataset.group === group))
 		);
 		for (const bar of $$(".bar")) {
 			bar.setAttribute("aria-pressed", String(bar.dataset.group === group));
@@ -732,23 +786,26 @@ const browser = (function modBrowser() {
 		const groups = [{ key: "all", count: data.curated }].concat(
 			data.groups.map((g) => ({ key: g.key, count: g.count }))
 		);
-		// Rebuilt rather than relabelled, because a tab is a title plus a count
-		// in two spans and both are language dependent.
+		// Rebuilt rather than relabelled, because a filter chip is a title plus
+		// a count in two spans and both are language dependent.
 		const keepFocus = tabsEl.contains(document.activeElement);
 		tabsEl.textContent = "";
 		for (const g of groups) {
 			const b = document.createElement("button");
 			b.className = "tab";
 			b.type = "button";
-			b.role = "tab";
+			// No role="tab". These filter one shared list underneath rather than
+			// swapping panels, so there is no tabpanel to point aria-controls at
+			// and no tab semantics to honour. The container is role="group" and
+			// the state is aria-pressed, which is what it actually is.
 			b.dataset.group = g.key;
 			// Stamped here rather than left entirely to sync(): the focus restore
-			// at the end of this function looks the selected tab up by this
+			// at the end of this function looks the selected chip up by this
 			// attribute, and sync() only runs after paintTabs() has returned.
-			// Rebuilding every tab as unselected and then searching for the
+			// Rebuilding every chip as unselected and then searching for the
 			// selected one found nothing, so a language change dropped focus to
-			// <body> rather than holding it on the tab.
-			b.setAttribute("aria-selected", String(g.key === group));
+			// <body> rather than holding it on the chip.
+			b.setAttribute("aria-pressed", String(g.key === group));
 			const title = document.createElement("span");
 			title.className = "tab__t";
 			title.textContent = g.key === "all" ? t("mods.tabAll") : groupTitle(g.key, g.title);
@@ -756,16 +813,24 @@ const browser = (function modBrowser() {
 			count.className = "tab__c";
 			count.textContent = g.count;
 			b.append(title, count);
-			b.addEventListener("click", () => {
-				if (group === g.key) return;
-				group = g.key;
-				expanded = false;
-				sync();
-			});
 			tabsEl.append(b);
 		}
-		if (keepFocus) $('[aria-selected="true"]', tabsEl)?.focus();
+		if (keepFocus) $('[aria-pressed="true"]', tabsEl)?.focus();
 	}
+
+	/* One delegated listener rather than a closure per chip.
+	   paintTabs() is skipped entirely when the prerendered chips are adopted, so
+	   a per-chip listener would leave five dead buttons in the document: they
+	   looked right and did nothing. Delegating means the wiring belongs to the
+	   container, which always exists, and a language repaint no longer builds
+	   five new listeners to throw the old five away. */
+	tabsEl.addEventListener("click", (e) => {
+		const chip = e.target.closest(".tab");
+		if (!chip || chip.dataset.group === group) return;
+		group = chip.dataset.group;
+		expanded = false;
+		sync();
+	});
 
 	// Not named "t": the translator is imported as t() and a module-scope
 	// import is shadowed by a block-scoped let anywhere in the same function.
@@ -877,9 +942,14 @@ const browser = (function modBrowser() {
 		sync();
 	});
 
-	paintTabs();
+	// The startup render. paintTabs() and paintPanel() rebuild their containers
+	// wholesale, so they are skipped when the prerendered markup is being
+	// adopted; sync() runs either way and is what flips adoptPrerender off.
+	if (!adoptPrerender) {
+		paintTabs();
+		paintPanel();
+	}
 	sync();
-	paintPanel();
 
 	return { sync, setGroup: (g) => { group = g; sync(); } };
 })();
@@ -1069,28 +1139,38 @@ const browser = (function modBrowser() {
 	}
 
 	/* The launcher names are proper nouns from their own vendors, so they stay
-	   in Latin script and out of the dictionaries. The card is rebuilt only
-	   because the aria-label on the group is translated; the picks are stable. */
-	function paintLaunchers() {
-		launchersEl.setAttribute("aria-label", t("install.chooseLauncher"));
-	}
+	   in Latin script and out of the dictionaries. The card is rebuilt because
+	   the aria-label on the group is translated.
 
-	for (const l of LAUNCHERS) {
-		const b = document.createElement("button");
-		b.className = "pick pick--launcher";
-		b.type = "button";
-		b.role = "radio";
-		b.dataset.key = l.key;
-		b.setAttribute("aria-checked", String(l === launcher));
-		b.innerHTML =
-			`<span class="pick__mark"></span>
-			 <span class="pick__name">${l.name}<span class="pick__tag">${l.tag}</span></span>`;
-		launchersEl.append(b);
+	   Cleared before rebuilding, which looks redundant next to paintVersions()
+	   but is the whole point. The prerendered document already holds these four
+	   buttons, and appending to that left eight launchers in the DOM: four of
+	   them unreachable in practice, in every accessibility tree and every
+	   screenshot. Anything that builds into a container the build may have
+	   already filled has to empty it first. */
+	function paintLaunchers() {
+		const keepFocus = launchersEl.contains(document.activeElement);
+		launchersEl.setAttribute("aria-label", t("install.chooseLauncher"));
+		launchersEl.textContent = "";
+		for (const l of LAUNCHERS) {
+			const b = document.createElement("button");
+			b.className = "pick pick--launcher";
+			b.type = "button";
+			b.role = "radio";
+			b.dataset.key = l.key;
+			b.setAttribute("aria-checked", String(l === launcher));
+			b.innerHTML =
+				`<span class="pick__mark"></span>
+				 <span class="pick__name">${l.name}<span class="pick__tag">${l.tag}</span></span>`;
+			launchersEl.append(b);
+		}
+		launchers?.paint();
+		if (keepFocus) $('[aria-checked="true"]', launchersEl)?.focus();
 	}
 
 	version = data.versions.find((v) => v.minecraft === data.latest) || data.versions[0];
 
-	wireRadioGroup(launchersEl, (el) => {
+	const launchers = wireRadioGroup(launchersEl, (el) => {
 		launcher = LAUNCHERS.find((l) => l.key === el.dataset.key) || launcher;
 		paintOut();
 	});

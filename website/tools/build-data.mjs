@@ -137,9 +137,11 @@ const enrich = (mod) => {
 		slug: project?.slug ?? g?.slug ?? null,
 		// Bare file name of the 2x icon. Vite owns the URL: main.js maps this
 		// through an import.meta.glob so the built path carries the content
-		// hash. build-icons.mjs is what produces these; if it has not run yet
-		// the lookup misses and the row falls back to its monogram.
-		icon: project ? `${project.slug}.webp` : null,
+		// hash. It has to name a file that exists: build-icons.mjs writes
+		// <slug>-34.webp and <slug>-68.webp and deletes the source, so the
+		// unqualified <slug>.webp was a miss, and every row silently fell back
+		// to its monogram.
+		icon: project ? `${project.slug}-68.webp` : null,
 		// Popularity, straight from Modrinth. The browser sorts on these.
 		downloads: project?.downloads ?? 0,
 		followers: project?.followers ?? 0,

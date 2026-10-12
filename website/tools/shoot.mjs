@@ -8,10 +8,15 @@
  */
 
 import { mkdirSync } from "node:fs";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { withSite, launchBrowser, openPage } from "./harness.mjs";
 
-const OUT = process.argv[2] || join(process.cwd(), "shots");
+// Anchored to the site directory rather than process.cwd(): every other tool
+// resolves its paths this way, and this one silently wrote its output
+// somewhere else depending on where the command happened to be run from.
+const siteDir = join(dirname(fileURLToPath(import.meta.url)), "..");
+const OUT = process.argv[2] || join(siteDir, "shots");
 const URL_UNDER_TEST = process.argv[3];
 
 const SHOTS = [

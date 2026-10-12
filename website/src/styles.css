@@ -6,12 +6,20 @@
 
 /* ---------- Fonts ------------------------------------------------------ */
 /* Geist + Geist Mono, latin subset only, served from jsDelivr (already this
-   repo's CDN of choice for README badges). Two files, both preloaded. */
+   repo's CDN of choice for README badges). Two files, both preloaded.
+
+   unicode-range is declared even though the file is already a latin-only
+   subset. Without it the browser downloads the face for any text that names
+   the family at all, including Cyrillic it cannot render, and falls back
+   glyph by glyph. With it, declaring a Cyrillic subset later becomes adding an
+   @font-face rather than changing anything that already works. */
 @font-face {
 	font-family: "Geist";
 	font-style: normal;
 	font-weight: 100 900;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 	src: url(https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5/files/geist-latin-wght-normal.woff2)
 		format("woff2-variations");
 }
@@ -20,6 +28,8 @@
 	font-style: normal;
 	font-weight: 100 900;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 	src: url(https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5/files/geist-mono-latin-wght-normal.woff2)
 		format("woff2-variations");
 }
@@ -129,7 +139,6 @@
 }
 html {
 	-webkit-text-size-adjust: 100%;
-	scroll-behavior: smooth;
 	scroll-padding-top: calc(var(--nav-h) + 16px);
 }
 body {
@@ -863,7 +872,7 @@ ol {
 	color: var(--ink);
 	background: var(--surface);
 }
-.tab[aria-selected="true"] {
+.tab[aria-pressed="true"] {
 	background: var(--ink);
 	color: var(--bg);
 }
@@ -1488,7 +1497,7 @@ ol {
 	border-left: 1px solid var(--line);
 	padding-left: clamp(24px, 3vw, 40px);
 }
-.note h4 {
+.note h3 {
 	font-size: 14.5px;
 	font-weight: 600;
 	letter-spacing: -0.015em;
@@ -1661,7 +1670,7 @@ ol {
 	flex-wrap: wrap;
 	gap: 40px;
 }
-.footer__col h4 {
+.footer__col h3 {
 	font-family: var(--font-mono);
 	font-size: 11px;
 	letter-spacing: 0.14em;
@@ -1714,6 +1723,14 @@ ol {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+	/* Moved out of the reset and gated here with the reveal animations. Smooth
+	   scrolling is motion: a reader who asked for less of it gets to jump
+	   straight to the section they asked for, and anchor links, the scroll
+	   spy and the "show all" pull-back all keep working either way. */
+	html {
+		scroll-behavior: smooth;
+	}
+
 	[data-reveal] {
 		opacity: 0;
 		transform: translateY(18px);

@@ -8,6 +8,7 @@ export default {
 	"a11y.skip": "Перейти к содержимому",
 	"a11y.home": "Главная Zitrus",
 	"a11y.sections": "Разделы",
+	"a11y.menu": "Меню сайта",
 	"a11y.openMenu": "Открыть меню",
 	"a11y.closeMenu": "Закрыть меню",
 	"a11y.toggleTheme": "Сменить цветовую тему",

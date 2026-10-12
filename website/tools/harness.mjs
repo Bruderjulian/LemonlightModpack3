@@ -104,29 +104,7 @@ export async function openPage(
 	return { context, page };
 }
 
-/** Small assertion recorder, so every tool reports the same way. */
-export function reporter() {
-	const results = [];
-
-	return {
-		check(name, pass, detail = "") {
-			results.push({ name, pass: Boolean(pass), detail: String(detail) });
-		},
-		finish() {
-			const failed = results.filter((r) => !r.pass);
-			for (const r of results) {
-				const mark = r.pass ? "PASS" : "FAIL";
-				// Failures are the whole reason this line exists, so they get
-				// room; passing checks stay short.
-				const limit = r.pass ? 100 : 400;
-				const tail = r.detail ? `  (${r.detail.slice(0, limit)})` : "";
-				console.log(`${mark}  ${r.name}${tail}`);
-			}
-			const summary = failed.length
-				? `\n${failed.length} of ${results.length} checks failing`
-				: `\nall ${results.length} checks pass`;
-			console.log(summary);
-			return failed.length;
-		}
-	};
-}
+/** Small assertion recorder. Lives in reporter.mjs so a check that needs no
+    browser does not have to import Vite and Playwright to borrow it; re-exported
+    here because every other check already imports it from the harness. */
+export { reporter } from "./reporter.mjs";

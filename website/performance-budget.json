@@ -1,10 +1,11 @@
 {
-	"critical.gzip": 46122,
-	"html.gzip": 7797,
-	"css.gzip": 5660,
-	"js.gzip": 32665,
-	"image.raw": 733385,
-	"image.maxFile": 24788,
-	"total.raw": 889026,
-	"total.gzip": 765256
+	"critical.gzip": 60010,
+	"html.gzip": 13253,
+	"css.gzip": 6923,
+	"js.gzip": 39834,
+	"image.raw": 184584,
+	"image.maxFile": 4248,
+	"card.raw": 91685,
+	"total.raw": 502510,
+	"total.gzip": 326454
 }

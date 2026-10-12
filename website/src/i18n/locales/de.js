@@ -8,6 +8,7 @@ export default {
 	"a11y.skip": "Zum Inhalt springen",
 	"a11y.home": "Zitrus Startseite",
 	"a11y.sections": "Bereiche",
+	"a11y.menu": "Seitenmenü",
 	"a11y.openMenu": "Menü öffnen",
 	"a11y.closeMenu": "Menü schließen",
 	"a11y.toggleTheme": "Farbschema wechseln",

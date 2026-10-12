@@ -28,7 +28,7 @@ await withSite(async (url) => {
 				out.push({
 					group: t.dataset.group,
 					rows: document.querySelectorAll('.mod').length,
-					selected: t.getAttribute('aria-selected'),
+					pressed: t.getAttribute('aria-pressed'),
 					count: document.getElementById('browser-count').textContent,
 					search: location.search
 				});
@@ -38,7 +38,7 @@ await withSite(async (url) => {
 		check(
 			"group tabs filter the list",
 			tabTest.length === 5 &&
-				tabTest.every((t) => t.selected === "true") &&
+				tabTest.every((t) => t.pressed === "true") &&
 				tabTest.find((t) => t.group === "visuals").rows === 11 &&
 				tabTest.find((t) => t.group === "tweaks").rows === 8 &&
 				tabTest[0].rows === 12,
@@ -49,6 +49,63 @@ await withSite(async (url) => {
 			tabTest.find((t) => t.group === "performance").search ===
 				"?group=performance",
 			tabTest.find((t) => t.group === "performance").search
+		);
+
+		// The icons themselves. A monogram fallback is indistinguishable from a
+		// deliberate choice in a screenshot and in the DOM, so a completely
+		// broken icon path passed the whole suite: every row still had its name,
+		// side tag and blurb. naturalWidth is the only thing that tells the two
+		// apart — it is non-zero only for an image the browser really decoded.
+		const iconTest = await evalJs(`(async () => {
+			const rows = [...document.querySelectorAll('.mod')];
+			await Promise.all(rows.map(r => {
+				const i = r.querySelector('.mod__icon');
+				if (!i || i.tagName !== 'IMG') return null;
+				i.loading = 'eager';
+				if (i.complete) return null;
+				return new Promise(done => {
+					i.addEventListener('load', done, {once: true});
+					i.addEventListener('error', done, {once: true});
+				});
+			}));
+			return rows.map(r => {
+				const i = r.querySelector('.mod__icon');
+				return i && i.tagName === 'IMG'
+					? {ok: i.naturalWidth > 0, src: (i.currentSrc || i.src || '').split('/').pop()}
+					: {ok: false, src: 'no-img'};
+			});
+		})()`);
+		const brokenIcons = iconTest.filter((i) => !i.ok);
+		check(
+			"every mod row renders its icon, not the monogram fallback",
+			brokenIcons.length === 0,
+			brokenIcons.length
+				? `${brokenIcons.length} of ${iconTest.length} broken, e.g. ${brokenIcons[0].src}`
+				: `${iconTest.length} decoded`
+		);
+
+		// And the 1x candidate has to exist. If only the 2x is in the srcset the
+		// browser still renders correctly, so nothing above would notice, but a
+		// 1x phone goes on downloading pixels it will never paint.
+		const srcsetTest = await evalJs(`(() => {
+			const i = document.querySelector('.mod__icon[srcset]');
+			if (!i) return {found: false};
+			const set = i.srcset.split(',').map(s => s.trim());
+			return {
+				found: true,
+				candidates: set.length,
+				sizes: i.sizes,
+				has1x: set.some(s => /\\s1x$/.test(s)),
+				has2x: set.some(s => /\\s2x$/.test(s))
+			};
+		})()`);
+		check(
+			"icons offer a 1x candidate and declare their real size",
+			srcsetTest.found === true &&
+				srcsetTest.has1x === true &&
+				srcsetTest.has2x === true &&
+				srcsetTest.sizes === "34px",
+			JSON.stringify(srcsetTest)
 		);
 
 		// Search
@@ -186,7 +243,7 @@ await withSite(async (url) => {
 			await wait();
 			return {
 				rows: document.querySelectorAll('.mod').length,
-				tab: document.querySelector('.tab[data-group="visuals"]').getAttribute('aria-selected'),
+				chip: document.querySelector('.tab[data-group="visuals"]').getAttribute('aria-pressed'),
 				pressed: bar.getAttribute('aria-pressed'),
 				url: location.search
 			};
@@ -194,7 +251,7 @@ await withSite(async (url) => {
 		check(
 			"hero group bars filter the mod list",
 			barTest.rows === 11 &&
-				barTest.tab === "true" &&
+				barTest.chip === "true" &&
 				barTest.pressed === "true" &&
 				barTest.url === "?group=visuals",
 			JSON.stringify(barTest)

@@ -178,10 +178,15 @@ function applyDocument() {
 	root.dir = "ltr";
 
 	document.title = t("meta.title");
+	// og: and twitter: carry the same three strings, so they move together. A
+	// shared preview that reads "Zitrus" and nothing else is worse than one
+	// that is at least consistent with the page.
 	for (const [selector, key] of [
 		['meta[name="description"]', "meta.description"],
 		['meta[property="og:title"]', "meta.title"],
-		['meta[property="og:description"]', "meta.ogDescription"]
+		['meta[property="og:description"]', "meta.ogDescription"],
+		['meta[name="twitter:title"]', "meta.title"],
+		['meta[name="twitter:description"]', "meta.ogDescription"]
 	]) {
 		const el = document.querySelector(selector);
 		if (el) el.setAttribute("content", t(key));

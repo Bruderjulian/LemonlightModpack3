@@ -23,6 +23,12 @@
  *
  *   sortAttributes / sortClassName: off
  *     Pure churn. They make rebuilds noisy to review for no runtime gain.
+ *
+ *   removeAttributeQuotes: false
+ *     Saves a few hundred bytes and turns the head into `<meta property=og:url
+ *     content=https://skywardmc.org/>`. That parses, but a crawler bug is a far
+ *     more expensive outcome than 300 bytes, and the document is not where the
+ *     weight is anyway.
  */
 
 import { minify } from "html-minifier-terser";
@@ -39,7 +45,7 @@ const OPTIONS = {
 	removeStyleLinkTypeAttributes: true,
 	removeOptionalTags: true,
 	removeEmptyAttributes: false,
-	removeAttributeQuotes: true,
+	removeAttributeQuotes: false,
 	useShortDoctype: true,
 	minifyCSS: true,
 	minifyJS: true,

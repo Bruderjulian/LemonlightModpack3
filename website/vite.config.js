@@ -1,15 +1,9 @@
 import { defineConfig } from "vite";
 import { minifyHtml } from "./tools/minify-html.mjs";
+import { seo } from "./tools/seo.mjs";
+import { SITE_URL } from "./tools/site-url.mjs";
 
-/**
- * The one place the production URL is written down.
- *
- * canonical, og:url, robots.txt and sitemap.xml are all derived from this, so
- * the page cannot advertise an address it is not served from. The site is
- * published at the domain root, which is why base is "/" and this has no
- * trailing path.
- */
-export const SITE_URL = "https://skywardmc.org";
+export { SITE_URL };
 
 /**
  * The site is one page with no framework. Vite is here for the dev server,
@@ -59,6 +53,10 @@ export default defineConfig({
 	},
 
 	plugins: [
+		// canonical, Open Graph, Twitter, JSON-LD, robots.txt and sitemap.xml,
+		// all computed from SITE_URL above.
+		seo(SITE_URL, "dist"),
+
 		{
 			// Vite minifies the JS and the CSS but leaves index.html as written,
 			// and the document was the largest uncompressed asset on the critical

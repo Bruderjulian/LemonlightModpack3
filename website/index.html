@@ -16,10 +16,19 @@
 			property="og:description"
 			content="Rendering, memory, network and tick rate are tuned for you. Nothing to configure before you play."
 		/>
-		<meta property="og:url" content="https://skywardmc.org/zitrus" />
-		<!-- TODO: brand the share image. Needs real art, not a generated placeholder.
-		     Target: 1200x630, dropped in src/assets/img/og.png. Until then socials
-		     fall back to the default card rather than showing something wrong. -->
+		<!-- canonical, og:url, og:site_name, og:locale, the whole og:image set,
+		     twitter:card and the JSON-LD graph are injected by tools/seo.mjs
+		     from the one SITE_URL in vite.config.js. Hand-writing them here is
+		     how the repo ended up holding two different answers to what its own
+		     address is. The share card itself is dist/og.png, built by
+		     tools/build-og.mjs from these same tokens; swap that file for real
+		     brand art and nothing else has to change. -->
+
+		<!-- Two font files from jsDelivr, preloaded because the text above the
+		     fold is in them. The preconnect is what removes their DNS lookup and
+		     TLS handshake from the critical path; without it the preloads queue
+		     behind a connection that has not been opened yet. -->
+		<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 		<link rel="preload" as="font" type="font/woff2" crossorigin
 			href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5/files/geist-latin-wght-normal.woff2" />
 		<link rel="preload" as="font" type="font/woff2" crossorigin
@@ -128,7 +137,10 @@
 			</div>
 		</header>
 
-		<div class="drawer" id="drawer">
+		<!-- A nav, not a dialog. Everything in here is a link, so the plain
+		     disclosure pattern is right: no aria-modal, no focus trap, just a
+		     named landmark and focus moved into it on open. -->
+		<nav class="drawer" id="drawer" aria-label="Site menu" data-i18n-attr="aria-label:a11y.menu">
 			<a href="#mods" data-i18n="nav.mods">Mods</a>
 			<a href="#install" data-i18n="nav.install">Install</a>
 			<a href="https://github.com/Bruderjulian/LemonlightModpack3#-questions" data-i18n="nav.wiki">Wiki</a>
@@ -137,7 +149,7 @@
 			     width, so a reader on a phone does not have to find it in two
 			     places, and the drawer keeps its original four links. -->
 			<a class="btn btn--primary" href="#install" data-i18n="nav.install">Install</a>
-		</div>
+		</nav>
 
 		<main id="main">
 			<!-- ===================== Hero ===================== -->
@@ -228,14 +240,20 @@
 
 					<div class="browser" data-reveal>
 						<div class="browser__bar">
-							<div class="tabs" id="tabs" role="tablist" aria-label="Mod groups" data-i18n-attr="aria-label:mods.groups"></div>
+							<!-- A group of filters, not a tab list. There is no tabpanel
+							     here: all five buttons drive the one list underneath, and the
+							     selection is a pressed state rather than a panel. Declaring
+							     role="tablist" announced "tab" for controls that do not behave
+							     like tabs and promised panels that do not exist, so these are
+							     aria-pressed toggles in a named group. -->
+							<div class="tabs" id="tabs" role="group" aria-label="Mod groups" data-i18n-attr="aria-label:mods.groups"></div>
 							<div class="search" id="search-wrap">
 								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
 									<circle cx="11" cy="11" r="6.5" />
 									<path d="m16 16 4 4" />
 								</svg>
 								<label class="sr-only" for="search" data-i18n="mods.searchLabel">Search mods</label>
-								<input id="search" type="search" placeholder="Search mods" autocomplete="off" data-i18n-attr="placeholder:mods.searchPlaceholder" />
+								<input id="search" type="search" placeholder="Search mods" autocomplete="off" aria-describedby="browser-count" data-i18n-attr="placeholder:mods.searchPlaceholder" />
 								<button class="search__clear" id="search-clear" type="button" aria-label="Clear search" data-i18n-attr="aria-label:mods.clearSearch">
 									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
 										<path d="m6 6 12 12M18 6 6 18" />
@@ -248,7 +266,11 @@
 							     parser closes a p around it, which would strand it
 							     outside this row. -->
 						<div class="browser__meta">
-							<span id="browser-count" data-i18n="mods.loading">Loading mod list...</span>
+							<!-- role="status" so filtering announces itself. Without a live
+							     region, typing a query silently swapped the whole list under a
+							     reader who had no way of knowing it had happened; it is also
+							     what the search input points at with aria-describedby. -->
+							<span id="browser-count" role="status" data-i18n="mods.loading">Loading mod list...</span>
 							<span class="browser__meta-tools">
 								<span id="browser-sides"></span>
 								<span class="filters">
@@ -342,7 +364,7 @@
 
 					<div class="wiz-notes" data-reveal style="--d: 80ms">
 						<div class="note">
-							<h4 data-i18n="note.blackScreenTitle">Black screen or crash on launch?</h4>
+							<h3 data-i18n="note.blackScreenTitle">Black screen or crash on launch?</h3>
 							<p>
 								<span data-i18n="note.blackScreenBody">It is almost always a driver Sodium flags. Read</span>
 								<a href="https://github.com/CaffeineMC/sodium-fabric/wiki/Driver-Compatibility" data-i18n="note.blackScreenLink">Sodium's driver notes</a>
@@ -350,7 +372,7 @@
 							</p>
 						</div>
 						<div class="note">
-							<h4 data-i18n="note.lowFpsTitle">Low FPS after the first minute?</h4>
+							<h3 data-i18n="note.lowFpsTitle">Low FPS after the first minute?</h3>
 							<p>
 								<span data-i18n="note.lowFpsBody">Raise render distance, make sure the launcher runs the game on your dedicated GPU, and give it enough RAM. The</span>
 								<a href="https://skywardmc.org/zitrus/post-install" data-i18n="note.lowFpsLink">post-install guide</a>
@@ -358,7 +380,7 @@
 							</p>
 						</div>
 						<div class="note">
-							<h4 data-i18n="note.serverTitle">Running a server instead?</h4>
+							<h3 data-i18n="note.serverTitle">Running a server instead?</h3>
 							<p>
 								<span data-i18n="note.serverBody">Server setup, Docker and pre-launch commands are in the</span>
 								<a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server" data-i18n="note.serverLink">server section of the repo</a>
@@ -391,7 +413,7 @@
 
 					<div class="footer__cols">
 						<div class="footer__col">
-							<h4 data-i18n="footer.getIt">Get it</h4>
+							<h3 data-i18n="footer.getIt">Get it</h3>
 							<ul>
 								<!-- TODO: confirm the CurseForge slug once the project is published there.
 								     This one is a guess; Modrinth is the source of truth until then. -->
@@ -402,7 +424,7 @@
 							</ul>
 						</div>
 						<div class="footer__col">
-							<h4 data-i18n="footer.learn">Learn</h4>
+							<h3 data-i18n="footer.learn">Learn</h3>
 							<ul>
 								<li><a href="#install" data-i18n="footer.installation">Installation</a></li>
 								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3#%EF%B8%8F-installing-on-a-server" data-i18n="footer.serverSetup">Server setup</a></li>
@@ -411,7 +433,7 @@
 							</ul>
 						</div>
 						<div class="footer__col">
-							<h4 data-i18n="footer.contribute">Contribute</h4>
+							<h3 data-i18n="footer.contribute">Contribute</h3>
 							<ul>
 								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues" data-i18n="footer.issueTracker">Issue tracker</a></li>
 								<li><a href="https://github.com/Bruderjulian/LemonlightModpack3/issues/new?template=mod-request.md" data-i18n="footer.requestMod">Request a mod</a></li>
