@@ -1,1 +1,1 @@
-simulationDistance:8
+simulationDistance:10

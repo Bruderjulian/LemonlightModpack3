@@ -1,13 +1,145 @@
 hash-format = "sha256"
 
 [[files]]
+file = "config/modpack_defaults/config/MouseTweaks.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/accurateblockplacement.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/adaptive-tooltips.json"
+
+[[files]]
+file = "config/modpack_defaults/config/animatica.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/appleskin.json5"
+
+[[files]]
+file = "config/modpack_defaults/config/asynclogger.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/asynclogger/default.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/asyncparticles/asyncparticles-mixin.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/asyncparticles/asyncparticles.json"
+
+[[files]]
+file = "config/modpack_defaults/config/authme.jsonc"
+
+[[files]]
+file = "config/modpack_defaults/config/autoreconnectrf.json"
+
+[[files]]
+file = "config/modpack_defaults/config/badoptimizations.txt"
+
+[[files]]
+file = "config/modpack_defaults/config/betteradvancements.json"
+
+[[files]]
+file = "config/modpack_defaults/config/bettergrass.json"
+
+[[files]]
+file = "config/modpack_defaults/config/c2me.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/chat_heads.json5"
+
+[[files]]
+file = "config/modpack_defaults/config/chatpatches.json"
+
+[[files]]
+file = "config/modpack_defaults/config/continuity.json"
+
+[[files]]
+file = "config/modpack_defaults/config/craft_config/default.json"
+
+[[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
 
 [[files]]
 file = "config/modpack_defaults/config/dynamic_fps.json"
 
 [[files]]
+file = "config/modpack_defaults/config/entity_model_features.json"
+
+[[files]]
+file = "config/modpack_defaults/config/entity_texture_features.json"
+
+[[files]]
+file = "config/modpack_defaults/config/entityculling.json"
+
+[[files]]
+file = "config/modpack_defaults/config/etf_warnings.json"
+
+[[files]]
+file = "config/modpack_defaults/config/fabric/indigo-renderer.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/fastquit.toml"
+
+[[files]]
 file = "config/modpack_defaults/config/ferritecore.mixin.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/fzzy_config/keybinds.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/gnetum.json"
+
+[[files]]
+file = "config/modpack_defaults/config/held-item-info.json"
+
+[[files]]
+file = "config/modpack_defaults/config/immediatelyfast.json"
+
+[[files]]
+file = "config/modpack_defaults/config/inventoryhud.json"
+
+[[files]]
+file = "config/modpack_defaults/config/iris-excluded.json"
+
+[[files]]
+file = "config/modpack_defaults/config/iris.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/ixeris.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/jade/hide-blocks.json"
+
+[[files]]
+file = "config/modpack_defaults/config/jade/hide-entities.json"
+
+[[files]]
+file = "config/modpack_defaults/config/jade/hide-mob-effects.json"
+
+[[files]]
+file = "config/modpack_defaults/config/jade/jade.json"
+
+[[files]]
+file = "config/modpack_defaults/config/jade/sort-order.json"
+
+[[files]]
+file = "config/modpack_defaults/config/jasione.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/languagereload.json"
+
+[[files]]
+file = "config/modpack_defaults/config/litematica.json"
+
+[[files]]
+file = "config/modpack_defaults/config/litematicafilter.json"
+
+[[files]]
+file = "config/modpack_defaults/config/lithium.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/malilib.json"
 
 [[files]]
 file = "config/modpack_defaults/config/modernfix-mixins.properties"
@@ -16,7 +148,145 @@ file = "config/modpack_defaults/config/modernfix-mixins.properties"
 file = "config/modpack_defaults/config/modmenu.json"
 
 [[files]]
+file = "config/modpack_defaults/config/moreculling.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/notenoughanimations.json"
+
+[[files]]
+file = "config/modpack_defaults/config/npe.json"
+
+[[files]]
+file = "config/modpack_defaults/config/optimized_fullbright/default.json"
+
+[[files]]
+file = "config/modpack_defaults/config/packetfixer.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/particle_core_config.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/particle_core_disabled_optimizations_v2.json"
+
+[[files]]
+file = "config/modpack_defaults/config/quick-pack.json"
+
+[[files]]
+file = "config/modpack_defaults/config/schematicpreview.json"
+
+[[files]]
+file = "config/modpack_defaults/config/servercore/config.yml"
+
+[[files]]
+file = "config/modpack_defaults/config/servercore/optimizations.yml"
+
+[[files]]
+file = "config/modpack_defaults/config/skinlayers.json"
+
+[[files]]
+file = "config/modpack_defaults/config/skinshuffle/config.json"
+
+[[files]]
+file = "config/modpack_defaults/config/smart_particles/config.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-extra-options.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-extra.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-mixins.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-options.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-shadowy-path-blocks-options.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodiumextrainformation/sodium-extra-information-options.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodiumextrainformation/telemetry-config.json"
+
+[[files]]
+file = "config/modpack_defaults/config/structure_layout_optimizer.jsonc"
+
+[[files]]
+file = "config/modpack_defaults/config/viafabricplus/settings.json"
+
+[[files]]
+file = "config/modpack_defaults/config/viafabricplus/viaaprilfools.yml"
+
+[[files]]
+file = "config/modpack_defaults/config/viafabricplus/viabackwards.yml"
+
+[[files]]
+file = "config/modpack_defaults/config/viafabricplus/vialegacy.yml"
+
+[[files]]
+file = "config/modpack_defaults/config/viafabricplus/viaversion.yml"
+
+[[files]]
 file = "config/modpack_defaults/config/vmp.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/lib/client.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/lib/common.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/lib/profiles/default.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/lib/server_profiles/default.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/minimap/client.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/minimap/common.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/minimap/default_radar_categories_client.json"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/minimap/default_radar_categories_server.json"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/minimap/profiles/default.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/minimap/server_profiles/default.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/world-map/client.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/world-map/common.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/world-map/profiles/default.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xaero/world-map/server_profiles/default.cfg"
+
+[[files]]
+file = "config/modpack_defaults/config/xmmp.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/yacl.json5"
+
+[[files]]
+file = "config/modpack_defaults/config/zfastnoise.mixin.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/zfastsurface.mixin.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/zmatcomp.mixin.toml"
 
 [[files]]
 file = "config/modpack_defaults/options.txt"
