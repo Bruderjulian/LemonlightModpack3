@@ -45,7 +45,7 @@
   "search": true,
   "searchDrafting": true,
   "searchPrefix": false,
-  "searchEmptyShowsFullChat": false,
+  "searchEmptyShowsFullChat": true,
   "caseSensitive": true,
   "regex": false,
   "logMessageStructures": false

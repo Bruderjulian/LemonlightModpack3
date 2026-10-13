@@ -31,17 +31,17 @@ version = 1
 		trivial = true
 
 	[perf.biomes]
-		#Optimize biome tree by avoiding multiple calls to thread local
-		# defaultValue: false
+		# Optimize biome tree by avoiding multiple calls to thread local
+		# defaultValue: true
 		# incompatibleWith: biolith
 		#
 		tree = true
-		#Optimize end biome generation (2x speed) but may cause mod incompatibility
+		# Optimize end biome generation (2x speed) but may cause mod incompatibility
 		# defaultValue: true
 		# incompatibleWith: biolith
 		#
 		end = true
-		#Optimize single biome generation (major speedup) but may cause mod incompatibility
+		# Optimize single biome generation (major speedup) but may cause mod incompatibility
 		# defaultValue: true
 		#
 		fixed = true

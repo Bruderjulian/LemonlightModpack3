@@ -7,8 +7,8 @@ features:
   xp-merge-radius: 0.8
 
 commands:
-  status-enabled: false
-  mobcaps-enabled: false
+  status-enabled: true
+  mobcaps-enabled: true
 
 activation-range:
   enabled: true

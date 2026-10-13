@@ -1,6 +1,6 @@
 {
 	"enableMultiAccountSupport": false,
-	"disableReconnectToast": false,
+	"disableReconnectToast": true,
 	"disableOfflineToast": false,
 	"disableAPIUpload": false,
 	"displayInPauseMenu": true,
@@ -12,7 +12,7 @@
 	"carouselSkinRenderStyle": "ROTATION",
 	"presetEditScreenRenderStyle": "ROTATION",
 	"rotationMultiplier": 1.0,
-	"showCapeInPreview": false,
+	"showCapeInPreview": true,
 	"carouselView": "COMPACT",
 	"welcomeGuideShown": false,
 	"mineskinProxyDomain": "skinshuffle.imb11.dev",

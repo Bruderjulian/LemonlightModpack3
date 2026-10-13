@@ -61,13 +61,13 @@ globalExecutorParallelism = "default"
 		# 
 		# Note: The server must advertise support this protocol for this to work
 		# 
-		enableExtRenderDistanceProtocol = false
+		enableExtRenderDistanceProtocol = true
 		# ================================================================
 		# (Default: true) Whether to modify maximum view distance
-		enabled = false
+		enabled = true
 		# ================================================================
 		# (Default: 66) Max render distance allowed in game options
-		maxViewDistance = "default"
+		maxViewDistance = "128"
 
 [noTickViewDistance]
 	# ================================================================
@@ -80,7 +80,7 @@ globalExecutorParallelism = "default"
 	# 
 	# Requires Fabric API (currently available)
 	# 
-	enableExtRenderDistanceProtocol = false
+	enableExtRenderDistanceProtocol = true
 	# ================================================================
 	# (Default: 200) Applies a multiplier *in percentage* to the target chunk sending rate from vanilla
 	# Setting this to 0 disables rate limiting
