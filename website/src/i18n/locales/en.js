@@ -3,7 +3,7 @@
  * fails if another locale has a key this one does not, or is missing one.
  *
  * Mod names, blurbs and group blurbs are data, not copy. They stay as Modrinth
- * serves them, in English, for every locale. Translating 87 blurbs by hand
+ * serves them, in English, for every locale. Translating 83 blurbs by hand
  * would be worse than leaving the source language: a mistranslated mod
  * description is a support ticket, whereas an English one is recognisably the
  * mod author's own words.
@@ -13,7 +13,7 @@ export default {
 	/* ---------- Document ---------- */
 	"meta.title": "Zitrus: a performance-first Fabric modpack",
 	"meta.description":
-		"Zitrus is a performance-first Fabric modpack for Minecraft with quality of life already configured. 87 curated mods for six Minecraft versions, client and server.",
+		"Zitrus is a performance-first Fabric modpack for Minecraft with quality of life already configured. 83 curated mods for six Minecraft versions, client and server.",
 	"meta.ogDescription":
 		"Rendering, memory, network and tick rate are tuned for you. Nothing to configure before you play.",
 
@@ -199,7 +199,7 @@ export default {
 	"footer.requestConfig": "Request a config",
 	"footer.notAffiliated": "Not affiliated with Mojang or Microsoft",
 	/* Composed in main.js from the two counts, so each inflects on its own:
-	   six versions and 106 mods are two different nouns in most languages. */
+	   six versions and 102 mods are two different nouns in most languages. */
 	"footer.summary": "{version} · {versions} · {mods}",
 	"mods.versionCount": {
 		one: "{n} version",

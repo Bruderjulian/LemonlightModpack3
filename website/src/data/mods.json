@@ -1,21 +1,21 @@
 {
 	"generated": "pnpm --dir website run data",
 	"latest": "26.3",
-	"total": 106,
+	"total": 102,
 	"counts": {
-		"both": 92,
+		"both": 88,
 		"client": 11,
 		"server": 3
 	},
-	"curated": 87,
+	"curated": 83,
 	"versions": [
 		{
 			"minecraft": "26.3",
 			"release": "1.1.0",
 			"loader": "fabric",
-			"total": 106,
+			"total": 102,
 			"counts": {
-				"both": 92,
+				"both": 88,
 				"client": 11,
 				"server": 3
 			}
@@ -87,13 +87,13 @@
 			"key": "visuals",
 			"title": "Visuals",
 			"blurb": "Connected textures, shaders and lighting. Looks good without giving back the frames.",
-			"count": 11
+			"count": 10
 		},
 		{
 			"key": "qol",
 			"title": "Quality of life",
 			"blurb": "Maps, schematics, HUDs and inventory tools. The things you would have installed anyway.",
-			"count": 30
+			"count": 27
 		},
 		{
 			"key": "tweaks",
@@ -776,34 +776,6 @@
 			"library": false
 		},
 		{
-			"id": "4das1Fjq",
-			"name": "Flashback",
-			"side": "both",
-			"file": "flashback",
-			"group": "qol",
-			"parent": null,
-			"blurb": "Record your Minecraft gameplay, play it back and create stunning cinematic shots",
-			"slug": "flashback",
-			"icon": "flashback-68.webp",
-			"downloads": 12426100,
-			"followers": 3798,
-			"library": false
-		},
-		{
-			"id": "4q8UOK1d",
-			"name": "Subtle Effects",
-			"side": "both",
-			"file": "subtle-effects",
-			"group": "visuals",
-			"parent": null,
-			"blurb": "Adding many new subtle details through particles and a few sounds",
-			"slug": "subtle-effects",
-			"icon": "subtle-effects-68.webp",
-			"downloads": 12202468,
-			"followers": 3325,
-			"library": false
-		},
-		{
 			"id": "EnPUzSTg",
 			"name": "XaeroPlus",
 			"side": "both",
@@ -1224,20 +1196,6 @@
 			"library": false
 		},
 		{
-			"id": "SEEukT7F",
-			"name": "Flashback Extras",
-			"side": "both",
-			"file": "flashback-extras",
-			"group": "qol",
-			"parent": "flashback",
-			"blurb": "Extra tools and quality-of-life improvements for the Flashback replay editor.",
-			"slug": "flashback-extras",
-			"icon": "flashback-extras-68.webp",
-			"downloads": 70966,
-			"followers": 30,
-			"library": false
-		},
-		{
 			"id": "iEtUDGQp",
 			"name": "Optimized Fullbright",
 			"side": "both",
@@ -1291,20 +1249,6 @@
 			"icon": "xaeros-maps-multiplayer-plus-68.webp",
 			"downloads": 23632,
 			"followers": 36,
-			"library": false
-		},
-		{
-			"id": "6o9zaNB9",
-			"name": "Flashback Turbo",
-			"side": "both",
-			"file": "flashbackturbo",
-			"group": "qol",
-			"parent": "flashback",
-			"blurb": "Field-proven faster Flashback exports, without quality loss — up to ~11x, ~8.5s for a 1080p60 clip on NVIDIA.",
-			"slug": "flashbackturbo",
-			"icon": "flashbackturbo-68.webp",
-			"downloads": 19896,
-			"followers": 18,
 			"library": false
 		},
 		{

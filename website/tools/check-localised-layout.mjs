@@ -131,7 +131,7 @@ await withSite(async (url) => {
 					bad ? [...r.overflow, ...r.clipped].join(" | ") : `scrollW=${r.scrollW}`
 				);
 				// The show-all button holds a whole sentence in some locales
-				// ("Show all 75 mods"), so a two-line wrap there is a bug.
+				// ("Show all 73 mods"), so a two-line wrap there is a bug.
 				check(
 					`${locale} @ ${width}px show-all button does not wrap`,
 					!r.moreWraps,

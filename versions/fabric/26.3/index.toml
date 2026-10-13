@@ -186,18 +186,6 @@ file = "mods/ferrite-core.pw.toml"
 metafile = true
 
 [[files]]
-file = "mods/flashback-extras.pw.toml"
-metafile = true
-
-[[files]]
-file = "mods/flashback.pw.toml"
-metafile = true
-
-[[files]]
-file = "mods/flashbackturbo.pw.toml"
-metafile = true
-
-[[files]]
 file = "mods/forgeconfigapiport.pw.toml"
 metafile = true
 
@@ -387,10 +375,6 @@ metafile = true
 
 [[files]]
 file = "mods/structure-layout-optimizer.pw.toml"
-metafile = true
-
-[[files]]
-file = "mods/subtle-effects.pw.toml"
 metafile = true
 
 [[files]]

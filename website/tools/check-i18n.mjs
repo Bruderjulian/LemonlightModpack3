@@ -353,7 +353,7 @@ await withSite(async (url) => {
 		check("switching repaints the footer summary", switched.before.foot !== switched.after.foot, `${switched.before.foot} -> ${switched.after.foot}`);
 		check("switching records the choice in the URL", switched.after.search.includes("lang=ru"), switched.after.search);
 
-		// Russian inflects plurals, so 75 mods and 5 addons cannot share a form.
+		// Russian inflects plurals, so 73 mods and 5 addons cannot share a form.
 		const ru = await page.evaluate(() => ({
 			addons: document.querySelector(".mod__addons-count")?.textContent,
 			foot: document.getElementById("foot-ver").textContent,

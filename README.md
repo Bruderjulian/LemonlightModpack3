@@ -98,7 +98,7 @@ A mod tagged **(client)** or **(server)** only installs in that environment; eve
 </details>
 
 <details>
-<summary><b>🎨 Visuals (12 mods)</b></summary>
+<summary><b>🎨 Visuals (11 mods)</b></summary>
 
 - [Continuity](https://modrinth.com/mod/continuity)
 - [Animatica Refabricated](https://modrinth.com/mod/animatica)
@@ -110,13 +110,12 @@ A mod tagged **(client)** or **(server)** only installs in that environment; eve
 - [Not Enough Animations](https://modrinth.com/mod/not-enough-animations)
 - [Chat Patches](https://modrinth.com/mod/chatpatches)
 - [Chat Heads](https://modrinth.com/mod/chat-heads)
-- [Subtle Effects](https://modrinth.com/mod/subtle-effects)
 - [Cubes Without Borders](https://modrinth.com/mod/cubes-without-borders) (older versions)
 
 </details>
 
 <details>
-<summary><b>✨ Quality of life (22 mods)</b></summary>
+<summary><b>✨ Quality of life (21 mods)</b></summary>
 
 - **[Xaero's + Addons](https://modrinth.com/mod/xaeros-minimap)**
 - **[Litematica + Addons](https://modrinth.com/mod/litematica)**
@@ -141,9 +140,6 @@ A mod tagged **(client)** or **(server)** only installs in that environment; eve
 - [Shulker Box Tooltip](https://modrinth.com/mod/shulkerboxtooltip)
 - [Skin Shuffle](https://modrinth.com/mod/skinshuffle)
 - [Auto Reconnect Reforged](https://modrinth.com/mod/autoreconnectrf)
-- **[Flashback + Addons](https://modrinth.com/mod/flashback)**
-  - [Flashback Turbo](https://modrinth.com/mod/flashbackturbo)
-  - [Flashback Extras](https://modrinth.com/mod/flashback-extras)
 - [Controlify](https://modrinth.com/mod/controlify)
 
 </details>

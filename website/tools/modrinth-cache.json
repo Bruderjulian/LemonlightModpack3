@@ -288,21 +288,6 @@
 		"published": "2021-12-05T03:00:09.272223Z"
 	},
 	{
-		"slug": "subtle-effects",
-		"title": "Subtle Effects",
-		"displayTitle": "Subtle Effects",
-		"description": "Adding many new subtle details through particles and a few sounds",
-		"categories": [
-			"adventure",
-			"decoration",
-			"game-mechanics"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/4q8UOK1d/8a5d3febe9a9badba435a3f66a49668d04ada01f_96.webp",
-		"downloads": 12202468,
-		"followers": 3325,
-		"published": "2024-05-24T01:09:40.334513Z"
-	},
-	{
 		"slug": "sodium-extra-information",
 		"title": "Sodium Extra Information",
 		"displayTitle": "Sodium Extra Information",
@@ -721,20 +706,6 @@
 		"published": "2022-01-29T20:52:18.744493Z"
 	},
 	{
-		"slug": "flashbackturbo",
-		"title": "Flashback Turbo",
-		"displayTitle": "Flashback Turbo",
-		"description": "Field-proven faster Flashback exports, without quality loss — up to ~11x, ~8.5s for a 1080p60 clip on NVIDIA.",
-		"categories": [
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/6o9zaNB9/70ac563f44dd0f702dbbb4823cf2d7c6fa22ae60_96.webp",
-		"downloads": 19896,
-		"followers": 18,
-		"published": "2026-05-19T12:20:05.332454Z"
-	},
-	{
 		"slug": "litematica-material-filter",
 		"title": "Litematica Material Filter",
 		"displayTitle": "Litematica Material Filter",
@@ -789,19 +760,6 @@
 		"downloads": 71271230,
 		"followers": 9191,
 		"published": "2021-09-18T08:14:16.544897Z"
-	},
-	{
-		"slug": "flashback",
-		"title": "Flashback",
-		"displayTitle": "Flashback",
-		"description": "Record your Minecraft gameplay, play it back and create stunning cinematic shots",
-		"categories": [
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/4das1Fjq/e81c66aacf2e12c09a95e4f971ea5e2b9f608317_96.webp",
-		"downloads": 12426100,
-		"followers": 3798,
-		"published": "2024-06-05T22:32:47.535341Z"
 	},
 	{
 		"slug": "fastquit",
@@ -1119,21 +1077,6 @@
 		"downloads": 330328,
 		"followers": 120,
 		"published": "2024-06-20T05:12:08.216005Z"
-	},
-	{
-		"slug": "flashback-extras",
-		"title": "Flashback Extras",
-		"displayTitle": "Flashback Extras",
-		"description": "Extra tools and quality-of-life improvements for the Flashback replay editor.",
-		"categories": [
-			"management",
-			"optimization",
-			"utility"
-		],
-		"icon_url": "https://cdn.modrinth.com/data/SEEukT7F/00aabf1feb1015562c97795b1748b89451bf11f8_96.webp",
-		"downloads": 70966,
-		"followers": 30,
-		"published": "2026-03-16T16:45:35.625383Z"
 	},
 	{
 		"slug": "litematica",

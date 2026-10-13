@@ -39,7 +39,7 @@ await withSite(async (url) => {
 			"group tabs filter the list",
 			tabTest.length === 5 &&
 				tabTest.every((t) => t.pressed === "true") &&
-				tabTest.find((t) => t.group === "visuals").rows === 11 &&
+				tabTest.find((t) => t.group === "visuals").rows === 10 &&
 				tabTest.find((t) => t.group === "tweaks").rows === 8 &&
 				tabTest[0].rows === 12,
 			JSON.stringify(tabTest.map((t) => `${t.group}:${t.rows}`))
@@ -216,8 +216,8 @@ await withSite(async (url) => {
 			moreTest.before.rows === 12 &&
 				moreTest.before.hidden === false &&
 				moreTest.before.expanded === "false" &&
-				moreTest.before.label === "Show all 75 mods" &&
-				moreTest.open.rows === 75 &&
+				moreTest.before.label === "Show all 73 mods" &&
+				moreTest.open.rows === 73 &&
 				moreTest.open.expanded === "true" &&
 				moreTest.open.label === "Show fewer" &&
 				moreTest.closed.rows === 12 &&
@@ -250,7 +250,7 @@ await withSite(async (url) => {
 		})()`);
 		check(
 			"hero group bars filter the mod list",
-			barTest.rows === 11 &&
+			barTest.rows === 10 &&
 				barTest.chip === "true" &&
 				barTest.pressed === "true" &&
 				barTest.url === "?group=visuals",
@@ -329,7 +329,7 @@ await withSite(async (url) => {
 	);
 	check(
 		"environment filter picks one environment and keeps both-side mods",
-		filterTest.client.count === "72 mods" &&
+		filterTest.client.count === "70 mods" &&
 			filterTest.client.url === "?side=client" &&
 			filterTest.client.checked === "true" &&
 			filterTest.client.tags.length === 2 &&
@@ -340,7 +340,7 @@ await withSite(async (url) => {
 	);
 	check(
 		"server filter drops the client-only mods",
-		filterTest.server.count === "69 mods" &&
+		filterTest.server.count === "67 mods" &&
 			// Only the first page renders, so this checks what must be gone
 			// rather than what must be there.
 			!filterTest.server.tags.includes("client") &&
@@ -414,7 +414,7 @@ await withSite(async (url) => {
 		"mod list orders by downloads, then by relevance",
 		sortTest.rows === 12 &&
 			sortTest.desc &&
-			sortTest.relevanceRows === 75 &&
+			sortTest.relevanceRows === 73 &&
 			sortTest.relevanceGroups === "performance,visuals,qol,tweaks" &&
 			sortTest.firstOfKind &&
 			sortTest.stillDesc &&
@@ -459,9 +459,9 @@ await withSite(async (url) => {
 	})()`);
 	check(
 		"addons fold into their parent row",
-		addonTest.rows === 75 &&
-			addonTest.parents === 4 &&
-			addonTest.allChips.length === 12 &&
+		addonTest.rows === 73 &&
+			addonTest.parents === 3 &&
+			addonTest.allChips.length === 10 &&
 			addonTest.chips.length === 4 &&
 			addonTest.label === "+ 4 addons" &&
 			addonTest.standaloneCounts === 0 &&

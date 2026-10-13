@@ -1,7 +1,7 @@
 export default {
 	"meta.title": "Zitrus：主打性能的 Fabric 整合包",
 	"meta.description":
-		"Zitrus 是一款主打性能的 Minecraft Fabric 整合包，内置已配置好的实用功能。六款 Minecraft 版本、客户端与服务端通用，共 87 个精选模组。",
+		"Zitrus 是一款主打性能的 Minecraft Fabric 整合包，内置已配置好的实用功能。六款 Minecraft 版本、客户端与服务端通用，共 83 个精选模组。",
 	"meta.ogDescription":
 		"渲染、内存、网络与 TPS 均已为你调好，开玩之前无需任何配置。",
 

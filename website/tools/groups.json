@@ -91,7 +91,6 @@
 		"not-enough-animations": { "group": "visuals", "slug": "not-enough-animations" },
 		"chatpatches": { "group": "visuals", "slug": "chatpatches" },
 		"chat-heads": { "group": "visuals", "slug": "chat-heads" },
-		"subtle-effects": { "group": "visuals", "slug": "subtle-effects" },
 
 		"xaeros-minimap": { "group": "qol", "slug": "xaeros-minimap" },
 		"xaeros-world-map": { "group": "qol", "slug": "xaeros-world-map", "parent": "xaeros-minimap" },
@@ -130,9 +129,6 @@
 		"shulkerboxtooltip": { "group": "qol", "slug": "shulkerboxtooltip" },
 		"skinshuffle": { "group": "qol", "slug": "skinshuffle" },
 		"autoreconnectrf": { "group": "qol", "slug": "autoreconnectrf" },
-		"flashback": { "group": "qol", "slug": "flashback" },
-		"flashbackturbo": { "group": "qol", "slug": "flashbackturbo", "parent": "flashback" },
-		"flashback-extras": { "group": "qol", "slug": "flashback-extras", "parent": "flashback" },
 		"controlify": { "group": "qol", "slug": "controlify" },
 
 		"crash-assistant": { "group": "tweaks", "slug": "crash-assistant" },

@@ -1,7 +1,7 @@
 export default {
 	"meta.title": "Zitrus : un modpack Fabric axé sur la performance",
 	"meta.description":
-		"Zitrus est un modpack Fabric pour Minecraft axé sur la performance, avec les qualités de vie déjà configurées. 87 mods sélectionnés pour six versions de Minecraft, client et serveur.",
+		"Zitrus est un modpack Fabric pour Minecraft axé sur la performance, avec les qualités de vie déjà configurées. 83 mods sélectionnés pour six versions de Minecraft, client et serveur.",
 	"meta.ogDescription":
 		"Rendu, mémoire, réseau et tickrate sont réglés pour vous. Rien à configurer avant de jouer.",
 

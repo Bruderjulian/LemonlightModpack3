@@ -116,11 +116,11 @@ anything left in the directory that the icon build has not seen.
 
 `assetsInlineLimit` stays at **0** on purpose. The icons are reached through
 `import.meta.glob(..., { eager: true })`, so raising it would inline base64 for
-all 166 of them into the JS bundle, and every visitor would download every icon
+all 160 of them into the JS bundle, and every visitor would download every icon
 to see the twelve that are on screen.
 
 The JS grew by 5 kB and the HTML by 25 kB, both deliberately. The JS growth is
-166 hashed URL strings, about 1.2 kB gzipped, paid on every page load in
+160 hashed URL strings, about 1.2 kB gzipped, paid on every page load in
 exchange for 566 kB of images. The HTML growth is the prerender plus the
 JSON-LD, and it is what a crawler now reads.
 
@@ -201,7 +201,7 @@ checks against `dist` rather than the dev server:
   language switch rewrites the Twitter pair alongside the Open Graph one.
 - JSON-LD as a `WebSite` + `SoftwareApplication` + `ItemList` graph, serialised
   from `mods.json` so the structured data and the visible list cannot disagree.
-  It lists the 87 curated mods and omits libraries, which are not what anyone
+  It lists the 83 curated mods and omits libraries, which are not what anyone
   searches for.
 
 `tools/build-og.mjs` replaces the TODO that said the share card needed real
@@ -264,13 +264,13 @@ Plurals are keyed by CLDR category, not by `one`/`other`, because Russian needs
 which languages those are, from `Intl` itself rather than a hand-kept list.
 
 Nouns that differ by count are separate keys, not one sentence: the footer
-reads "6 версий · 106 модов", which needs `mods.versionCount` and `mods.count`
+reads "6 версий · 102 модов", which needs `mods.versionCount` and `mods.count`
 rather than a single `{versions} versions · {mods} mods`.
 
 ### What is not translated
 
 Mod names, mod blurbs and group blurbs are data, not copy, and stay in English
-for every locale. Translating 87 blurbs by hand would be worse than leaving the
+for every locale. Translating 83 blurbs by hand would be worse than leaving the
 source language: a mistranslated mod description is a support ticket, whereas
 an English one is recognisably the mod author's own words. Product names are
 in the same category — Fabric, Prism Launcher, CurseForge and packwiz stay in
@@ -321,8 +321,8 @@ website/src/data/mods.json   ---->  hero panel, group bars, mod browser, wizard
   libraries that should stay hidden.
 - A new mod with no group fails the build rather than silently disappearing.
 
-The counts are therefore the pack's real counts. For 26.3 that is 106
-installed files, of which 87 are curated mods and 19 are libraries.
+The counts are therefore the pack's real counts. For 26.3 that is 102
+installed files, of which 83 are curated mods and 19 are libraries.
 
 The mod browser has two orders, both off real numbers rather than a hand-tuned
 score:
@@ -519,10 +519,10 @@ button at all.
 
 Addons are folded into their parent row as small chips rather than taking a
 row of their own: Sodium carries its four addons, Xaero's Minimap its three,
-Litematica and Flashback two each. The count sits in the title line next to
+Litematica its two. The count sits in the title line next to
 the side tag, so "Sodium + 4 addons CLIENT" reads as one cluster of metadata
-rather than a stray line under the description. That makes 87 installed
-curated mods read as 75 entries, which is how the repo README already counts
+rather than a stray line under the description. That makes 83 installed
+curated mods read as 73 entries, which is how the repo README already counts
 them. Pagination counts entries, not mods, so the page cannot promise 12 rows
 and render 10. An addon whose parent is filtered out still gets a row of its
 own rather than disappearing.

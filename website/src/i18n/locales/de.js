@@ -1,7 +1,7 @@
 export default {
 	"meta.title": "Zitrus: ein Performance-Fabric-Modpack",
 	"meta.description":
-		"Zitrus ist ein Performance-Fabric-Modpack für Minecraft mit bereits konfigurierten Komfort-Features. 87 kuratierte Mods für sechs Minecraft-Versionen, Client und Server.",
+		"Zitrus ist ein Performance-Fabric-Modpack für Minecraft mit bereits konfigurierten Komfort-Features. 83 kuratierte Mods für sechs Minecraft-Versionen, Client und Server.",
 	"meta.ogDescription":
 		"Rendering, Speicher, Netzwerk und Tickrate sind für dich eingestellt. Vor dem Spielen ist nichts zu konfigurieren.",
 
