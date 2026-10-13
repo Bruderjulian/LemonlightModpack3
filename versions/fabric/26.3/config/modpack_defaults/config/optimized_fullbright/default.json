@@ -1,0 +1,21 @@
+{
+  "general": {
+    "options": {
+      "fullbright": true
+    },
+    "compatibility": {
+      "override_gamma": true,
+      "disable_light_propagation": true,
+      "force_max_brightness": true,
+      "disable_light_updates": true,
+      "disable_texture_updates": true
+    }
+  },
+  "_keybinds": {
+    "fullbright": {
+      "enabled": true,
+      "notify": true,
+      "mode": "TOGGLE"
+    }
+  }
+}

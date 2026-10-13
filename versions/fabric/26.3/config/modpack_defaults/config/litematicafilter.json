@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "mode": "BLACKLIST",
+  "renderTargets": [],
+  "materialTargets": [],
+  "showEntities": true,
+  "showRawHud": false,
+  "showMaterialHud": false,
+  "expandedItems": []
+}

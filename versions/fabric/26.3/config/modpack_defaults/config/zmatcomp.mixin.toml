@@ -1,0 +1,37 @@
+	[mixin.perf]
+		#Optimize surface rules
+		# defaultValue: true
+		#
+		surface = true
+		#Pack the collection of possible biomes to avoid non-occuring biomes
+		#Because of how vanilla generates chunks, almost all chunk sections will have a reference to plains biome
+		# defaultValue: true
+		#
+		packed = true
+		#Enable material rule compiler?
+		# defaultValue: true
+		#
+		compiler = true
+		#Replace biome access in material rule context w/ optimized variant
+		# defaultValue: true
+		#
+		biome = true
+
+	[perf.surface]
+		#Predict biomes in advance in surface builder. Major speedup for surface builder
+		# (depends on surface builder mixin)
+		# defaultValue: true
+		#
+		biome = true
+
+	[perf.compiler]
+		#Max size of surface rule compiler cache per gb of allocated memory
+		# defaultValue: 512
+		# min: 16 max: 1048576
+		#
+		max_cache_size_per_gb = 512
+		#No of invocations before a block state rule is compiled
+		# defaultValue: 256
+		# min: 2 max: 1048576
+		#
+		invocations = 256
