@@ -234,21 +234,6 @@ hash = "069d81cab53c0141459ad4d70bcf3e10f17652f24cc62d3b4a0fc2cd2b700871"
 metafile = true
 
 [[files]]
-file = "mods/flashback-extras.pw.toml"
-hash = "f55e8a62f7d90e875626a50e5b2ff2d266c90d88e59a4ec8673000b1e5aac437"
-metafile = true
-
-[[files]]
-file = "mods/flashback.pw.toml"
-hash = "409f2a93abd3b3c625b42fa08f912f6cbda5eec409932a0f67141242d5823023"
-metafile = true
-
-[[files]]
-file = "mods/flashbackturbo.pw.toml"
-hash = "2d455354739839e52f81bfea89ccaa61a906a4c3ca5b728a741183abfcbb7e22"
-metafile = true
-
-[[files]]
 file = "mods/forgeconfigapiport.pw.toml"
 hash = "3eb12471fce0aadbda432f7fd5ba4e2120e0e0ebbb3663eea756a17ec0254407"
 metafile = true
@@ -486,11 +471,6 @@ metafile = true
 [[files]]
 file = "mods/structure-layout-optimizer.pw.toml"
 hash = "44905c34030688d3054a99f2fc07253c41332b3ead73fb0120d6936c3b050489"
-metafile = true
-
-[[files]]
-file = "mods/subtle-effects.pw.toml"
-hash = "bfa12d1206cf8324c7cc868ce83d069478c5a6b5ba62cee9b34ee8eafbe022e9"
 metafile = true
 
 [[files]]
