@@ -16,6 +16,8 @@ leavesCullingAmount = 2
 includeMangroveRoots = true
 endGatewayCulling = true
 useOnModdedBlocksByDefault = true
+cloudCulling = true
+beaconBeamCulling = true
 
 [modCompatibility]
 minecraft = true
