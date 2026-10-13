@@ -116,11 +116,11 @@ anything left in the directory that the icon build has not seen.
 
 `assetsInlineLimit` stays at **0** on purpose. The icons are reached through
 `import.meta.glob(..., { eager: true })`, so raising it would inline base64 for
-all 160 of them into the JS bundle, and every visitor would download every icon
+all 164 of them into the JS bundle, and every visitor would download every icon
 to see the twelve that are on screen.
 
 The JS grew by 5 kB and the HTML by 25 kB, both deliberately. The JS growth is
-160 hashed URL strings, about 1.2 kB gzipped, paid on every page load in
+164 hashed URL strings, about 1.2 kB gzipped, paid on every page load in
 exchange for 566 kB of images. The HTML growth is the prerender plus the
 JSON-LD, and it is what a crawler now reads.
 
@@ -464,12 +464,14 @@ pnpm --dir website run check -- https://skywardmc.org/
   environment radiogroup and the addons toggle, the side tag on every row,
   addon folding and the orphan case, the newest first version row, the hero
   group bars, the install wizard, the scroll spy, copy buttons and the mobile
-  drawer. It also asserts that **every row renders a decoded icon rather than
-  the monogram fallback**, and that the `srcset` offers a 1x candidate. That
-  assertion exists because a completely broken icon path passed the entire
-  suite: the rows still had their names, tags and blurbs, and a monogram is
-  indistinguishable from a deliberate choice in a screenshot. `naturalWidth` is
-  the only thing that tells them apart.
+  drawer. It also asserts that **every row that claims an icon decodes it**,
+  and that the `srcset` offers a 1x candidate. That assertion exists because a
+  completely broken icon path passed the entire suite: the rows still had their
+  names, tags and blurbs, and a monogram is indistinguishable from a deliberate
+  choice in a screenshot. `naturalWidth` is the only thing that tells them apart.
+  A mod with no icon upstream — its Modrinth entry has no `icon_url`, as
+  BadOptimizations does — is exempt and must monogram, so the check keeps its
+  teeth instead of being weakened to allow any fallback.
 - `check-contrast.mjs` walks every visible text node and fails anything under
   WCAG AA. It steps through every wizard branch, so the command block and its
   copy button get audited too, and it runs both themes against English and one

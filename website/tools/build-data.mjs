@@ -141,7 +141,11 @@ const enrich = (mod) => {
 		// <slug>-34.webp and <slug>-68.webp and deletes the source, so the
 		// unqualified <slug>.webp was a miss, and every row silently fell back
 		// to its monogram.
-		icon: project ? `${project.slug}-68.webp` : null,
+		// A project whose Modrinth entry has no icon_url — BadOptimizations is
+		// the current case — has no icon file to point at. Marking it null lets
+		// the page render its monogram as a deliberate choice instead of a
+		// broken <img>, and tells the icon check which rows to exempt.
+		icon: project?.icon_url ? `${project.slug}-68.webp` : null,
 		// Popularity, straight from Modrinth. The browser sorts on these.
 		downloads: project?.downloads ?? 0,
 		followers: project?.followers ?? 0,

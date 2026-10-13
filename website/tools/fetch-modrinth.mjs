@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import sharp from "sharp";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const site = join(root, "website");
@@ -57,7 +58,13 @@ for (const p of projects) {
 	const res = await fetch(p.icon_url, { headers: { "User-Agent": "zitrus-site/0.1" } });
 	if (!res.ok) continue;
 	const buf = Buffer.from(await res.arrayBuffer());
-	if (buf.length < 300) continue; // Modrinth serves a placeholder for missing art
+	/* A missing icon comes back as a tiny placeholder, and byte length cannot
+	   tell it from a real one: Litematica's genuine icon is a 32x32 PNG of 254
+	   bytes, which an earlier `< 300 bytes` guard silently dropped. Decode and
+	   judge by the pixels instead — a placeholder is 1x1, a real icon is at
+	   least 16px on each side. */
+	const meta = await sharp(buf).metadata().catch(() => null);
+	if (!meta?.width || !meta?.height || meta.width < 16 || meta.height < 16) continue;
 
 	const ext = EXTENSION.get(res.headers.get("content-type")?.split(";")[0]?.trim());
 	if (!ext) {

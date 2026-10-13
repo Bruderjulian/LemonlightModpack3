@@ -622,6 +622,11 @@ const browser = (function modBrowser() {
 				row.style.setProperty("--i", Math.min(i - animateFrom, 14));
 			}
 
+			// The data intent, not whether the file resolves: an icon-less mod
+			// (null in mods.json) may render a monogram, but a mod that is
+			// *supposed* to have an icon and cannot load one has to fail the
+			// icon check rather than quietly join the monograms.
+			row.dataset.icon = mod.icon || "none";
 			row.append(icon(mod));
 
 			const body = document.createElement("div");

@@ -70,18 +70,29 @@ await withSite(async (url) => {
 			}));
 			return rows.map(r => {
 				const i = r.querySelector('.mod__icon');
-				return i && i.tagName === 'IMG'
-					? {ok: i.naturalWidth > 0, src: (i.currentSrc || i.src || '').split('/').pop()}
-					: {ok: false, src: 'no-img'};
+				const isImg = Boolean(i && i.tagName === 'IMG');
+				return {
+					name: r.querySelector('.mod__name a')?.textContent || '?',
+					intendsIcon: r.dataset.icon !== 'none',
+					isImg,
+					decoded: isImg && i.naturalWidth > 0,
+					src: (isImg && (i.currentSrc || i.src || '') || 'no-img').split('/').pop()
+				};
 			});
 		})()`);
-		const brokenIcons = iconTest.filter((i) => !i.ok);
+		// Two failure modes: a row that is meant to have an icon but did not
+		// decode (the broken-path bug this check exists for), and an icon-less
+		// row that points at an image anyway. A mod with no icon upstream — its
+		// Modrinth entry has no icon_url, as BadOptimizations does — renders a
+		// monogram on purpose and is exempt.
+		const badIcons = iconTest.filter((i) => (i.intendsIcon ? !i.decoded : i.isImg));
 		check(
-			"every mod row renders its icon, not the monogram fallback",
-			brokenIcons.length === 0,
-			brokenIcons.length
-				? `${brokenIcons.length} of ${iconTest.length} broken, e.g. ${brokenIcons[0].src}`
-				: `${iconTest.length} decoded`
+			"every icon a row claims decodes; icon-less rows monogram",
+			badIcons.length === 0,
+			badIcons.length
+				? `${badIcons.length} of ${iconTest.length} wrong, e.g. ${badIcons[0].name} (${badIcons[0].src})`
+				: `${iconTest.length} rows, ${iconTest.filter((i) => i.intendsIcon).length} decoded, ` +
+					`${iconTest.filter((i) => !i.intendsIcon).length} monogram`
 		);
 
 		// And the 1x candidate has to exist. If only the 2x is in the srcset the

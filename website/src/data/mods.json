@@ -476,7 +476,7 @@
 			"parent": null,
 			"blurb": "Optimization mod that focuses on things other than rendering",
 			"slug": "badoptimizations",
-			"icon": "badoptimizations-68.webp",
+			"icon": null,
 			"downloads": 45639392,
 			"followers": 3434,
 			"library": false
