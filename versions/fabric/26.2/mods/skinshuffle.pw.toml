@@ -1,0 +1,13 @@
+name = "Skin Shuffle"
+filename = "skinshuffle-2.13.0+26.2-fabric.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/3s19I5jr/versions/13ofAx80/skinshuffle-2.13.0%2B26.2-fabric.jar"
+hash-format = "sha512"
+hash = "24270d786fde366714a1bb974703fc3bb7f181250101c2b7b0f5c0f84e586f4fcb1284a82f5a3e86df8646448fa287312dec236ea54f284d8ec0b5bd32988fb1"
+
+[update]
+[update.modrinth]
+mod-id = "3s19I5jr"
+version = "13ofAx80"

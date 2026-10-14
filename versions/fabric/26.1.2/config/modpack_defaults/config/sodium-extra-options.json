@@ -1,0 +1,31 @@
+{
+  "render_settings": {
+    "fog_settings": {
+      "advanced": true,
+      "multi_dimension_fog_control": false,
+      "atmospheric": {
+        "distance_chunks": 0,
+        "start_percent": 100,
+        "shape_mode": "VANILLA",
+        "cloud_fog_percent": 100
+      },
+      "dimension_overrides": {},
+      "protected_gameplay": {
+        "enabled_when_allowed": true,
+        "blindness_distance_blocks": -1,
+        "darkness_distance_blocks": -1,
+        "lava_distance_blocks": -1,
+        "powder_snow_distance_blocks": -1,
+        "water_distance_blocks": -1
+      }
+    }
+  },
+  "extra_settings": {
+    "show_fps": true,
+    "show_f_p_s_extended": false,
+    "show_coords": true,
+    "reduce_resolution_on_mac": false,
+    "recipe_toast": false,
+    "tutorial_toast": false
+  }
+}

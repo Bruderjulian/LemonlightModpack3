@@ -78,7 +78,7 @@ hash = "62f287d4e9c8d9e04e89f28990067251731dfa0d011d9de5591bc6b9728c9901"
 
 [[files]]
 file = "config/modpack_defaults/config/c2me.toml"
-hash = "bde09d2338d660e3110cc373e61d9133455dbfd8cc9251242a65498eb308e19e"
+hash = "ac785771fea111777247df7407ff461214c1aed6dc8125183130a32b50a0d029"
 
 [[files]]
 file = "config/modpack_defaults/config/chat_heads.json5"
@@ -298,7 +298,7 @@ hash = "30069c9e60103a46a7ab0a9d958bdacc4c4d6b9f41dc80051d629db77b5ab9f5"
 
 [[files]]
 file = "config/modpack_defaults/config/modernfix-mixins.properties"
-hash = "98503d42584e15219aeb1c9a685185a151d51be6fc919174611b3c5dea4a4a98"
+hash = "6f064e6d67bbeb8aa0e2e2e38a256d080a2dd9409f5bdea402a821cde2eaea5e"
 
 [[files]]
 file = "config/modpack_defaults/config/modmenu.json"
@@ -306,7 +306,7 @@ hash = "b2fd643083876d1ad0eb1d79ba578137cf5938ca5513207888008c6b881f904f"
 
 [[files]]
 file = "config/modpack_defaults/config/moreculling.toml"
-hash = "8a2bdfa140d2531b6c8c6ebc53799dac482755a8778ec39887eff7b2ba40a558"
+hash = "d8a6481b39dc8b1c2c7ed6a4865493b79254c7be66a682ecae0ed8fcd6646268"
 
 [[files]]
 file = "config/modpack_defaults/config/notenoughanimations.json"
@@ -378,7 +378,7 @@ hash = "b627c4456e6fa0bc4b5f85e2f1cd949faedae3cb9afdaf2a5f52e6f3b6ae1f01"
 
 [[files]]
 file = "config/modpack_defaults/config/sodium-options.json"
-hash = "c06fecae6a8f39d4f5efba120cbf02a6f2dbbe31c596b7ac1b20f6a70e9c21ec"
+hash = "40a3f818117fd2aa828721443b89c0c921ccb52b7776c33191a38133c5330108"
 
 [[files]]
 file = "config/modpack_defaults/config/sodium-shadowy-path-blocks-options.json"
