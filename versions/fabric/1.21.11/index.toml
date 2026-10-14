@@ -1,13 +1,121 @@
 hash-format = "sha256"
 
 [[files]]
+file = "config/crash_assistant/config.toml"
+
+[[files]]
+file = "config/crash_assistant/crash_assistant_localization_overrides/en_us.json"
+
+[[files]]
+file = "config/crash_assistant/scripts/log_analysis/blame-mods.jexl"
+
+[[files]]
+file = "config/fabric_loader_dependencies.json"
+
+[[files]]
+file = "config/modpack_defaults/config/NoChatReports/NCR-Client.json"
+
+[[files]]
+file = "config/modpack_defaults/config/NoChatReports/NCR-Common.json"
+
+[[files]]
+file = "config/modpack_defaults/config/accurateblockplacement.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/adaptive-tooltips.json"
+
+[[files]]
+file = "config/modpack_defaults/config/c2me.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/chatpatches.json"
+
+[[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/be_by.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/en_us.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/es_es.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/es_ve.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/et_ee.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/fr_fr.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/he_il.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/it_it.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/ms_my.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/pl_pl.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/ro_ro.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/ru_ru.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/uk_ua.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/vi_vn.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/zh_cn.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/zh_tw.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/crash_assistant_localization_overrides/zlm_arab.json"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/scripts/log_analysis/blame-mods.jexl"
+
+[[files]]
+file = "config/modpack_defaults/config/debugify.json"
 
 [[files]]
 file = "config/modpack_defaults/config/dynamic_fps.json"
 
 [[files]]
+file = "config/modpack_defaults/config/entity_texture_features.json"
+
+[[files]]
+file = "config/modpack_defaults/config/entityculling.json"
+
+[[files]]
+file = "config/modpack_defaults/config/fabric_loader_dependencies.json"
+
+[[files]]
+file = "config/modpack_defaults/config/fastquit.toml"
+
+[[files]]
 file = "config/modpack_defaults/config/ferritecore.mixin.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/iris.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/lambdynlights.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/midnightlib.json"
 
 [[files]]
 file = "config/modpack_defaults/config/modernfix-mixins.properties"
@@ -16,7 +124,43 @@ file = "config/modpack_defaults/config/modernfix-mixins.properties"
 file = "config/modpack_defaults/config/modmenu.json"
 
 [[files]]
+file = "config/modpack_defaults/config/moreculling.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/npe.json"
+
+[[files]]
+file = "config/modpack_defaults/config/particle_core_disabled_optimizations_v2.json"
+
+[[files]]
+file = "config/modpack_defaults/config/reeses_sodium_options.json"
+
+[[files]]
+file = "config/modpack_defaults/config/servercore/config.yml"
+
+[[files]]
+file = "config/modpack_defaults/config/skinshuffle/config.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-extra-options.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-options.json"
+
+[[files]]
+file = "config/modpack_defaults/config/sodium-shadowy-path-blocks-options.json"
+
+[[files]]
 file = "config/modpack_defaults/config/vmp.properties"
+
+[[files]]
+file = "config/modpack_defaults/config/xmmp.toml"
+
+[[files]]
+file = "config/modpack_defaults/config/yacl.json5"
+
+[[files]]
+file = "config/modpack_defaults/config/zfastnoise.mixin.toml"
 
 [[files]]
 file = "config/modpack_defaults/options.txt"
@@ -207,6 +351,10 @@ metafile = true
 
 [[files]]
 file = "mods/servercore.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/skinshuffle.pw.toml"
 metafile = true
 
 [[files]]
